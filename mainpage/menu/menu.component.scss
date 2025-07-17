@@ -1,0 +1,221 @@
+#cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 5;
+  width: 100%;
+  height: 500%;
+  //display:none;
+  cursor: wait;
+}
+
+.center {
+  text-align: center;
+}
+
+.message {
+  // background-image: white;
+  background: -webkit-linear-gradient(top, #ffffff, #fdf8ff);
+  position: absolute;
+  transform: translate(89%, 49%);
+  width: 35%;
+  text-align: center;
+  padding: 3%;
+  box-shadow:
+    0px 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+
+.menu-container {
+  margin-top: -16px;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f5f5f5;
+}
+
+.outcard {
+  display: flex;
+  // flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inCard {
+  // flex: 0 0 100px;
+  max-width: 100px;
+  box-sizing: border-box;
+}
+
+.label {
+  overflow: hidden;
+  color: #808080;
+  font-size: 12px;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 24px;
+  color: #f27924;
+}
+
+:host ::ng-deep {
+  .p-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100px;
+    height: 100px;
+    // display: flex;
+    // // align-items: center;
+    // justify-content: center;
+
+    .p-card-content {
+      padding: 0;
+      // text-align: center;
+      font-size: 10px;
+    }
+
+    &:hover {
+      transform: translateY(1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+:host ::ng-deep .p-card-body {
+  margin-top: 15px;
+  // margin-top: -15px;
+  //  padding: var(--p-card-body-padding); 
+  padding: 0%;
+  display: flex;
+  flex-direction: column;
+  /* gap: var(--p-card-body-gap); */
+  margin-left: 5px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu-item {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.menu-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.sub-menu {
+  margin-left: 1rem;
+}
+
+.sub-menu-item {
+  padding: 0.5rem 0;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #333;
+  }
+}
+
+.no-menu {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-fieldset {
+  // border: 2px solid var(--p-fieldset-border-color);
+  margin-bottom: -40px;
+  margin-left: -35px !important;
+  border: none;
+  background: none;
+}
+
+:host ::ng-deep .p-fieldset-legend {
+  background: none;
+  font-size: 14px !important;
+  color: #5E5E5E;
+  font-weight: 300;
+  margin-left: -10px;
+}
+
+:host ::ng-deep .p-fieldset-legend-label {
+  /* font-weight: var(--p-fieldset-legend-font-weight); */
+  font-weight: normal;
+}
+
+/* Mobile Responsive Styles (2 cards per row) */
+@media (max-width: 768px) {
+
+  :host ::ng-deep .p-fieldset-legend-label {
+    margin-left: 8px;
+  }
+  
+  .menu-container {
+    padding: 10px;
+    margin-left: -40px;
+  }
+
+ 
+
+  .card.flex.justify-center {
+    padding: 10px !important;
+    margin-right: 0 !important;
+    width: 100%;
+  }
+
+  .outcard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    /* Balanced gap between cards */
+    padding: 8px;
+  }
+
+  .inCard {
+    display: flex;
+    justify-content: center;
+  }
+
+  .inCard a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  p-card {
+    width: 100% !important;
+    height: 110px !important;
+    /* Fixed height for consistency */
+    min-width: 0;
+    /* Fixes overflow issues */
+    border-radius: 8px !important;
+  }
+
+  p-card .p-card-body {
+    padding: 12px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+
+}

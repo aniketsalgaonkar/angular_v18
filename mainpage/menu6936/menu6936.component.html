@@ -1,0 +1,84 @@
+<!-- Loader Starts-->
+<ng-container>
+
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <form name="form" (ngSubmit)="f_form_11082.form.valid && onSubmit(f_form_11082,11082,0,0)"
+                #f_form_11082="ngForm" novalidate>
+                <div class="form-group-wrapper">
+                    <div class="group-header">
+
+                    </div>
+                    <div class="group-content">
+                        <div class="formgrid grid">
+                            <!-- <div class="field col-12 md:col-3" style="display:none">
+                                               <input pInputText type="hidden" placeholder="" name="ID" #ID31006="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value">
+                                       </div> -->
+                            <div class="field col-12 md:col-4">
+                                <label>File Import</label>
+                                <label>File Import</label>
+                                <p-fileUpload customUpload="true" multiple="multiple"
+                                    (uploadHandler)="uploadFile.onUpload($event,'DEV');"
+                                    accept=".pdf,.xlsx,.xls,.jpg,.png,.doc" maxFileSize="1000000" [(ngModel)]="uploadFile.uploadedFiles" name="ImageData" ngModel #ImageData="ngModel">
+                                    <ng-template pTemplate="content" >
+
+                                        <input type="hidden" />
+                                        <ul>
+                                            <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+                                        </ul>
+                                        <!-- <div *ngIf="Import!== undefined">
+                                                               <input type="hidden" [(ngModel)]="uploadFile.uploadedFiles" name="Import" />
+                                                               <ul *ngIf="Import.length">
+                                                                   <li *ngFor="let file of Import">{{file.name}} - {{file.size}} bytes</li>
+                                                               </ul>
+                                                           </div> -->
+                                    </ng-template>
+                                </p-fileUpload>
+                                <p class="info">Example: .pdf,.xlsx,.xls,.jpg,.png,.doc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:right;margin: 10px;">
+                    <button pButton label="Submit" [disabled]="f_form_11082.form.invalid" type="submit"></button>
+                </div>
+
+            </form>
+        </div>
+
+
+        <!-- <div class="col-12 md:col-12">
+            <form name="form" (ngSubmit)="f_form_11083.form.valid && onSubmit(f_form_11083,11083,0,1)"
+                #f_form_11083="ngForm" novalidate>
+                <div class="form-group-wrapper">
+                    <div class="group-header">
+
+                    </div>
+                    <div class="group-content">
+                        <div class="formgrid grid">
+                            <div class="field col-12 md:col-3" style="display:none">
+                                <input pInputText type="hidden" placeholder="" name="ID" #ID31011="ngModel"
+                                    [(ngModel)]="Module[0].moduleList[1].moduleDetails[0].value">
+                            </div>
+                            <div class="field col-12 md:col-2">
+                                <label>Upload Content</label>
+                                <input pInputText type="file" ng-model="uploader" name="Upload Photos"
+                                    (change)="handleFileInput($event)" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:right;margin: 10px;">
+                    <button pButton label="Submit" [disabled]="f_form_11083.form.invalid" type="submit"></button>
+                </div>
+
+            </form>
+        </div> -->
+
+
+    </div> <!---End of grid-->
+
+
+</ng-container>

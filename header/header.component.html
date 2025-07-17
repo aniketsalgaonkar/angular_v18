@@ -1,0 +1,76 @@
+<nav class="navbar">
+    @if(!loginService.currentUser()) {
+    <h1 class="login-title">{{ appName }}</h1>
+    } @else {
+    <div class="wrapper">
+        <!-- Add this toggle button to your header -->
+        <div style="display: flex; margin-left: -10px; gap: 5px;">
+            <button type="button" (click)="toggleSidebar()" class="icon-button">
+                <i class="pi pi-bars"></i>
+            </button>
+            <h6 style="cursor: pointer; font-size: 15px;"> <a style="color: white !important; font-weight: 500; cursor: pointer;" (click)="navigate()">Dashboard</a> </h6>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 10px;">
+           
+            @if (showIcon) {
+                <div style="margin-right: -10px; margin-top: 3px;">
+                    <button type="button" (click)="useHamburgerVisible()" class="icon-button">
+                        <i class="pi pi-th-large"></i>
+                    </button>
+                </div>
+            }
+            
+            <p-drawer header="Right Drawer" [(visible)]="isNotification" position="right">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                </p>
+            </p-drawer>
+            <button type="button" (click)="isNotification = true" class="icon-button">
+                <i class="pi pi-bell"></i>
+            </button>
+
+            @if (!fullScreenMode) {
+            <button type="button" (click)="toggleFullScreen()" class="icon-button">
+                <i class="pi pi-expand"></i>
+            </button>
+            } @else {
+            <button type="button" (click)="toggleFullScreen()" class="icon-button">
+                <i class="pi pi-window-minimize"></i>
+            </button>
+            }
+
+            <button type="button" (click)="zoomIn()" class="icon-button">
+                <i class="pi pi-search-plus"></i>
+            </button>
+            <button type="button" (click)="zoomOut()" class="icon-button">
+                <i class="pi pi-search-minus"></i>
+            </button>
+            <div>
+                   <app-user-detail (demo)="hello($event)"
+                       [isUserDetailVisiable]="isUserDetailVisiable"></app-user-detail>
+               
+                <div class="flex gap-2 justify-center">
+                    <button type="button" (click)="isUserVisible()" class="custom-button">
+                        <i class="pi pi-user"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</nav>
+<!-- <app-hamburger (demo)="hamburgerVisible($event)" [isUserDetailVisiable] = "isDashboardAppsVisiable"></app-hamburger> -->
+<!-- @if (isDashboardAppsVisiable) {
+    <app-dashboard></app-dashboard>
+} -->
+<div class="flex justify-center">
+    <p-drawer header=" " [(visible)]="isDashboardAppsVisiable" position="full" class="drawer">
+        <app-dashboard-new (closeDrawer)="closeDrawer()"></app-dashboard-new>
+    </p-drawer>
+</div>
+<!-- @if (isDashboardAppsVisiable) {
+     <app-dashboard-new></app-dashboard-new>
+} -->
+

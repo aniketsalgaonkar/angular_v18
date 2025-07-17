@@ -1,0 +1,137 @@
+// .form-grid {
+//     padding: 20px;
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+//     gap: 1.5rem;
+//     padding: 1.5rem;
+//   }
+
+ :host ::ng-deep .p-panel {
+    margin: 20px;
+  }
+
+//   .form-field {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   label {
+//     font-weight: 500;
+//     margin-bottom: 0.4rem;
+//   }
+
+//   .p-dropdown,
+//   .p-inputnumber,
+//   .p-calendar {
+//     width: 100% !important;
+//   }
+
+//   .requiredmark {
+//     color: red;
+//   }
+
+//   .submit-container {
+//     text-align: right;
+//     padding: 1rem 1.5rem;
+//   }
+
+//   .styled-submit-btn {
+//     height: 45px;
+//     min-width: 140px;
+//     background-color: #1976d2 !important;
+//     color: white !important;
+//     font-weight: 600;
+//     border-radius: 6px;
+//     font-size: 16px;
+//     display: inline-flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+
+.font-medium {
+    font-size: 12px;
+    font-weight: 400 !important;
+    color: black;
+    margin-bottom: -5px;
+}
+:host ::ng-deep .p-panel-title {
+    line-height: 1;
+    font-weight: 400 !important
+}
+:host ::ng-deep .p-panel-header {
+  height: 40px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--p-panel-header-padding) !important;
+    background: #fafafa !important; 
+    color: var(--p-panel-header-color);
+    border-style: solid;
+    border-width: var(--p-panel-header-border-width);
+    border-color: var(--p-panel-header-border-color);
+    border-radius: var(--p-panel-header-border-radius);
+}
+.p-dropdown {
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    height: 30px;
+}
+
+:host ::ng-deep .p-grid {
+    margin: -1.05rem -.2rem 0 !important;
+}
+:host ::ng-deep .p-3 {
+    padding: 0.5rem !important; 
+}
+/* PrimeNG inputNumber */
+:host ::ng-deep .p-inputnumber input {
+  color: black !important;
+  font-size: 12px !important;
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    width: 100% !important;
+    height: 30px;
+  }
+  
+  /* PrimeNG calendar */
+  :host ::ng-deep .p-calendar input {
+    color: black !important;
+    font-size: 12px !important;
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+    border-radius: 3px;
+    height: 30px;
+  }
+  :host ::ng-deep .p-button{
+    background-color: #f27924 !important;
+    margin-top: 10px;
+    border: 1px solid #f27924 !important;
+    // border-radius: 2px;
+    // font: var(--font-family-datasavi) .7rem !important;
+  }
+  :host ::ng-deep .p-datepicker {
+    height: 30px;
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+}
+:host ::ng-deep .p-datepicker-dropdown{
+    color: #fff !important;
+    background: #007ad9 !important;
+}
+
+::ng-deep .p-select-label {
+  color: black;
+  font-size: 12px !important;
+  padding: 7px !important;
+}
+::ng-deep .p-select-overlay {
+  color: black;
+  font-size: 12px !important;
+}
+::ng-deep .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-input {
+  font-size: 12px !important;
+}

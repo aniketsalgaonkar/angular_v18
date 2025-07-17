@@ -1,0 +1,207 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                        <div class="grid">
+    <div class="col-12 md:col-12">
+        <form name="form" (ngSubmit)="f_form_11076.form.valid && onSubmit(f_form_11076,11076,0,0)" #f_form_11076="ngForm" novalidate>
+                <div class="form-group-wrapper">
+                   <div class="group-header">
+                       
+                   </div>
+                   <div class="group-content">
+                       <div class="formgrid grid">
+                                   <div class="field col-12 md:col-3" style="display:none">
+                                               <input pInputText type="hidden" placeholder="" name="ID" #ID30912="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value">
+                                       </div>
+                       </div>
+                       </div>
+                       </div>
+                <div class="form-group-wrapper">
+                   <div class="group-header">
+                       Form With Grouping 1
+                   </div>
+                   <div class="group-content">
+                       <div class="formgrid grid">
+                                           <div class="field col-12 md:col-2">
+                                                   <label>DropDown List</label>
+                                                   <p-select class="w-full" *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[1].DropDownValues"
+                                                             [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value"
+                                                             ngModel #DropDownList30913="ngModel"
+                                                             id="DropDownList30913" name="DropDownList"
+                                                             autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                             [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                             optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                             appendTo="body"></p-select>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                       <label title="required">Text Box <span class="requiredmark">*</span></label>
+                                                       <input pInputText type="text" class="w-full" name="TextBox" #TextBox30914="ngModel" required [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" pattern="" appSanitizeInput />
+                                                       <div *ngIf="TextBox30914?.invalid && (TextBox30914?.dirty || TextBox30914?.touched)" class="error">
+                                                           <div *ngIf="TextBox30914?.errors?.required">
+                                                               Text Box is required.
+                                                           </div>
+                                                           <div *ngIf="TextBox30914?.errors?.pattern">
+                                                               
+                                                           </div>
+                                                       </div>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                   <label>Multi DropDown List</label>
+                                                   <p-multiSelect class="w-full" [options]="Module[0].moduleList[0].moduleDetails[3].DropDownValues"
+                                                                  [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].Multiselectvalue"
+                                                                  ngModel #MultiDropDownList30915="ngModel"
+                                                                  id="MultiDropDownList30915" name="MultiDropDownList" defaultLabel="Select"
+                                                                  filter="true" [appendTo]="local" optionLabel="Text"
+                                                                  displaySelectedLabel="true" maxSelectedLabels="4" scrollHeight="200px"
+                                                                  selectedItemsLabel="{0} items selected" showToggleAll="true" resetFilterOnHide="true">
+                                                   </p-multiSelect>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                   <label>Check Box</label><br />
+                                                   <p-checkbox class="w-full" name="Checkbox" [value]="Module[0].moduleList[0].moduleDetails[4].value"
+                                                               [(ngModel)]="Module[0].moduleList[0].moduleDetails[4].value" [binary]="true">
+                                                   </p-checkbox>
+                                       </div>
+                       </div>
+                       </div>
+                       </div>
+                <div class="form-group-wrapper">
+                   <div class="group-header">
+                       Form With Grouping 2
+                   </div>
+                   <div class="group-content">
+                       <div class="formgrid grid">
+                                           <div class="field col-12 md:col-2">
+                                               <label>Radio Button</label>
+                                               <div *ngFor="let radioButton of Module[0].moduleList[0].moduleDetails[5].DropDownValues" class="p-field-checkbox">
+                                                   <p-radioButton class="w-full" name="RadioButton" [value]="Module[0].moduleList[0].moduleDetails[5].value"
+                                                                  [(ngModel)]="Module[0].moduleList[0].moduleDetails[5].value"></p-radioButton>
+                                                   <label>RadioButton</label>
+                                               </div>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                               <label>Upload Content</label>
+                                               <input pInputText type="file" ng-model="uploader" name="Upload Photos" (change)="handleFileInput($event)" ngModel>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                               <label>Email With OTP</label>
+                                               <input class="w-full" pInputText type="email" name="EmailWithOTP" email required #EmailWithOTP30919="ngModel" ngModel [readonly]="showMyContainer||ValidatedEmail" />
+                                               <button *ngIf="EmailWithOTP30919?.valid" type="button" pButton style="float: right;" (click)="toggleOTPEmail(EmailWithOTP30919.value)" [disabled]="!EmailWithOTP30919.valid||ValidatedEmail" label="Verify with OTP"></button>
+                                               <div *ngIf="showContainerEmail">
+                                                   <label>Enter OTP</label>
+                                                   <input type="text" name="OTP" #OTP="ngModel" ngModel />
+                                                   <button type="button" pButton (click)="toggleOTPEmail(EmailWithOTP30919.value)" *ngIf="showContainerEmail" label="Resend OTP" style="float: right;margin-left:2px"></button>
+                                                   <button type="button" pButton (click)="CheckOTP(OTP.value)" *ngIf="showContainerEmail" label="Validate OTP" style="float: right;margin-left:2px"></button>
+                                               </div>
+                                               <div *ngIf="EmailWithOTP30919?.invalid && (EmailWithOTP30919?.dirty || EmailWithOTP30919?.touched)"
+                                                    class="error">
+                                                   <div *ngIf="EmailWithOTP30919?.errors?.required">
+                                                       Email is required.
+                                                   </div>
+                                                   <div *ngIf="EmailWithOTP30919?.errors.email">Email must be a valid email address</div>
+                                               </div>
+                                       </div>
+                                       <div class="field col-12 md:col-4">
+                                               <label>File Upload</label>
+                                                   <label>File Upload</label>
+                                                   <p-fileUpload customUpload="true" multiple="multiple" (uploadHandler)="uploadFile.handleFileInput($event.files,FileUpload);FileUpload=$event.files"
+                                                                 accept="" maxFileSize="1000000">
+                                                       <ng-template pTemplate="content">
+                                                           <div *ngIf="FileUpload!== undefined">
+                                                               <input type="hidden" [(ngModel)]="FileUpload" name="FileUpload" />
+                                                               <ul *ngIf="FileUpload.length">
+                                                                   <li *ngFor="let file of FileUpload">{{file.name}} - {{file.size}} bytes</li>
+                                                               </ul>
+                                                           </div>
+                                                       </ng-template>
+                                                   </p-fileUpload>
+                                               <p class="info">Example: </p>
+                                       </div>
+                       </div>
+                       </div>
+                       </div>
+                <div class="form-group-wrapper">
+                   <div class="group-header">
+                       Form With Grouping 3
+                   </div>
+                   <div class="group-content">
+                       <div class="formgrid grid">
+                                           <div class="field col-12 md:col-2">
+                                               <label>ReadOnly Text Box</label>
+                                               <input pInputText [disabled]="true" type="text" class="w-full" id="ReadOnlyTextBox30921" name="ReadOnlyTextBox" #ReadOnlyTextBox30921="ngModel" value="{{Module[0].moduleList[0].moduleDetails[9].value}}" [(ngModel)]="Module[0].moduleList[0].moduleDetails[9].value" pattern="" />
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                   <label>Text Area</label>
+                                                   <textarea class="p-inputtext w-full" rows="5" cols="3" id="TextArea30922" name="TextArea" #TextArea30922="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[10].value" pInputTextArea></textarea>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                       <label>Pincode</label>
+                                                           <input class="w-full" type="text" size="30" pInputText id="pincode30923" name="pincode" #pincode30923="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[11].value"
+                                                                  (focusout)="onFocusOutEvent($event, 11)"
+                                                                  pattern="" />
+                                                       <div *ngIf="pincode30923?.invalid && (pincode30923?.dirty || pincode30923?.touched)"
+                                                            class="error">
+                                                           <div *ngIf="pincode30923?.errors?.pattern">
+                                                               
+                                                           </div>
+
+                                                       </div>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                       <label>Datetime</label>
+                                                       <p-datepicker class="w-full" [showIcon]="true" id="Datetime30924" name="Datetime" #Datetime30924="ngModel" large-columns
+                                                                     pattern="" [(ngModel)]="Module[0].moduleList[0].moduleDetails[12].value"
+                                                                     appendTo="body"
+                                                                     [readonlyInput]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1850:2150" showButtonBar="true"
+                                                                     dateFormat="dd-mm-yy" [showTime]="true" showWeek="true" hourFormat="12"
+                                                                     todayButtonStyleClass="ui-secondary-button" clearButtonStyleClass="ui-secondary-button"></p-datepicker>
+                                       </div>
+                       </div>
+                       </div>
+                       </div>
+                <div class="form-group-wrapper">
+                   <div class="group-header">
+                       Dependent Dropdown
+                   </div>
+                   <div class="group-content">
+                       <div class="formgrid grid">
+                                           <div class="field col-12 md:col-2">
+                                                   <label class="font-medium">Menus</label>
+                                                       <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[13].DropDownValues" class="w-full"
+                                                                 [(ngModel)]="Module[0].moduleList[0].moduleDetails[13].value"
+                                                                 [required]="true" id="MenuID30983" name="MenuID"
+                                                                 (onChange)="GetDependentDropDown('30983', $event,'ModuleID',0)"
+                                                                 autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                                 [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                                 optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                                 [appendTo]="local"></p-select>
+                                       </div>
+                                           <div class="field col-12 md:col-2">
+                                                   <label class="font-medium">Module</label>
+                                                       <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[14].DropDownValues" class="w-full"
+                                                                 [(ngModel)]="Module[0].moduleList[0].moduleDetails[14].value"
+                                                                 [required]="true" id="ModuleID30984" name="ModuleID"
+                                                                 (onChange)="GetDependentDropDown('30984', $event,'ModuleDetailID',0)"
+                                                                 autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                                 [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                                 optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                                 [appendTo]="local"></p-select>
+                                       </div>
+                       </div>
+                       </div>
+                       </div>
+            
+            <div style="text-align:right;margin: 10px;">
+                <button pButton label="Submit" [disabled]="f_form_11076.form.invalid" type="submit"></button>
+            </div>
+            
+        </form>
+</div>
+
+
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

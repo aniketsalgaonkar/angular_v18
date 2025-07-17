@@ -1,0 +1,346 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                        <div class="grid">
+                                                <div class="col-12 md:col-12">
+                                                            <p-tabView [(activeIndex)]="activeLinkIndex[0]">
+                                                                        <p-tabPanel header="Form Image" [tooltip]="Module[0].moduleList[0].ModuleDescription" [style]="Module[0].moduleList[0].BackgroundColor">
+    <div class="col-12 md:col-12">
+        <p-panel *ngIf="!ModuleIDList.includes(11085)" [style]="Module[0].moduleList[0].BackgroundColor">
+            <p-header>
+                <div class="ui-panel-title">
+                </div>
+            </p-header>
+                <form name="form" (ngSubmit)="f_form_11085.form.valid && onSubmit(f_form_11085,11085,0,0)" #f_form_11085="ngForm" novalidate>
+                      <div class="formgrid grid" *ngIf="Module">
+                                  <div class="field col-12 md:col-2" style="display:none">
+                                          <input type="hidden" class="inputField " id="ImageID31028" name="ImageID" #ImageID31028="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                              <label class="font-medium">ImageData<span class="required-field">*</span></label>
+                                              <p-fileUpload name="file" (onSelect)="uploadFile.onUpload($event,'');"
+                                                            accept=".pdf,.xlsx,.xls,.jpg,.png,.doc" maxFileSize="10000000" [auto]="true"
+                                                            multiple="multiple"
+                                                            invalidFileSizeMessageDetail="Maximum upload size is {0}.">
+
+                                                  <ng-template pTemplate="content">
+                                                      <input type="hidden" [(ngModel)]="uploadFile.uploadedFiles" name="ImageData" />
+                                                      <ul>
+                                                          <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+                                                      </ul>
+                                                  </ng-template>
+                                              </p-fileUpload>
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                          <input type="hidden" class="inputField " id="RoleDescription31026" name="RoleDescription" #RoleDescription31026="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                          <label title="required" class="font-medium">Active</label>
+                                          <div>
+                                              <p-checkbox name="Active" [value]="Module[0].moduleList[0].moduleDetails[3].value"
+                                                          [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].value" [binary]="true">
+                                              </p-checkbox>
+                                          </div>
+                                  </div>
+                      </div>
+                </form>
+        </p-panel>
+    </div>
+
+    <!-- The Dataview Modal -->
+    <div *ngIf="showDataviewImagePreview" class="data-view-modal">
+        <span class="data-view-modal-close" (click)="showDataviewImagePreview=false">×</span>
+        <img class="data-view-modal-content" [src]="dataviewImagePreviewSource">
+        <div id="data-view-modal-caption">{{dataviewImagePreviewCaption}}</div>
+    </div>
+    <div class="p-col-12 p-md-12">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <span>
+                </span>
+            </ng-template>
+            <div *ngIf="!primeNgTableArray || primeNgTableArray.length === 0" class="data-view-skeleton-loaders">
+                <div class="p-grid">
+                    <p-skeleton class="p-col-12" width="100%" height="2rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                </div>
+            </div>
+            <div *ngIf="primeNgTableArray!=undefined && primeNgTableArray.length !== 0">
+                <p-dataView #dv [value]="this.primeNgTableArray[0]" layout="grid" [sortField]="Dataview.sortField"
+                            [sortOrder]="Dataview.resortOrder" [filterBy]="Dataview.GetColumnNames(this.filterColsArray[0])"
+                            [paginator]="true" [rows]="10"
+                            [totalRecords]="totalRecords[0]" [lazy]="true" 
+                            (onLazyLoad)="loadTableData($event,0,1)" [loading]="moduleLoaderArray[1]">
+                    <p-header>
+                        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                            <p-dropdown [options]="Dataview.sortOptions" [(ngModel)]="Dataview.sortKey" placeholder="Sort By " appendTo="body" (onChange)="Dataview.onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <input type="search" pInputText placeholder="Search" (input)="dv.filter($event.target.value)">
+                                <i class="pi pi-search"></i>
+                            </span>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <p-dropdown [options]=Dataview.filterByValue placeholder="Select " [filter]="true" (onChange)="dv.filter($event.value)" [showClear]="true"></p-dropdown>
+                            </span>
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </p-header>
+
+                    <ng-template let-product pTemplate="listItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-6 list-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['ID'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',0):''"
+                             style="cursor:pointer">
+
+                            <div class="product-grid-item card">
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+                                            <div class="list-view-square">
+                                                <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_'+product.Image)"
+                                                     class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                            </div>
+                                        <div>
+                                            <span>{{product[""]}}</span>
+                                            <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'',0)"><b>{{product[""]}}</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template let-product pTemplate="gridItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-2 grid-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['Parameter_Name'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',0):''"
+                             style="cursor:pointer">
+                            <div class="product-grid-item card">
+                                    <div class="square">
+                                        <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_small_'+product.Image)"
+                                             class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                    </div>
+                                <div class="product-grid-item-top">
+                                    <div class="product-grid-item-top-header" [title]="product['']">
+                                        <b>{{product[""]}}</b>
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+
+
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-bottom">
+
+                                    <div class="product-key-parameter">
+
+                                        <div class="product-name">
+                                            <span class="product-category">{{product[""]}}</span>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                </p-dataView>
+
+                <p-dialog #dialog header="Item Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true"
+                          [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}"
+                          [baseZIndex]="10000" [responsive]="true" appendTo="body">
+                    <div *ngIf="selectedItem">
+                        <!-- <img [src]="_DomSanitizer.bypassSecurityTrustUrl(apiUrl+'UploadFile/Maithili2.jpg')" crossorigin="anonymous"><img [src]="apiUrl+'UploadFile/Maithili2.jpg'" crossorigin="Anonymous"> -->
+                        <strong>{{selectedItem.Label}} - {{selectedItem.TextBox}}</strong>
+                    </div>
+                </p-dialog>
+            </div>
+        </p-panel>
+    </div>
+
+
+                                                                        </p-tabPanel>
+                                                                        <p-tabPanel header="Dataview Image" [tooltip]="Module[0].moduleList[1].ModuleDescription" [style]="Module[0].moduleList[1].BackgroundColor">
+    <div class="col-12 md:col-12">
+        <p-panel *ngIf="!ModuleIDList.includes(11085)" [style]="Module[0].moduleList[0].BackgroundColor">
+            <p-header>
+                <div class="ui-panel-title">
+                </div>
+            </p-header>
+                <form name="form" (ngSubmit)="f_form_11085.form.valid && onSubmit(f_form_11085,11085,0,0)" #f_form_11085="ngForm" novalidate>
+                      <div class="formgrid grid" *ngIf="Module">
+                                  <div class="field col-12 md:col-2" style="display:none">
+                                          <input type="hidden" class="inputField " id="ImageID31028" name="ImageID" #ImageID31028="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                              <label class="font-medium">ImageData<span class="required-field">*</span></label>
+                                              <p-fileUpload name="file" (onSelect)="uploadFile.onUpload($event,'');"
+                                                            accept=".pdf,.xlsx,.xls,.jpg,.png,.doc" maxFileSize="10000000" [auto]="true"
+                                                            multiple="multiple"
+                                                            invalidFileSizeMessageDetail="Maximum upload size is {0}.">
+
+                                                  <ng-template pTemplate="content">
+                                                      <input type="hidden" [(ngModel)]="uploadFile.uploadedFiles" name="ImageData" />
+                                                      <ul>
+                                                          <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+                                                      </ul>
+                                                  </ng-template>
+                                              </p-fileUpload>
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                          <input type="hidden" class="inputField " id="RoleDescription31026" name="RoleDescription" #RoleDescription31026="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                          <label title="required" class="font-medium">Active</label>
+                                          <div>
+                                              <p-checkbox name="Active" [value]="Module[0].moduleList[0].moduleDetails[3].value"
+                                                          [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].value" [binary]="true">
+                                              </p-checkbox>
+                                          </div>
+                                  </div>
+                      </div>
+                </form>
+        </p-panel>
+    </div>
+
+    <!-- The Dataview Modal -->
+    <div *ngIf="showDataviewImagePreview" class="data-view-modal">
+        <span class="data-view-modal-close" (click)="showDataviewImagePreview=false">×</span>
+        <img class="data-view-modal-content" [src]="dataviewImagePreviewSource">
+        <div id="data-view-modal-caption">{{dataviewImagePreviewCaption}}</div>
+    </div>
+    <div class="p-col-12 p-md-12">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <span>
+                </span>
+            </ng-template>
+            <div *ngIf="!primeNgTableArray || primeNgTableArray.length === 0" class="data-view-skeleton-loaders">
+                <div class="p-grid">
+                    <p-skeleton class="p-col-12" width="100%" height="2rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                </div>
+            </div>
+            <div *ngIf="primeNgTableArray!=undefined && primeNgTableArray.length !== 0">
+                <p-dataView #dv [value]="this.primeNgTableArray[0]" layout="grid" [sortField]="Dataview.sortField"
+                            [sortOrder]="Dataview.resortOrder" [filterBy]="Dataview.GetColumnNames(this.filterColsArray[0])"
+                            [paginator]="true" [rows]="10"
+                            [totalRecords]="totalRecords[1]" [lazy]="true" 
+                            (onLazyLoad)="loadTableData($event,1,1)" [loading]="moduleLoaderArray[1]">
+                    <p-header>
+                        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                            <p-dropdown [options]="Dataview.sortOptions" [(ngModel)]="Dataview.sortKey" placeholder="Sort By " appendTo="body" (onChange)="Dataview.onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <input type="search" pInputText placeholder="Search" (input)="dv.filter($event.target.value)">
+                                <i class="pi pi-search"></i>
+                            </span>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <p-dropdown [options]=Dataview.filterByValue placeholder="Select " [filter]="true" (onChange)="dv.filter($event.value)" [showClear]="true"></p-dropdown>
+                            </span>
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </p-header>
+
+                    <ng-template let-product pTemplate="listItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-6 list-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['ID'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',1):''"
+                             style="cursor:pointer">
+
+                            <div class="product-grid-item card">
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+                                            <div class="list-view-square">
+                                                <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_'+product.Image)"
+                                                     class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                            </div>
+                                        <div>
+                                            <span>{{product[""]}}</span>
+                                            <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'',1)"><b>{{product[""]}}</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template let-product pTemplate="gridItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-2 grid-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['Parameter_Name'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',1):''"
+                             style="cursor:pointer">
+                            <div class="product-grid-item card">
+                                    <div class="square">
+                                        <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_small_'+product.Image)"
+                                             class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                    </div>
+                                <div class="product-grid-item-top">
+                                    <div class="product-grid-item-top-header" [title]="product['']">
+                                        <b>{{product[""]}}</b>
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+
+
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-bottom">
+
+                                    <div class="product-key-parameter">
+
+                                        <div class="product-name">
+                                            <span class="product-category">{{product[""]}}</span>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                </p-dataView>
+
+                <p-dialog #dialog header="Item Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true"
+                          [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}"
+                          [baseZIndex]="10000" [responsive]="true" appendTo="body">
+                    <div *ngIf="selectedItem">
+                        <!-- <img [src]="_DomSanitizer.bypassSecurityTrustUrl(apiUrl+'UploadFile/Maithili2.jpg')" crossorigin="anonymous"><img [src]="apiUrl+'UploadFile/Maithili2.jpg'" crossorigin="Anonymous"> -->
+                        <strong>{{selectedItem.Label}} - {{selectedItem.TextBox}}</strong>
+                    </div>
+                </p-dialog>
+            </div>
+        </p-panel>
+    </div>
+
+
+                                                                        </p-tabPanel>
+                                                        </p-tabView>
+                                                        </div>
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

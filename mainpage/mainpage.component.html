@@ -1,0 +1,63 @@
+<!-- <div class="mainpage-content">
+  <p>mainpage works!</p>
+</div> -->
+
+<div class="sidebarmenu" [style.width]="isExpanded ? '262px' : '50px'">
+
+  <div style="margin-top: 40px;">
+    <!-- Toggle button at the top -->
+    <!-- <div style="display: flex; justify-content: flex-end; padding: 10px;">
+      <i [class]="isExpanded ? 'pi pi-chevron-left' : 'pi pi-chevron-right'" style="cursor: pointer; font-size: 1.2rem;"
+        (click)="toggleSidebar()"></i>
+    </div> -->
+    @for (menu of menuList; track menu; let i = $index) {
+    <div style="display: flex; align-items: center; padding: 10px; height: 50px;" class="sideBar"
+      [style.justify-content]="isExpanded ? 'flex-start' : 'center'"
+      [style.padding-left]="isExpanded ? '20px' : '10px'">
+      <a style="display: flex; align-items: center; text-decoration: none; " class="menu-link"
+        (click)="appmenuclick(menu,i)">
+        <span [pTooltip]="!isExpanded ? menu.label : ''" tooltipPosition="right"
+          class="material-icons icon">{{menu.icon}}</span>
+        @if (isExpanded) {
+        <span class="menu-label">{{menu.label}}</span>
+        }
+      </a>
+    </div>
+    }
+  </div>
+</div>
+
+<div class="home">
+  <div class="breadcrumb-div">
+    <div class="breadcrumb-container">
+      <!-- Home icon on the left -->
+      <p-breadcrumb [model]="items" [home]="home" (onItemClick)="itemClicked($event)"></p-breadcrumb>
+
+      <!-- Buttons on the right -->
+      <div class="button-container">
+        <button type="button" (click)="showMenuFlow = !showMenuFlow" class="text-button">Quick</button>
+        <button type="button" (click)="showMenuFlow = false; recent.toggle($event)" class="text-button">Recent</button>
+        <button type="button" (click)="showMenuFlow = false; frequent.toggle($event)"
+          class="text-button">Frequent</button>
+      </div>
+    </div>
+  </div>
+  <!-- <p-menubar *ngIf="showTopMenu && SubMenu && showTopMenusWithFlow" [model]="SubMenu" class="moduleflow"></p-menubar> -->
+  <p-menubar *ngIf="showTopMenu && SubMenu && !showTopMenusWithFlow" [model]="SubMenu"></p-menubar>
+  <!-- <p-menubar *ngIf="showTopMenu && SubMenu" [model]="SubMenu" class="moduleflow"></p-menubar> -->
+  <div *ngIf="showTopMenu && SubMenu && showTopMenusWithFlow" style="display: flex; flex-direction: row;"
+    class="moduleflow">
+    <ul style="display: flex; flex-direction: row; list-style: none;">
+      <li *ngFor="let item of SubMenu;let i = index" (click)='activeTopMenu(item)' id="{{item.ID}}"
+        style="cursor: pointer;" [class.active]="item.routerLink == activeTopMenuItem.routerLink">
+        <a>{{item.MenuName}}</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <p-toast position="bottom-center"></p-toast>
+  <div class="mainpage-router-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>

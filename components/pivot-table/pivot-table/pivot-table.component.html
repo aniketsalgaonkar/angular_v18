@@ -1,0 +1,568 @@
+<ng-container *ngIf="!sortData">
+  <div class="spinner-container">
+    <p-progressSpinner styleClass="custom-spinner" animationDuration="1s"></p-progressSpinner>
+    <div class="custom-spinner-message-container">
+      Please Wait ...
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="sortData">
+
+  <div class="p-col-12 p-md-12" *ngIf="isShowChart">
+
+    <div class="dropdown-item custom-flex-item">
+
+      <label>Select Chart Types:</label>
+
+      <p-multiSelect [options]="chartTypes" [(ngModel)]="selectedChartTypes" defaultLabel="Select Chart Types"
+        optionLabel="name" display="chip" styleClass="custom-multiselect"></p-multiSelect>
+
+      <div class="dropdown-chip">
+
+        <span *ngFor="let item of selectedChartTypes">
+
+          <p-chip [label]="item.name" styleClass="p-mr-2 custom-chip"></p-chip>
+
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- <ng-container *ngFor="let item of selectedChartTypes; let i = index">
+      <div class="container">
+        <div class="box" [ngClass]="getChartClass(i)">
+          <div class="child1" max-width="100%">
+            <div *ngIf="item.name == 'Column Chart'">
+
+              <div class="box">
+
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appColumnChart [chartData]="chartData"
+                  [appColumnChartConfig]="ModuleList" [indexColumn]="indexColumn" id="div_columnchart_1">
+
+                  Column Chart
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div *ngIf="item.name == 'Line Chart'">
+
+              <div class="box">
+
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appLineChart [chartData]="chartData"
+                  [appLineChartConfig]="ModuleList" [indexColumn]="indexColumn" id="div_columnchart_2">
+
+                  Line Chart
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div *ngIf="item.name == 'Bar Chart'">
+
+              <div class="box">
+
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appBarChart [chartData]="chartData"
+                  [appBarChartConfig]="ModuleList" [indexColumn]="indexColumn" id="div_barchart_1">
+
+                  Bar Chart
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div *ngIf="item.name == 'Pie Chart'">
+
+              <div class="box">
+
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appPieChart [chartData]="chartData"
+                  [appPieChartConfig]="ModuleList" [indexColumn]="indexColumn" id="div_piechart_1">
+
+                  Pie Chart
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </ng-container> -->
+
+    <div class="p-grid">
+      <ng-container *ngFor="let item of selectedChartTypes; let i = index; trackBy: trackByFn">
+        <div class="container" [ngClass]="getChartLayoutFromTemplate(item.code)">
+          <!-- <div [ngClass]="getChartClass(i, selectedChartTypes.length)">
+            <ng-container *ngIf="item.name === 'Column Chart'">
+              <div class="box">
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appColumnChart [chartData]="chartData"
+                  [appColumnChartConfig]="ModuleList" [indexColumn]="indexColumn" id="chart_column_{{i + 1}}">
+                  {{item.name}}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.name === 'Line Chart'">
+              <div class="box">
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appLineChart [chartData]="chartData"
+                  [appLineChartConfig]="ModuleList" [indexColumn]="indexColumn" id="chart_line_{{i + 1}}">
+                  {{item.name}}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.name === 'Bar Chart'">
+              <div class="box">
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appBarChart [chartData]="chartData"
+                  [appBarChartConfig]="ModuleList" [indexColumn]="indexColumn" id="chart_bar_{{i + 1}}">
+                  {{item.name}}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.name === 'Pie Chart'">
+              <div class="box">
+                <div class="child1 ui-sm-12 ui-md-6 ui-lg-12" max-width="100%" appPieChart [chartData]="chartData"
+                  [appPieChartConfig]="ModuleList" [indexColumn]="indexColumn" id="chart_pie_{{i + 1}}">
+                  {{item.name}}
+                </div>
+              </div>
+            </ng-container>
+          </div> -->
+        </div>
+      </ng-container>
+    </div>
+
+
+  </div>
+
+  <div class="p-col-12 p-md-12">
+
+    <div style="height: 100%" *ngIf="sortData">
+
+      <p-panel [toggleable]="true" #table3009 class="panel_includes_table"
+        [style]="Module && ModuleList.BackgroundColor">
+
+        <div class="p-grid">
+
+          <div class="p-col-2" *ngFor="
+
+              let tile of ModuleList.ModuleWiseTiles
+
+            ">
+
+            <p-card>
+
+              <div class="p-col">
+
+                <div class="tile-key">
+
+                  <p>Avg Quantity Planned</p>
+
+                  {{ tile.Key }}
+
+                </div>
+
+                <div class="tile-value">
+
+                  <span *ngIf="isNumber(tile.Value)">{{ tile.Value }}</span>
+
+                  <span *ngIf="!isNumber(tile.Value)">{{
+
+                    tile.Value | number : "1.0-2"
+
+                    }}</span>
+
+                </div>
+
+              </div>
+
+            </p-card>
+
+          </div>
+
+        </div>
+
+        <ng-template pTemplate="header">
+
+          <span></span>
+
+        </ng-template>
+
+        <ng-template pTemplate="icons">
+
+          <p-multiSelect [options]="selectedScrollableColumnsArray" [ngModel]="selectedScrollableColumnsArray"
+            (ngModelChange)='modelChangeScrollable($event, pv)' [ngModelOptions]="{standalone: true}"
+            optionLabel="header" selectedItemsLabel="Choose Columns" [style]="{maxWidth: '180px'}"
+            defaultLabel="Choose Columns"></p-multiSelect>
+
+          <!-- <button pButton class="p-panel-header-icon p-link" (click)="downloadModuleReport('3009', 'Sales History')"
+            tooltipPosition="top" pTooltip="Download Module as Excel">
+
+            <span class="pi pi-file-excel"></span>
+
+          </button> -->
+
+          <button pButton class="mobile p-panel-header-icon p-link" style="display: none"
+            (click)="tablemenu.toggle($event)" tooltipPosition="top" pTooltip="MorOptions">
+
+            <span class="pi pi-ellipsis-v"></span>
+
+          </button>
+
+          <p-menu #tablemenu appendTo="body" [popup]="true" [model]="tableSecondaryOptions"></p-menu>
+
+        </ng-template>
+
+        <ng-template pTemplate="content">
+
+          <div class="chips-container-top" style="margin-left: 245px; margin-right: 245px">
+            <div [innerHTML]="formatJSONWithColor(SelectedJSON)"></div>
+
+            <!--             
+            <div class="p-grid">
+              
+              <div class="dropdown-chip" *ngIf="selectedRows">
+
+                Rows:
+
+                <span *ngFor="let item of selectedRows">
+
+                  <p-chip [label]="item.Text" styleClass="p-mr-2 custom-chip"></p-chip>
+
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="p-grid">
+
+              <div class="dropdown-chip" *ngIf="selectedColumn">
+
+                <span>
+
+                  Pivot Column: <p-chip [label]="selectedColumn.Text" styleClass="p-mr-2 custom-chip"></p-chip>
+
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="p-grid">
+
+              <div class="dropdown-chip" *ngIf="selectedValue">
+
+                <span>
+
+                  Value: <p-chip [label]="selectedValue.Text" styleClass="p-mr-2 custom-chip"></p-chip>
+
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="p-grid">
+
+              <div class="dropdown-chip" *ngIf="selectedAggregate">
+
+                <span>
+
+                  Aggregate Function: <p-chip [label]="selectedAggregate.name"
+                    styleClass="p-mr-2 custom-chip"></p-chip>
+
+                </span>
+
+              </div>
+
+            </div> -->
+
+          </div>
+
+          <div class="p-grid">
+
+            <div class="p-col-2 p-d-flex p-ai-center p-jc-center" style="width: 200px">
+
+              <div class="dropdown-item" style="width: 100%;">
+
+                <label>Select a Pivot View</label>
+
+                <p-dropdown [options]="ModuleList.PivotViews" [(ngModel)]="selectedPivotViews"
+                  placeholder="Select a Pivot" optionLabel="ViewName" [showClear]="true"
+                  (onChange)="showPivot(selectedPivotViews.FrozenColumn, selectedPivotViews.AggregateFunction, selectedPivotViews.PivotColumn, selectedPivotViews.ValueColumn); hello(pv); isShowChart = true"
+                  styleClass="custom-dropdown">
+
+                </p-dropdown>
+
+              </div>
+
+            </div>
+
+            <div class="p-col-1" style="margin-left: -30px">
+
+              <p-divider layout="vertical">
+
+                <b>OR</b>
+
+              </p-divider>
+
+            </div>
+
+            <div class="p-col-9 p-ai-center p-jc-center custom-flex-row" style="margin-left: 10px">
+
+              <div class="dropdown-item custom-flex-item">
+
+                <label>Rows:</label>
+
+                <p-multiSelect [options]="ModuleList.PivotColumn" [(ngModel)]="selectedRows"
+                  defaultLabel="Select a Frozen" optionLabel="Text" display="chip" (onChange)="
+
+                    onRowChange(selectedRows)
+
+                  " styleClass="custom-multiselect"></p-multiSelect>
+
+              </div>
+
+              <div class="dropdown-item custom-flex-item">
+
+                <label>Pivot Column:</label>
+
+                <p-dropdown [options]="dropdownColumnsValue" (onChange)="
+
+                    onColumnChange(selectedColumn)
+
+                  " [(ngModel)]="selectedColumn" placeholder="Select a Pivot" optionLabel="Text"
+                  [showClear]="true"></p-dropdown>
+
+              </div>
+
+              <div class="dropdown-item custom-flex-item">
+
+                <label>Value:</label>
+
+                <p-dropdown [options]="dropdownValuesValue" (onChange)="
+
+                    onValueChange(selectedValue)
+
+                  " [(ngModel)]="selectedValue" placeholder="Select a Value" optionLabel="Text"
+                  [showClear]="true"></p-dropdown>
+
+              </div>
+
+              <div class="dropdown-item custom-flex-item">
+
+                <label>Aggregate Function:</label>
+
+                <p-dropdown [options]="aggregate" (onChange)="onAggregateChange(selectedAggregate)
+                 " [(ngModel)]="selectedAggregate" placeholder="Select a Aggregate" optionLabel="name"
+                  [showClear]="true"></p-dropdown>
+
+              </div>
+
+              <div class="get-pivot custom-flex-item" id="selection-button">
+
+                <p-button icon="pi pi-table" id="pivot-button" (click)="
+
+                    showPivot(
+
+                      selectedRows,
+
+                      selectedAggregate?.code,
+
+                      selectedColumn?.Value,
+
+                      selectedValue?.Value
+
+                    );
+                    hello(pv);
+                    isShowChart = true
+
+                  " label="Get Pivot"></p-button>
+                <!-- previously is was in the click method: isShowChart = true -->
+
+              </div>
+
+              <div>
+
+                <button class="custom-flex-item p-ai-center" id="selection-button" pButton (click)="showSavePopUp()">
+
+                  Save
+
+                </button>
+
+                <button class="custom-flex-item p-ai-center" id="selection-button" pButton
+                  (click)="exportExcel(x, 'MyExcelFile')">
+                  <span class="pi pi-file-excel"></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div *ngIf="sortData">
+
+            <p-table #pv [columns]="scrollableHeaders" [frozenColumns]="frozenHeaders" [scrollable]="true"
+              scrollHeight="200px" [frozenWidth]="frozenWidth" [value]="sortData" [paginator]="true" [rows]="10"
+              [showCurrentPageReport]="true" [globalFilterFields]="['RegionId']" sortField="MainLocation"
+              sortMode="single" (onSort)="onSort(sortData, 'MainLocation')"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [rowsPerPageOptions]="[10, 25, 50, 100, 200, 500]">
+
+              <ng-template pTemplate="colgroup" let-columns>
+
+                <colgroup>
+
+                  <col *ngFor="let col of columns" style="width: 100px" />
+
+                </colgroup>
+
+              </ng-template>
+
+              <ng-template pTemplate="header" let-columns>
+
+                <tr>
+
+                  <th *ngFor="let col of columns">
+
+                    {{ col.header }}
+
+                  </th>
+
+                </tr>
+
+                <tr *ngIf="isShowChart || true">
+
+                  <th *ngFor="let col of columns; index as i" style="padding:1px;">
+
+                    <div *ngIf="col.frozenCols">
+
+                      <p-columnFilter [field]="col.field" matchMode="in" [showMenu]="false">
+
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+
+                          <p-multiSelect [ngModel]="value" [options]="filter_data[filteredIndex]" placeholder="Any"
+                            (onFocus)="getFilteredIndex(col)"
+                            (onChange)="filter($event.value); x = pv.filteredValue || pv._value; loggin($event, pv)"
+                            optionLabel="name" optionValue="name" appendTo="body">
+
+                            <ng-template let-option pTemplate="item">
+
+                              <div class="p-multiselect-representative-option">
+
+                                <span class="p-ml-1">{{option.name}}</span>
+
+                              </div>
+
+                            </ng-template>
+
+                          </p-multiSelect>
+
+                        </ng-template>
+
+                      </p-columnFilter>
+
+                    </div>
+
+                  </th>
+
+                </tr>
+
+              </ng-template>
+
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+
+                <tr>
+
+                  <td *ngFor="let col of columns">
+
+                    <!-- {{rowData[col.field] | number :'1.2-2'}} -->
+                    <!-- Check if dataType is 'decimal' and apply formatting accordingly -->
+                    <ng-container *ngIf="col.dataType === 'decimal' || col.dataType === 'real'; else checkInt">
+                      {{rowData[col.field] | number:'1.2-2'}}
+                    </ng-container>
+                    <ng-template #checkInt>
+                      <ng-container *ngIf="col.dataType === 'int'; else defaultFormat">
+                        {{rowData[col.field] | number:'1.0-2'}}
+                      </ng-container>
+                    </ng-template>
+                    <!-- Default formatting for non-decimal types -->
+                    <ng-template #defaultFormat>
+                      {{rowData[col.field]}}
+                    </ng-template>
+
+                  </td>
+
+                </tr>
+
+              </ng-template>
+
+              <ng-template pTemplate="footer" let-columns>
+
+                <tr>
+
+                  <td *ngFor="let col of columns; let i = index">
+
+                    <span *ngIf="!col.frozenCols" title="Sum of all values in column {{ col.field }}">
+
+                      <span *ngIf="i === 0" class="footer-sigma-icon">Σ =
+
+                      </span>
+
+                      {{
+
+                      calculateVisiblePrimengTotal(col.field, pv)
+
+                      | number : "1.0-2"
+
+                      }}
+
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              </ng-template>
+
+            </p-table>
+
+          </div>
+
+        </ng-template>
+
+      </p-panel>
+
+    </div>
+
+  </div>
+
+
+  <p-dialog header="Save Views" [(visible)]="isSavePopUp" [baseZIndex]="10000" [draggable]="false" [closable]="true">
+
+    <ng-template pTemplate="content">
+
+      <div class="save-view-container">
+
+        <label for="viewname" class="label">Save View Name:</label>
+
+        <input id="viewname" type="text" pInputText placeholder="Enter Here..." [(ngModel)]="viewname" class="input" />
+
+        <p-button (click)="saveView(viewname)" label="Save" styleClass="p-button-full-width button"></p-button>
+
+      </div>
+
+    </ng-template>
+
+  </p-dialog>
+
+</ng-container>

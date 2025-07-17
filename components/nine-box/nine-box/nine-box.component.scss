@@ -1,0 +1,65 @@
+::ng-deep {
+
+    .block {
+        // background-color: blue;
+        border: 0.5px solid #BB8D6F;
+        aspect-ratio: 1;
+    }
+
+    .header-text {
+        writing-mode: vertical-rl;
+        text-align: center;
+        transform: rotate(180deg);
+    }
+
+    .side-header {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+
+    .skeleton-block {
+        aspect-ratio: 1;
+    }
+
+    .high-high {
+        background-color: #48A14D;
+    }
+
+    .high-medium {
+        background-color: #48A14D;
+    }
+
+    .high-low {
+        background-color: #0EB8BE;
+    }
+
+    .medium-high {
+        background-color: #48A14D;
+    }
+
+    .medium-medium {
+        background-color: #48A14D;
+    }
+
+    .medium-low {
+        background-color: #0EB8BE;
+    }
+
+    .low-high {
+        background-color: #ED944D;
+    }
+
+    .low-medium {
+        background-color: #ED944D;
+    }
+
+    .low-low {
+        background-color: #ED944D;
+    }
+
+    .nine-box-view-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+}

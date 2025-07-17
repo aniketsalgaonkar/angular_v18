@@ -1,0 +1,146 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                        <div class="grid">
+    <div class="col-12 md:col-3">
+        <p-panel *ngIf="!ModuleIDList.includes(11084)" [style]="Module && Module[0].moduleList[0].BackgroundColor">
+            <p-header>
+                <div class="ui-panel-title">
+Create Plan                            <span (mouseover)="op11084.toggle($event)" (mouseout)="op11084.toggle($event)">
+                                <i class="pi pi-info-circle" style="cursor:pointer" tooltipPosition="top" pTooltip="Define Plan Parameter Here"></i>
+                            </span>
+                </div>
+            </p-header>
+                <form name="form" (ngSubmit)="f_form_11084.form.valid && onSubmit(f_form_11084,11084,0,0)" #f_form_11084="ngForm" novalidate>
+                      <div class="formgrid grid" *ngIf="Module">
+                                  <div class="field col-12 md:col-2" style="display:none">
+                                          <input type="hidden" class="inputField " id="ID31014" name="ID" #ID31014="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                                  <label class="font-medium">Plans Name</label>
+                                                      <input type="text" size="30" class="inputField w-full" pInputText id="PlanName31015" name="PlanName" #PlanName31015="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" pattern="" appSanitizeInput />
+                                                  <div *ngIf="PlanName31015?.invalid && (PlanName31015?.dirty || PlanName31015?.touched)"
+                                                       class="error">
+                                                      <div *ngIf="PlanName31015?.errors?.pattern">
+                                                          
+                                                      </div>
+
+                                                  </div>
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                                  <label class="font-medium">Plan Start Date</label>
+                                                          <p-datePicker [showIcon]="true" id="PlanStartDate31016" name="PlanStartDate" #PlanStartDate31016="ngModel"
+                                                                        pattern=".*" [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value"
+                                                                        readonlyInput="true" [appendTo]="body" [monthNavigator]="true" [yearNavigator]="true" yearRange="1850:2150"
+                                                                        showButtonBar="true" [dateFormat]=DateFormat showWeek="true" [hourFormat]=hourFormat
+                                                                        todayButtonStyleClass="ui-secondary-button" clearButtonStyleClass="ui-secondary-button" dataType="date"></p-datePicker>
+                                                  <div *ngIf="PlanStartDate31016?.invalid && (PlanStartDate31016?.dirty || PlanStartDate31016?.touched)"
+                                                       class="error">
+                                                      <div *ngIf="PlanStartDate31016?.errors?.required">
+                                                          Plan Start Date is required.
+                                                      </div>
+                                                      <div *ngIf="PlanStartDate31016?.errors?.pattern">
+                                                          
+                                                      </div>
+                                                  </div>
+                                  </div>
+                                      <div class="field col-12 md:col-6">
+                                                  <label class="font-medium">Planning Horizon</label>
+                                                      <input type="text" size="30" class="inputField w-full" pInputText id="PlanningHorizon31017" name="PlanningHorizon" #PlanningHorizon31017="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].value" pattern="" appSanitizeInput />
+                                                  <div *ngIf="PlanningHorizon31017?.invalid && (PlanningHorizon31017?.dirty || PlanningHorizon31017?.touched)"
+                                                       class="error">
+                                                      <div *ngIf="PlanningHorizon31017?.errors?.pattern">
+                                                          
+                                                      </div>
+
+                                                  </div>
+                                  </div>
+                                      <div class="field col-12 md:col-6">
+                                              <label class="font-medium">&nbsp;</label>
+                                              <p-multiSelect *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[4].DropDownValues" class="w-full"
+                                                             [(ngModel)]="Module[0].moduleList[0].moduleDetails[4].Multiselectvalue"
+                                                             id="PlanningHorizon131020" name="PlanningHorizon1" defaultLabel="Select"
+                                                             filter="true" [appendTo]="local" optionLabel="Text"
+                                                             displaySelectedLabel="true" maxSelectedLabels="4" scrollHeight="200px"
+                                                             selectedItemsLabel="{0} items selected" showToggleAll="true" resetFilterOnHide="true">
+                                              </p-multiSelect>
+                                  </div>
+                                      <div class="field col-12 md:col-6">
+                                                  <label class="font-medium">Planning Bucket</label>
+                                                      <input type="text" size="30" class="inputField w-full" pInputText id="PlanningBucket31021" name="PlanningBucket" #PlanningBucket31021="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[5].value" pattern="" appSanitizeInput />
+                                                  <div *ngIf="PlanningBucket31021?.invalid && (PlanningBucket31021?.dirty || PlanningBucket31021?.touched)"
+                                                       class="error">
+                                                      <div *ngIf="PlanningBucket31021?.errors?.pattern">
+                                                          
+                                                      </div>
+
+                                                  </div>
+                                  </div>
+                                      <div class="field col-12 md:col-6">
+                                              <label class="font-medium">&nbsp;</label>
+                                              <p-multiSelect *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[6].DropDownValues" class="w-full"
+                                                             [(ngModel)]="Module[0].moduleList[0].moduleDetails[6].Multiselectvalue"
+                                                             id="PlanningBucket131018" name="PlanningBucket1" defaultLabel="Select"
+                                                             filter="true" [appendTo]="local" optionLabel="Text"
+                                                             displaySelectedLabel="true" maxSelectedLabels="4" scrollHeight="200px"
+                                                             selectedItemsLabel="{0} items selected" showToggleAll="true" resetFilterOnHide="true">
+                                              </p-multiSelect>
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                              <label class="font-medium">Run Parameters</label>
+                                                  <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[7].DropDownValues" class="w-full"
+                                                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[7].value"
+                                                            [required]="true" id="RunParameters31019" name="RunParameters"
+                                                            (onChange)="GetDependentDropDown('31019', $event,'ParameterValues',0)"
+                                                            autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                            [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                            optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                            [appendTo]="local"></p-select>
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                              <label class="font-medium">Parameter Values</label>
+                                                  <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[8].DropDownValues" class="w-full"
+                                                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[8].value"
+                                                            id="ParameterValues31022" name="ParameterValues"
+                                                            autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                            [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                            optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                            [appendTo]="local"></p-select>
+                                  </div>
+                                  <div class="field col-12 md:col-2" style="display:none">
+                                          <input type="hidden" class="inputField " id="App Name31023" name="App Name" #App Name31023="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[9].value" />
+                                  </div>
+                                      <div class="field col-12 md:col-12">
+                                              <label class="font-medium">Run Type</label>
+                                                  <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[10].DropDownValues" class="w-full"
+                                                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[10].value"
+                                                            id="RunType31024" name="RunType"
+                                                            autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                            [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                            optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                            [appendTo]="local"></p-select>
+                                  </div>
+                      </div>
+                                  <!-- <p-button class="p-panel-header-icon p-link" icon="pi pi-save" severity="secondary" (click)="UpdateDatatable(11084,52,0,dt,f_filter_6937?f_filter_6937.value:null,0)" tooltipPosition="top" pTooltip="Save" /> -->
+                                   <button
+  type="submit"
+  pButton
+  icon="pi pi-save"
+  label="Save"
+  iconPos="left"
+  class="p-button-secondary px-5 py-2 text-base font-semibold"
+  [disabled]="!f_form_11084.form.valid"
+  pTooltip="Save"
+  tooltipPosition="top">
+</button>
+
+                </form>
+        </p-panel>
+    </div>
+
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

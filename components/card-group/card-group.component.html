@@ -1,0 +1,14 @@
+<div  *ngIf="cardGroupData.length">
+    <div style="display: flex;" (mouseenter)="showNavButtons()" (mouseleave)="startFadeOutTimer()">
+        <button *ngIf="showNav" class="scroll-button left" (click)="scrollLeft(cardContainer)">
+            <i class="pi pi-arrow-circle-left nav-icons"></i>
+        </button>
+        <div #cardContainer class="card-container">
+            <app-card *ngFor="let cardData of cardGroupDataByGroup" class="card" [cardData]="cardData" [ruleData]="ruleData" (navigateButtonClickedCard)="onNavigateButtonClickCardGroup()"></app-card>
+        </div>
+        <button *ngIf="showNav" class="scroll-button right" (click)="scrollRight(cardContainer)">
+            <i class="pi pi-arrow-circle-right nav-icons"></i>
+        </button>
+    </div>
+</div>
+

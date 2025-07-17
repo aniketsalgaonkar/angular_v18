@@ -1,0 +1,140 @@
+.navbar {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.854);
+    /* Semi-transparent background */
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    position: sticky;
+    /* Makes the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensures the navbar stays above other content */
+    width: 100%;
+    /* Ensures the navbar spans the full width */
+    backdrop-filter: blur(5px);
+    /* Optional: Adds a blur effect to the background */
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    /* Push elements to opposite sides */
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    /* Add some padding for spacing */
+}
+
+.wrapper h1 {
+    margin: 0;
+    /* Remove default margin */
+    font-size: 20px;
+    /* Adjust size as needed */
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+
+.outcard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem
+}
+
+.inCard {
+    flex: 0 0 calc(25% - 1rem);
+    max-width: calc(25% - 1rem);
+    box-sizing: border-box;
+}
+
+.cardview {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid #f27924
+}
+
+.label {
+    color: #f27924;
+}
+
+.logo-details {
+    padding: 15px;
+
+    h3 {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+    }
+}
+
+
+/* Target the p-fieldset inside the second drawer */
+.dashboard-drawer ::ng-deep .p-fieldset {
+    border: 2px solid var(--p-fieldset-border-color);
+    background: none;
+}
+
+/* Target the p-fieldset-legend inside the second drawer */
+.dashboard-drawer ::ng-deep .p-fieldset-legend {
+    background: none;
+}
+
+/* Target the p-card inside the second drawer */
+.dashboard-drawer ::ng-deep .p-card {
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.icon-button {
+    margin-top: 5px;
+    background: none;
+    /* Remove background */
+    border: none;
+    /* Remove border */
+    cursor: pointer;
+    /* Add pointer cursor */
+    color: inherit;
+    /* Use the default text color */
+}
+
+.custom-button {
+    background-color: #f27924;
+    /* Set background color */
+    border: 2px solid white;
+    /* Remove border */
+    border-radius: 50%;
+    /* Make it rounded */
+    padding: 10px;
+    /* Add padding for better spacing */
+    cursor: pointer;
+    /* Add pointer cursor */
+    display: flex;
+    /* Center the icon */
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    /* Set width and height for a circular shape */
+    height: 30px;
+    color: white;
+    /* Set icon color */
+}
+
+// ::ng-deep .p-drawer{
+//     width: 25rem !important;
+// }
+
+
+::ng-deep .p-drawer-full .p-drawer-header {
+    background-color: #f5f5f5 !important;
+}

@@ -1,0 +1,54 @@
+.card-container {
+    white-space: nowrap;
+    overflow-x: scroll;
+    display: flex;
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-top: 1px;
+    gap: 10px; /* Optional: Adds some space between the cards */
+  }
+
+.card-container::-webkit-scrollbar {
+    display: none !important;
+}
+
+.card {
+    // margin-right: 12px !important;
+}
+
+.scroll-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 2.4rem;
+    z-index: 1;
+    position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-button.left {
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+.scroll-button.right {
+    display: block;
+    position: absolute;
+    right: 0;
+}
+
+.nav-icons {
+    background-color: white;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 1000px;
+    color: #f27924;
+    font-size: 1.3rem !important;
+}

@@ -1,0 +1,131 @@
+//second drawer 
+
+::ng-deep .pi {
+    // font-size: 16px !important;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    background-color: #fff4eb !important;
+    clip-path: circle(400px at 50% -48.5%);
+}
+
+// second drawer 
+.profile-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background: #f27924;
+    /* Circle Background */
+    color: white;
+    /* Icon Color */
+    box-shadow: 0 0.3px 0.9px #0000001c, 0 1.6px 3.6px #00000021 !important;
+    font-size: 35px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+// second drawer 
+.profile-icon i {
+    font-size: 25px;
+    /* Icon Size */
+    color: white;
+    /* Ensures White Icon */
+}
+
+//second drawer
+.link_name {
+    padding: 10px;
+}
+
+
+
+//second drawer
+ ::ng-deep .custom-drawer .p-drawer-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0 !important;
+    background-color: #fff4eb !important;
+    padding: 0%;
+}
+
+::ng-deep .custom-drawer .p-drawer-content {
+    padding: 0px !important;
+}
+
+//second drawer
+.bottom-nav {
+    height: 150px !important;
+    width: 100% m !important;
+    display: flex;
+    justify-content: space-evenly;
+    /* Distribute items evenly */
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    background: #fff4eb;
+    margin-bottom: -10px !important;
+}
+
+//second drawer
+.icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    /* Square Size */
+    height: 40px;
+    /* Square Size */
+    border-radius: 5px;
+    /* Slightly rounded corners */
+    background: #f27924;
+    /* Same background as user icon */
+    box-shadow: 0 0.3px 0.9px #0000001c, 0 1.6px 3.6px #00000021 !important;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    /* Stack icon above text */
+    align-items: center;
+    text-align: center;
+    width: 25%;
+    /* Ensures equal width for all items */
+}
+
+.nav-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+//second drawer
+.nav-item i {
+    font-size: 15px;
+    /* Adjust icon size */
+    margin-bottom: 5px;
+    /* Space between icon and text */
+    color: white
+}
+
+//second drawer 
+.nav-item span {
+    margin-top: 5px;
+    font-size: 9px;
+    /* Adjust text size */
+    font-weight: bold;
+    white-space: nowrap;
+    /* Prevents text wrapping */
+}

@@ -1,0 +1,2949 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button (click)="downloadreport()">
+                        <ion-icon name="download"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+    <div *ngIf="showfilter" style="display:flex;justify-content: flex-end;margin:10px 0;">
+        
+        <p-splitButton iconPos="left" label="Filter" icon="pi pi-filter" (onClick)="showfilter=!showfilter" [model]="filterSplitButtonOptions"></p-splitButton>
+    </div>
+        <div [hidden]="showfilter" [ngClass]="{'open-filter': horizontalFilter,'panel-filter': !horizontalFilter}" class="filter" style="margin-top:1rem">
+            <form class="p-fluid p-formgrid p-grid" #f_filter_1204="ngForm" (ngSubmit)="onSubmitFilter(f_filter_1204.value)">
+                <div *ngIf="PageMenuDetails && showInFilter('Level')" class="p-field p-col-12 p-md-2 p-float-label">
+                    <p-dropdown [filter]="true" [options]="PageMenuDetails[0].DropDownValues" [(ngModel)]="PageMenuDetails[0].DefaultValue" name="Level"  optionLabel="Text" [appendTo]="local" [showClear]="true" [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="Level" class="filter-label">Level</label>
+                </div>
+    <div class="p-field p-col-12 p-md-1">
+        <button pButton label="Apply" type="submit" icon="pi pi-filter" iconPos="left" [disabled]="!f_filter_1204.form.valid" routerDirection="forward"></button>
+    </div>
+    <div class="p-field p-col-12 p-md-1">
+        <button pButton icon="pi pi-filter-slash" iconPos="left" label="Reset" (click)="f_filter_1204.reset()"></button>
+    </div>
+    <div class="p-field p-col-12 p-md-1">
+        <button pButton type="button" label="Hide" icon="pi pi-times" iconPos="left" (click)="showfilter=!showfilter"></button>
+    </div>
+</form>
+        </div>
+
+                        <div class="grid">
+        <div class="grid" *ngIf="!Module">
+            <div class="col-12 md:col-12">
+                <div class="card-group-skeleton-container">
+                    <p-skeleton *ngFor="let skeleton of skeletonDataForCards" width="11.85rem" height="6.6rem"></p-skeleton>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="Module[0].moduleList[0].moduleData">
+            <app-card-group [cardGroupData]="Module[0].moduleList[0].moduleData"></app-card-group>
+        </ng-container>
+
+                                                <div class="col-12 md:col-12">
+                                                            <p-tabView [(activeIndex)]="activeLinkIndex[1]">
+                                                                        <p-tabPanel header="9 Box Classification Report" [tooltip]="Module[0].moduleList[1].ModuleDescription" [style]="Module[0].moduleList[1].BackgroundColor" [disabled]="DisabledArray[1]">
+                                                                            <ng-template pTemplate="header">
+                                                                                <span>9 Box Classification Report</span>
+                                                                                
+                                                                            </ng-template>
+            <div class="col-12 md:col-6">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[0] && scrollableColsArray[0] && primeNgTableArray[0] && selectedColumnsArray[0]">
+    <p-panel  [toggleable]="true" #table5826 class="panel_includes_table" [style]="Module[0].moduleList[1].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[1].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table5826.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('5826','9 Box Classification Report')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_5826="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_0 appendTo="body" [model]="Module[0].moduleList[1].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_0"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[0]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[0]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[0]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[0]" [lazy]="true" (onLazyLoad)="loadTableData($event,0,1)" [loading]="moduleLoaderArray[1]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[0].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+Item Code                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[0],0):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[0],0)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',0)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+                                                                        </p-tabPanel>
+                                                                        <p-tabPanel header="Item Classification Report" [tooltip]="Module[0].moduleList[2].ModuleDescription" [style]="Module[0].moduleList[2].BackgroundColor">
+        <div class="grid" *ngIf="!Module">
+            <div class="col-12 md:col-12">
+                <div class="card-group-skeleton-container">
+                    <p-skeleton *ngFor="let skeleton of skeletonDataForCards" width="11.85rem" height="6.6rem"></p-skeleton>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="Module[0].moduleList[0].moduleData">
+            <app-card-group [cardGroupData]="Module[0].moduleList[0].moduleData"></app-card-group>
+        </ng-container>
+
+            <div class="col-12 md:col-6">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[2] && scrollableColsArray[2] && primeNgTableArray[2] && selectedColumnsArray[2]">
+    <p-panel  [toggleable]="true" #table5826 class="panel_includes_table" [style]="Module[0].moduleList[1].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[1].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table5826.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('5826','9 Box Classification Report')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_5826="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_2 appendTo="body" [model]="Module[0].moduleList[1].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_2"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[2]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[2]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[2]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[2]" [lazy]="true" (onLazyLoad)="loadTableData($event,2,1)" [loading]="moduleLoaderArray[1]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[0].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+Item Code                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[2],2):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[2],2)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',2)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-12">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[3] && scrollableColsArray[3] && primeNgTableArray[3] && selectedColumnsArray[3]">
+    <p-panel  [toggleable]="true" #table1310 class="panel_includes_table" [style]="Module[0].moduleList[2].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[2].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table1310.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('1310','Item Classification Report')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_1310="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_3 appendTo="body" [model]="Module[0].moduleList[2].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_3"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[3]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[3]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[3]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[3]" [lazy]="true" (onLazyLoad)="loadTableData($event,3,2)" [loading]="moduleLoaderArray[2]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="SKU"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="SKU" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[1].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="NineBoxAnalysis"
+                                          pResizableColumn pReorderableColumn>
+NineBox Analysis                                                      <p-sortIcon field="NineBoxAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[2].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="RRSAnalysis"
+                                          pResizableColumn pReorderableColumn>
+RRS Analysis                                                      <p-sortIcon field="RRSAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[3].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="VolumeAnalysis"
+                                          pResizableColumn pReorderableColumn>
+Volume Analysis                                                      <p-sortIcon field="VolumeAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[4].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="ProductLifeCycle"
+                                          pResizableColumn pReorderableColumn>
+Product Life Cycle                                                      <p-sortIcon field="ProductLifeCycle" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'SKU', 'contains')" #SKU />
+                                                              <i class="pi pi-times" (click)="clear(dt, SKU)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="SKU" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'NineBoxAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'RRSAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'VolumeAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'ProductLifeCycle', 'contains')" />
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[3],3):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["SKU"]'>
+                                                      <span>{{ rowData["SKU"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["NineBoxAnalysis"]'>
+                                                      <span>{{ rowData["NineBoxAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["RRSAnalysis"]'>
+                                                      <span>{{ rowData["RRSAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["VolumeAnalysis"]'>
+                                                      <span>{{ rowData["VolumeAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["ProductLifeCycle"]'>
+                                                      <span>{{ rowData["ProductLifeCycle"]}}</span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-6">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[4] && scrollableColsArray[4] && primeNgTableArray[4] && selectedColumnsArray[4]">
+    <p-panel  [toggleable]="true" #table5827 class="panel_includes_table" [style]="Module[0].moduleList[3].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[3].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table5827.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('5827','Product Life Cycle')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_5827="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_4 appendTo="body" [model]="Module[0].moduleList[3].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_4"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[4]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[4]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[4]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[4]" [lazy]="true" (onLazyLoad)="loadTableData($event,4,3)" [loading]="moduleLoaderArray[3]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[4],4):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span>{{ rowData["Classification"]}}</span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[5] && scrollableColsArray[5] && primeNgTableArray[5] && selectedColumnsArray[5]">
+    <p-panel  [toggleable]="true" #table4326 class="panel_includes_table" [style]="Module[0].moduleList[4].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[4].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4326.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4326','RRS Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4326="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_5 appendTo="body" [model]="Module[0].moduleList[4].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_5"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[5]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[5]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[5]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[5]" [lazy]="true" (onLazyLoad)="loadTableData($event,5,4)" [loading]="moduleLoaderArray[4]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[5],5):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[5],5)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',5)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[6] && scrollableColsArray[6] && primeNgTableArray[6] && selectedColumnsArray[6]">
+    <p-panel  [toggleable]="true" #table4327 class="panel_includes_table" [style]="Module[0].moduleList[5].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[5].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4327.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4327','Volume Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4327="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_6 appendTo="body" [model]="Module[0].moduleList[5].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_6"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[6]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[6]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[6]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[6]" [lazy]="true" (onLazyLoad)="loadTableData($event,6,5)" [loading]="moduleLoaderArray[5]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[6],6):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[6],6)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',6)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+                                                                        </p-tabPanel>
+                                                                        <p-tabPanel header="Product Life Cycle" [tooltip]="Module[0].moduleList[3].ModuleDescription" [style]="Module[0].moduleList[3].BackgroundColor">
+        <div class="grid" *ngIf="!Module">
+            <div class="col-12 md:col-12">
+                <div class="card-group-skeleton-container">
+                    <p-skeleton *ngFor="let skeleton of skeletonDataForCards" width="11.85rem" height="6.6rem"></p-skeleton>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="Module[0].moduleList[0].moduleData">
+            <app-card-group [cardGroupData]="Module[0].moduleList[0].moduleData"></app-card-group>
+        </ng-container>
+
+            <div class="col-12 md:col-6">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[9] && scrollableColsArray[9] && primeNgTableArray[9] && selectedColumnsArray[9]">
+    <p-panel  [toggleable]="true" #table5826 class="panel_includes_table" [style]="Module[0].moduleList[1].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[1].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table5826.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('5826','9 Box Classification Report')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_5826="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_9 appendTo="body" [model]="Module[0].moduleList[1].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_9"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[9]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[9]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[9]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[9]" [lazy]="true" (onLazyLoad)="loadTableData($event,9,1)" [loading]="moduleLoaderArray[1]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[0].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+Item Code                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[1].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[9],9):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[9],9)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',9)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-12">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[10] && scrollableColsArray[10] && primeNgTableArray[10] && selectedColumnsArray[10]">
+    <p-panel  [toggleable]="true" #table1310 class="panel_includes_table" [style]="Module[0].moduleList[2].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[2].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table1310.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('1310','Item Classification Report')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_1310="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_10 appendTo="body" [model]="Module[0].moduleList[2].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_10"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[10]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[10]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[10]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[10]" [lazy]="true" (onLazyLoad)="loadTableData($event,10,2)" [loading]="moduleLoaderArray[2]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="SKU"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="SKU" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[1].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="NineBoxAnalysis"
+                                          pResizableColumn pReorderableColumn>
+NineBox Analysis                                                      <p-sortIcon field="NineBoxAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[2].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="RRSAnalysis"
+                                          pResizableColumn pReorderableColumn>
+RRS Analysis                                                      <p-sortIcon field="RRSAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[3].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="VolumeAnalysis"
+                                          pResizableColumn pReorderableColumn>
+Volume Analysis                                                      <p-sortIcon field="VolumeAnalysis" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[2].moduleDetails[4].ColumnHeader" class='ui-resizable-column string  Label'
+  pSortableColumn="ProductLifeCycle"
+                                          pResizableColumn pReorderableColumn>
+Product Life Cycle                                                      <p-sortIcon field="ProductLifeCycle" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'SKU', 'contains')" #SKU />
+                                                              <i class="pi pi-times" (click)="clear(dt, SKU)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="SKU" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'NineBoxAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'RRSAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'VolumeAnalysis', 'contains')" />
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string  Label'>
+                                                  <input pInputText type="text" (input)="dt.filter($event.target.value, 'ProductLifeCycle', 'contains')" />
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[10],10):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["SKU"]'>
+                                                      <span>{{ rowData["SKU"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["NineBoxAnalysis"]'>
+                                                      <span>{{ rowData["NineBoxAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["RRSAnalysis"]'>
+                                                      <span>{{ rowData["RRSAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["VolumeAnalysis"]'>
+                                                      <span>{{ rowData["VolumeAnalysis"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string  Label' [title]='rowData["ProductLifeCycle"]'>
+                                                      <span>{{ rowData["ProductLifeCycle"]}}</span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-6">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[11] && scrollableColsArray[11] && primeNgTableArray[11] && selectedColumnsArray[11]">
+    <p-panel  [toggleable]="true" #table5827 class="panel_includes_table" [style]="Module[0].moduleList[3].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[3].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table5827.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('5827','Product Life Cycle')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_5827="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_11 appendTo="body" [model]="Module[0].moduleList[3].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_11"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[11]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[11]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[11]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[11]" [lazy]="true" (onLazyLoad)="loadTableData($event,11,3)" [loading]="moduleLoaderArray[3]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[3].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[11],11):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span>{{ rowData["Classification"]}}</span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[12] && scrollableColsArray[12] && primeNgTableArray[12] && selectedColumnsArray[12]">
+    <p-panel  [toggleable]="true" #table4326 class="panel_includes_table" [style]="Module[0].moduleList[4].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[4].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4326.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4326','RRS Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4326="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_12 appendTo="body" [model]="Module[0].moduleList[4].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_12"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[12]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[12]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[12]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[12]" [lazy]="true" (onLazyLoad)="loadTableData($event,12,4)" [loading]="moduleLoaderArray[4]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[12],12):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[12],12)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',12)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[13] && scrollableColsArray[13] && primeNgTableArray[13] && selectedColumnsArray[13]">
+    <p-panel  [toggleable]="true" #table4327 class="panel_includes_table" [style]="Module[0].moduleList[5].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[5].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4327.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4327','Volume Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4327="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_13 appendTo="body" [model]="Module[0].moduleList[5].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_13"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[13]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[13]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[13]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[13]" [lazy]="true" (onLazyLoad)="loadTableData($event,13,5)" [loading]="moduleLoaderArray[5]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[13],13):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[13],13)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',13)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+                                                                        </p-tabPanel>
+                                                                        <p-tabPanel header="RRS Analysis" [tooltip]="Module[0].moduleList[4].ModuleDescription" [style]="Module[0].moduleList[4].BackgroundColor" [disabled]="DisabledArray[4]">
+                                                                            <ng-template pTemplate="header">
+                                                                                <span>RRS Analysis</span>
+                                                                                
+                                                                            </ng-template>
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[15] && scrollableColsArray[15] && primeNgTableArray[15] && selectedColumnsArray[15]">
+    <p-panel  [toggleable]="true" #table4326 class="panel_includes_table" [style]="Module[0].moduleList[4].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[4].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4326.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4326','RRS Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4326="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_15 appendTo="body" [model]="Module[0].moduleList[4].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_15"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[15]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[15]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[15]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[15]" [lazy]="true" (onLazyLoad)="loadTableData($event,15,4)" [loading]="moduleLoaderArray[4]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[4].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[15],15):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[15],15)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',15)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+                                                                        </p-tabPanel>
+                                                                        <p-tabPanel header="Volume Analysis" [tooltip]="Module[0].moduleList[5].ModuleDescription" [style]="Module[0].moduleList[5].BackgroundColor" [disabled]="DisabledArray[5]">
+                                                                            <ng-template pTemplate="header">
+                                                                                <span>Volume Analysis</span>
+                                                                                
+                                                                            </ng-template>
+            <div class="col-12 md:col-4">
+                <div style="height: 100%;" *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[16] && scrollableColsArray[16] && primeNgTableArray[16] && selectedColumnsArray[16]">
+    <p-panel  [toggleable]="true" #table4327 class="panel_includes_table" [style]="Module[0].moduleList[5].BackgroundColor">
+    <div class="grid">
+        <div class="col-2" *ngFor="let tile of Module[0].moduleList[5].ModuleWiseTiles">
+            <p-card>
+                <div class="p-col">
+                    <div class="tile-key">
+                        <p>Avg Quantity Planned</p>
+                        {{tile.Key}}
+                    </div>
+                    <div class="tile-value">
+                        <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                        <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                    </div>
+                </div>
+
+            </p-card>
+        </div>
+    </div>
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template pTemplate="icons">
+        <input [hidden]="!hideColumnFilters" *ngIf="!table4327.collapsed" (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="secondary" (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top" pTooltip="Column and Table filters" />
+         
+        <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="secondary" (click)="downloadModuleReport('4327','Volume Analysis')" tooltipPosition="top" pTooltip="Download Excel" />
+
+
+    </ng-template>
+
+    
+   
+
+
+<form name="form" #f_datatable_4327="ngForm" novalidate>
+   
+                  <p-contextMenu #cm_16 appendTo="body" [model]="Module[0].moduleList[5].RowContextMenus"></p-contextMenu>
+                  <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_16"
+                           styleClass="p-datatable-sm"
+                           [columns]="scrollableColsArray[16]"
+                           [rows]="10"
+                           [globalFilterFields]="filterColsArray[16]"
+                           [showCurrentPageReport]="true"
+                           paginatorDropdownAppendTo="body"
+                           [value]="primeNgTableArray[16]"
+                           [paginator]="true"
+                           [scrollable]="true" scrollHeight="500px"
+                           [rowsPerPageOptions]="[5,10,20,50,100]"
+                           [resizableColumns]="true"
+                           columnResizeMode="expand"
+                           [reorderableColumns]="true"
+                           [rowHover]="true"
+                           dataKey="ID"
+                           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                           [(selection)]="selectedRows"
+                           [totalRecords]="totalRecords[16]" [lazy]="true" (onLazyLoad)="loadTableData($event,16,5)" [loading]="moduleLoaderArray[5]">
+                      <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                              <col *ngFor="let col of columns | childColumn"> 
+                          </colgroup>
+                      </ng-template>
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[0].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ItemCode"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Item Code
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ItemCode" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[1].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="ClassificationFactor"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification Factor
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="ClassificationFactor" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[2].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Value"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Value
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Value" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                                      <th tooltipPosition="top" [pTooltip]="Module[0].moduleList[5].moduleDetails[3].ColumnHeader" class='ui-resizable-column string Label'
+  pSortableColumn="Classification"
+                                          pResizableColumn pReorderableColumn>
+                                                  <div>
+                                                      <div style="word-wrap:normal">
+                                                          Classification
+                                                      </div>
+
+                                                  </div>
+                                                      <p-sortIcon field="Classification" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descendent order" ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                      </th>
+                          </tr>
+                          <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ItemCode', 'contains')" #ItemCode />
+                                                              <i class="pi pi-times" (click)="clear(dt, ItemCode)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ItemCode" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'ClassificationFactor', 'contains')" #ClassificationFactor />
+                                                              <i class="pi pi-times" (click)="clear(dt, ClassificationFactor)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="ClassificationFactor" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Value', 'contains')" #Value />
+                                                              <i class="pi pi-times" (click)="clear(dt, Value)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Value" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                                      <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                                  <div class="grid">
+                                                      <div class="col-8 containsFilter">
+                                                          <span class="p-input-icon-right">
+                                                              <input pInputText type="text" (input)="dt.filter($event.target.value, 'Classification', 'contains')" #Classification />
+                                                              <i class="pi pi-times" (click)="clear(dt, Classification)"></i>
+                                                          </span>
+                                                      </div>
+                                                      <div class="col-2 advanceFilter">
+                                                          <p-columnFilter type="text" field="Classification" display="menu"></p-columnFilter>
+                                                      </div>
+                                                  </div>
+
+
+                                      </th>
+                          </tr>
+                      </ng-template>
+
+                      <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true" appendTo="body"></p-tieredMenu>
+                      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                  <tr [pContextMenuRow]="rowData" [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[16],16):''">
+
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ItemCode"]'>
+                                                      <span>{{ rowData["ItemCode"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["ClassificationFactor"]'>
+                                                      <span>{{ rowData["ClassificationFactor"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Value"]'>
+                                                      <span>{{ rowData["Value"]}}</span>
+
+                                  </td>
+                                  <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["Classification"]'>
+                                                      <span [ngStyle]="ruleEngine.GetPropertyRule('ID',rowData['ID'],'Classification',ModuleDataWithRuleArray[16],16)">
+                                                          {{ rowData["Classification"]}}
+                                                          <i class="pi {{GetRuleIcon('ID',rowData['ID'],'Classification',16)}}"></i>
+                                                      </span>
+
+                                  </td>
+
+                          </tr>
+                      </ng-template>
+
+
+
+
+
+
+
+
+
+                      
+                  </p-table>
+             
+
+</form>
+                                                      
+        </p-panel>
+
+                    </div>
+                </div>
+
+                                                                        </p-tabPanel>
+                                                        </p-tabView>
+                                                        </div>
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

@@ -1,0 +1,47 @@
+<p-timeline [value]="timelineData" align="top" layout="horizontal" styleClass="customized-timeline">
+  <ng-template pTemplate="marker" let-event>
+      <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.Color">
+          <i [ngClass]="event.Icon"></i>
+      </span>
+  </ng-template>
+  <ng-template ngFor pTemplate="content" let-event>
+      <p-card [header]="event.TimelineStatus">
+          <!---------------------------------------Tiles Group(Menu flow)---------------------------------------->
+          <div class="p-grid" *ngIf="event.Submodule.DisplayType.toLowerCase()=='tilesgroup' && event.Submodule.tilesgroupdata.length>0">
+              <div class="p-col-12 p-md-{{12/event.Submodule.tilesgroupdata.length}}"
+                   *ngFor="let tilesgroup of event.Submodule.tilesgroupdata" style="margin-left:0!important">
+                  <div class="p-grid tilesgroupdata">
+                      <div class="p-col-12 p-md-12 card" style="margin-left:0!important" *ngFor="let tile of tilesgroup.tiles">
+                          <div class="p-grid timelinemenu">
+                              <div class="p-col-8 p-md-8 timelinelink">
+                                  <a [class.disabled]="tile.LinkedMenu==0" (click)="navigate(null,tile.LinkedMenu)">{{tile.Name}}</a>
+                              </div>
+                              <div class="p-col-1 p-md-1 timelineicon">
+                                  <a [class.disabled]="tile.LinkedMenu==0" (click)="navigate(null,tile.LinkedMenu)">
+                                      <span><i class="pi pi-chart-bar"></i></span>
+                                  </a>
+                              </div>
+                              <div class="p-col-1 p-md-1 timelineicon">
+                                  <a [class.disabled]="tile.Download==0" (click)="navigate(null,tile.Download)">
+                                      <span><i class="pi pi-download"></i></span>
+                                  </a>
+                              </div>
+                              <div class="p-col-1 p-md-1 timelineicon">
+                                  <a [class.disabled]="tile.Upload==0" (click)="navigate(null,tile.Upload)" title="Upload">
+                                      <span><i class="pi pi-upload"></i></span>
+                                  </a>
+                              </div>
+                              <div class="p-col-1 p-md-1 timelineicon">
+                                  <a [class.disabled]="tile.RunId==0" (click)="Run(tile.RunId)" title="Run Workflow">
+                                      <!-- <span title="Run Workflow"><ion-icon name="sync-outline" style="pointer-events:none;zoom:1.2"></ion-icon></span> -->
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </p-card>
+  </ng-template>
+</p-timeline>

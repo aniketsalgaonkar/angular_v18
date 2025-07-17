@@ -1,0 +1,439 @@
+@if (show) {
+<div id="cover">
+    <div class="center">
+        <div class="message">
+            Please wait ... <br>
+            <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid" class="lds-ellipsis">
+                <circle cx="84" cy="50" r="0" fill="#ffcc33">
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="42.7" cy="50" r="10" fill="#7de6ea">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="16" cy="50" r="7.85" fill="#ffa570">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
+</div>
+}
+
+<div class="col-12 md:col-9">
+    <div style="height: 100%;"
+        *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[0] && scrollableColsArray[0] && primeNgTableArray[0] && selectedColumnsArray[0]">
+        <p-panel [toggleable]="true" #table7000 class="panel_includes_table"
+            [style]="Module && Module[0].moduleList[1].BackgroundColor">
+            <div class="grid">
+                <div class="col-2" *ngFor="let tile of Module[0].moduleList[1].ModuleWiseTiles">
+                    <p-card>
+                        <div class="col">
+                            <div class="tile-key">
+                                <p>Avg Quantity Planned</p>
+                                {{tile.Key}}
+                            </div>
+                            <div class="tile-value">
+                                <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                                <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number :'1.0-2'}}</span>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+
+            <ng-template pTemplate="header">
+                <span style="margin-left: 5px;">
+                    Plan History <span (mouseover)="op7000.toggle($event)" (mouseout)="op7000.toggle($event)">
+                        <i class="pi pi-info-circle" style="cursor:pointer"></i>
+                    </span>
+                    <p-overlayPanel [showCloseIcon]="false" [appendTo]="'body'" #op7000
+                        [style]="{'width': '300px', 'max-height': '200px','font-size':'12px','color':'black'}">
+                        {{Module[0].moduleList[1].ModuleDescription}}
+                    </p-overlayPanel>
+                </span>
+            </ng-template>
+            <ng-template pTemplate="icons" style="margin-right: 15px;">
+                <input [hidden]="!hideColumnFilters" *ngIf="!table7000.collapsed" (click)="$event.stopPropagation()"
+                    class="search-box" type="text" pInputText size="50" placeholder="Search"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')">
+
+
+                <button class="custom-icon-button" (click)="hideColumnFilters = !hideColumnFilters"
+                    pTooltip="Column and Table filters" tooltipPosition="top">
+                    <span class="pi pi-search" style="cursor: pointer;"></span>
+                </button>
+
+                <button class="custom-icon-button" (click)="downloadModuleReport('7000','Plan History')"
+                    pTooltip="Download Module as Excel" tooltipPosition="top">
+                    <span class="pi pi-file-excel"></span>
+                </button>
+
+                <button pButton class="mobile p-panel-header-icon p-link" style="display:none;"
+                    (click)="tablemenu.toggle($event)" pTooltip="More Options" tooltipPosition="top">
+                    <span class="pi pi-ellipsis-v"></span>
+                </button>
+                <p-menu #tablemenu appendTo="body" [popup]="true" [model]="tableSecondaryOptions"></p-menu>
+            </ng-template>
+
+
+            <form name="form" #f_datatable_7000="ngForm" novalidate style="margin: 20px;">
+                <p-contextMenu #cm_0 appendTo="body" [model]="Module[0].moduleList[1].RowContextMenus"></p-contextMenu>
+                <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_0" styleClass="p-datatable-sm"
+                    [columns]="scrollableColsArray[0]" [rows]="10" [globalFilterFields]="filterColsArray[0]"
+                    [showCurrentPageReport]="true" paginatorDropdownAppendTo="body" [value]="primeNgTableArray[0]"
+                    [paginator]="true" [scrollable]="true" scrollHeight="100%" [rowsPerPageOptions]="[5,10,20,50,100]"
+                    [resizableColumns]="true" columnResizeMode="expand" [reorderableColumns]="true" [rowHover]="true"
+                    dataKey="ID" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [(selection)]="selectedrow" [totalRecords]="totalRecords[0]" [lazy]="true"
+                    (onLazyLoad)="loadTableData($event,0,1)">
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns | childColumn">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[0].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="PlanName" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Plan Name
+                                    </div>
+                                </div>
+                                <p-sortIcon field="PlanName" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[1].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="CreatedBy" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Created By
+                                    </div>
+                                </div>
+                                <p-sortIcon field="CreatedBy" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[2].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="PlanningHorizon" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Planning Horizon
+                                    </div>
+                                </div>
+                                <p-sortIcon field="PlanningHorizon" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[3].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="PlanningBucket" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Planning Bucket
+                                    </div>
+                                </div>
+                                <p-sortIcon field="PlanningBucket" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[4].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="RunParameters" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Run Parameters
+                                    </div>
+                                </div>
+                                <p-sortIcon field="RunParameters" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[5].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column date date'
+                                pSortableColumn="PlanStartDate" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Plan Start Date
+                                    </div>
+                                </div>
+                                <p-sortIcon field="PlanStartDate" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[6].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column string Label'
+                                pSortableColumn="ParameterValues" pResizableColumn pReorderableColumn>
+                                <div>
+                                    <div style="word-wrap:normal">
+                                        Parameter Value
+                                    </div>
+                                </div>
+                                <p-sortIcon field="ParameterValues" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                            <th [pTooltip]="Module && Module[0].moduleList[1].moduleDetails[7].ColumnHeader"
+                                tooltipPosition="top" class='ui-resizable-column datetime datetime'
+                                pSortableColumn="CreatedDateTime" pResizableColumn pReorderableColumn>
+                                Created Date <p-sortIcon field="CreatedDateTime" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descendent order"
+                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                    style="display: none;"></p-sortIcon>
+                            </th>
+                        </tr>
+                        <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+                            <!-- <div class="p-grid">
+                                <div class="p-col-8 containsFilter">
+                                    <span class="p-input-icon-right">
+                                        <input pInputText type="text"
+                                            (input)="dt.filter($event.target.value, 'PlanName', 'contains')"
+                                            #inputField />
+                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                    </span>
+                                </div>
+                                <div class="p-col-2 advanceFilter">
+                                    <p-columnFilter type="text" field="PlanName"
+                                        display="menu"></p-columnFilter>
+                                </div>
+                            </div> -->
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- Filter Row Structure -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #PlanName
+                                                (input)="dt.filter(PlanName.value, 'PlanName', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt, PlanName,'PlanName')"></i>
+                                        </span>
+                                    </div>
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="PlanName" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- CreatedBy Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #CreatedBy
+                                                (input)="dt.filter(CreatedBy.value, 'CreatedBy', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,CreatedBy,'CreatedBy')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="CreatedBy" display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- PlanningHorizon Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #PlanningHorizon
+                                                (input)="dt.filter(PlanningHorizon.value, 'PlanningHorizon', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,PlanningHorizon,'PlanningHorizon')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="PlanningHorizon"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- PlanningBucket Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #PlanningBucket
+                                                (input)="dt.filter(PlanningBucket.value, 'PlanningBucket', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,PlanningBucket,'PlanningBucket')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="PlanningBucket"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- RunParameters Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #RunParameters
+                                                (input)="dt.filter(RunParameters.value, 'RunParameters', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,RunParameters,'RunParameters')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="RunParameters"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column date date'>
+                                <!-- PlanStartDate Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Offset + Input with Clear Icon -->
+                                    <div class="input-container with-offset">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #PlanStartDate
+                                                (input)="dt.filter(PlanStartDate.value, 'PlanStartDate', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,PlanStartDate,'PlanStartDate')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="date" field="PlanStartDate"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column string Label'>
+                                <!-- ParameterValues Filter Row -->
+                                <div class="filter-row">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #ParameterValues
+                                                (input)="dt.filter(ParameterValues.value, 'ParameterValues', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,ParameterValues,'ParameterValues')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="text" field="ParameterValues"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column datetime datetime'>
+                                <!-- CreatedDateTime Filter Row -->
+                                <div class="filter-row with-offset">
+                                    <!-- Input with Clear Icon -->
+                                    <div class="input-container">
+                                        <span class="input-wrapper">
+                                            <input type="text" pInputText #CreatedDateTime
+                                                (input)="dt.filter(CreatedDateTime.value, 'CreatedDateTime', 'contains')"
+                                                class="filter-input" />
+                                            <i class="pi pi-times clear-icon" (click)="clear(dt,CreatedDateTime,'CreatedDateTime')"></i>
+                                        </span>
+                                    </div>
+
+                                    <!-- Filter Menu Button -->
+                                    <div class="filter-button-container">
+                                        <p-columnFilter type="date" field="CreatedDateTime"
+                                            display="menu"></p-columnFilter>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+
+                    <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true"
+                        appendTo="body"></p-tieredMenu>
+                    <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns"
+                        let-rowIndex="rowIndex">
+                        <tr [pContextMenuRow]="rowData"
+                            [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[0],0):''">
+
+                            <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["PlanName"]'>
+                                <span>{{ rowData["PlanName"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column string Label' [title]='rowData["CreatedBy"]'>
+                                <span>{{ rowData["CreatedBy"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column string Label'
+                                [title]='rowData["PlanningHorizon"]'>
+                                <span>{{ rowData["PlanningHorizon"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column string Label'
+                                [title]='rowData["PlanningBucket"]'>
+                                <span>{{ rowData["PlanningBucket"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column string Label'
+                                [title]='rowData["RunParameters"]'>
+                                <span>{{ rowData["RunParameters"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column date date'
+                                [title]='rowData["PlanStartDate"]'>
+                                <p-calendar readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true"
+                                    yearRange="1850:2150" showButtonBar="true" [dateFormat]=DateFormat showWeek="true"
+                                    [hourFormat]=hourFormat todayButtonStyleClass="ui-secondary-button"
+                                    clearButtonStyleClass="ui-secondary-button" [disabled]="true"
+                                    [(ngModel)]="rowData['PlanStartDate']" appendTo="body"
+                                    name="PlanStartDate{{rowIndex+1}}"></p-calendar>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column string Label'
+                                [title]='rowData["ParameterValues"]'>
+                                <span>{{ rowData["ParameterValues"]}}</span>
+                            </td>
+                            <td pEditableColumn class='ui-resizable-column datetime datetime'
+                                [title]='rowData["CreatedDateTime"]'>
+                                <p-calendar readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true"
+                                    yearRange="1850:2150" showButtonBar="true" [dateFormat]=DateFormat [showTime]="true"
+                                    showWeek="true" [hourFormat]=hourFormat todayButtonStyleClass="ui-secondary-button"
+                                    clearButtonStyleClass="ui-secondary-button" name="CreatedDateTime{{rowIndex+1}}"
+                                    [(ngModel)]="rowData['CreatedDateTime']" appendTo="body"></p-calendar>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </form>
+        </p-panel>
+    </div>
+</div>

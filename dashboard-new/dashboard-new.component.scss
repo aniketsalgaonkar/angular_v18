@@ -1,0 +1,361 @@
+
+
+#cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 5;
+  width: 100%;
+  height: 500%;
+  //display:none;
+  cursor: wait;
+}
+
+#card-style {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.fieldset {
+  width: 100% !important;
+}
+
+.message {
+  // background-image: white;
+  background: -webkit-linear-gradient(top, #ffffff, #fdf8ff);
+  position: absolute;
+  transform: translate(89%, 49%);
+  width: 35%;
+  text-align: center;
+  padding: 3%;
+  box-shadow:
+    0px 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+
+.wrapper {
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+.outcard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background-color: #f5f5f5;
+}
+
+.inCard {
+  flex: 0 0 calc(20% - 1rem);
+  max-width: calc(20% - 1rem);
+  box-sizing: border-box;
+}
+
+.cardview {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border: 1px solid #f27924
+}
+
+.label {
+  color: #f27924;
+  font-size: 12px;
+}
+
+.logo-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  margin-left: 20px;
+  margin-bottom: -30px;
+
+  h3 {
+    color: #595959;
+    font-size: 18px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+  }
+}
+
+:host ::ng-deep .p-fieldset {
+  // border: 2px solid var(--p-fieldset-border-color);
+  width: 100% !important;
+  border: none;
+  background: none;
+}
+
+:host ::ng-deep .p-fieldset-legend {
+  background: none;
+}
+
+:host ::ng-deep .p-fieldset-legend-label {
+  margin-left: -15px !important;
+  color: #5E5E5E;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+:host ::ng-deep {
+  .p-card-body {
+    padding: 0%;
+  }
+
+  .p-card {
+    &:hover {
+      transform: translateY(0.5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+}
+
+.last-run-by {
+  font-size: 10px;
+  color: #AAAAAA;
+
+  span {
+    color: #AAAAAA;
+  }
+}
+
+.last-run {
+  font-size: 10px;
+  color: #AAAAAA;
+
+  span {
+    color: #AAAAAA;
+  }
+}
+
+
+.inactive-state {
+  filter: grayscale(100%) opacity(70%);
+
+}
+
+.inactive-state .subgroup-icon,
+.inactive-state .label,
+.inactive-state .last-run-by,
+.inactive-state .last-run,
+.inactive-state .material-icons,
+.inactive-state .p-button-outlined {
+  color: #AAAAAA !important;
+}
+
+.inactive-state .subgroup-icon {
+  background-color: #EEEEEE !important;
+  border-color: #AAAAAA !important;
+}
+
+.inactive-state .p-button-outlined {
+  background: #EEEEEE !important;
+  border-color: #AAAAAA !important;
+}
+
+/* Ribbon-style toggle switch */
+.toggle-container {
+  margin-top: -10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  transition: color 0.3s ease;
+}
+
+.toggle-container:hover .toggle-label {
+  color: #212529;
+}
+
+.toggle-ribbon {
+  width: 50px;
+  height: 24px;
+  background: #e9ecef;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-ribbon.active {
+  background: #d1f7c4;
+}
+
+.toggle-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+}
+
+.toggle-ribbon.active .toggle-handle {
+  transform: translateX(26px);
+  background: #52C41A;
+}
+
+.toggle-handle i {
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.toggle-handle .bx-check {
+  color: white;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.toggle-handle .bx-x {
+  color: #6c757d;
+}
+
+.toggle-ribbon.active .bx-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.toggle-ribbon.active .bx-x {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+
+
+
+/* Add these new media queries at the end of your existing CSS */
+
+@media (max-width:1204px) {
+  .logo-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin-left: 0px;
+    margin-bottom: -10px;
+
+    h3 {
+      color: #595959;
+      font-size: 18px;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  :host ::ng-deep  .p-fieldset-legend-label {
+    font-size: 14px !important;
+  }
+
+  #card-style {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .inCard {
+    flex: 0 0 calc(25% - 1rem) !important;
+    max-width: calc(25% - 1rem) !important;
+  }
+   :host ::ng-deep  .p-fieldset-legend-label {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .inCard {
+    flex: 0 0 calc(33.333% - 1rem) !important;
+    max-width: calc(33.333% - 1rem) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0.5rem;
+  }
+
+  .card {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  .inCard {
+    flex: 0 0 calc(50% - 1rem) !important;
+    max-width: calc(50% - 1rem) !important;
+  }
+
+  :host ::ng-deep .p-card {
+    height: 130px !important;
+  }
+
+  .logo-details h3 {
+    font-size: 1rem;
+  }
+
+  .subgroup-icon {
+    height: 30px !important;
+    width: 30px !important;
+  }
+
+  .material-icons {
+    font-size: 1.4rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .inCard {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  :host ::ng-deep .p-fieldset-legend {
+    font-size: 0.9rem;
+  }
+
+  .last-run-by,
+  .last-run {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo-details h3 {
+    font-size: 1rem;
+  }
+
+ :host ::ng-deep .p-fieldset-legend-label {
+    font-size: 14px !important;
+  }
+
+  button.p-button-outlined {
+    width: 60px !important;
+    font-size: 0.7rem;
+  }
+}

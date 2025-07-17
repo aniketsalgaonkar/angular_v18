@@ -1,0 +1,343 @@
+<div id="chat">
+  <button class="bot-button" (click)="OpenCloseChatandContact(contactopen, chatopen)">
+    <ion-icon name="chatbubbles"></ion-icon>
+  </button>
+
+  <!--Recent conversation-->
+  <p-panel *ngIf="activeThreadParticipants" class="conversations recent-conversation" [hidden]="!contactopen"
+    [ngClass]="{ 'conversation-border': chatopen }">
+    <ng-template pTemplate="header">
+      <span class="modified-h6">Recent conversations</span>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <button pButton class="p-panel-header-icon p-link" title="New Chat" (click)="openNewChat()">
+        <span class="pi pi-user-plus"></span>
+      </button>
+      <button pButton class="p-panel-header-icon p-link" title="New Group Chat" (click)="openGroupChat()">
+        <span class="pi pi-users"></span>
+      </button>
+      <button pButton class="p-panel-header-icon p-link" (click)="contactopen = !contactopen; chatopen = false"
+        title="Close">
+        <span class="pi pi-times"></span>
+      </button>
+    </ng-template>
+    <ul class="conversation-list">
+      <li class="conversation-search">
+        <span class="p-input-icon-right w-100">
+          <input type="text" class="contact-search" [(ngModel)]="searchText" (keyup)="searchRecentConversation()" />
+          <i class="pi pi-search"></i>
+        </span>
+      </li>
+      <li *ngFor="let chat of chats" class="conversation"
+        [ngClass]="{ 'selected-conversation': chat.threadId == threadId }">
+        <div (click)="openChat(chat)" class="w-100 cursor-pointer">
+          <span class="profile-circle">{{
+            chat.topicInitial | uppercase
+            }}</span>
+          <div class="name-time" #activeParticipant>
+            <h6 class="name modified-h6">{{ getParticipant(chat) }}</h6>
+          </div>
+        </div>
+        <!-- <p-badge *ngIf="chat.unreadCount > 0" value="{{ chat.unreadCount }}" class="unreadCount"></p-badge>
+        <span class="pi pi-times-circle clr-red cursor-pointer" title="Delete"
+          (click)="deleteChatThread(chat.threadId)"></span> -->
+      </li>
+    </ul>
+  </p-panel>
+
+  <!--Contacts-->
+  <p-panel *ngIf="!contactopen && contactlistopen" class="conversations">
+    <ng-template pTemplate="header">
+      <span class="modified-h6">Contacts</span>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <button pButton class="p-panel-header-icon p-link" (click)="closeNewChat()">
+        <span class="pi pi-times"></span>
+      </button>
+    </ng-template>
+    <ul class="conversation-list">
+      <li class="conversation-header">
+        <span class="p-input-icon-right">
+          <input type="text" class="contact-search" [(ngModel)]="searchChatText" (keyup)="searchItems()" />
+          <i class="pi pi-search"></i>
+        </span>
+      </li>
+      <li (click)="openAndAddChat(participant)" class="conversation" *ngFor="let participant of contactList">
+        <div>
+          <span class="profile-circle">
+            {{ participant.displayName[0] | uppercase
+            }}{{ participant.displayName[1] | uppercase }}
+          </span>
+          <div class="name-time">
+            <h6 class="name modified-h6">{{ participant.displayName }}</h6>
+            <h6 class="time modified-h6">{{ participant.created_at }}</h6>
+          </div>
+        </div>
+        <p class="lastmsg">{{ participant.description }}</p>
+      </li>
+    </ul>
+  </p-panel>
+
+  <!-- Group List -->
+  <p-panel *ngIf="groupChatOpen" class="conversations">
+    <ng-template pTemplate="header">
+      <button pButton class="p-panel-header-icon p-link" *ngIf="isGroupName" (click)="closeGroupChat()">
+        <span class="pi pi-arrow-circle-left back-arrow"></span>
+      </button>
+      <span class="modified-h6" *ngIf="!isGroupInfo"> Create New Group</span>
+      <span class="modified-h6" *ngIf="isGroupInfo"> Group Information</span>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <button pButton class="p-panel-header-icon p-link" (click)="closeGroupList()">
+        <span class="pi pi-times"></span>
+      </button>
+    </ng-template>
+    <ul class="conversation-list" *ngIf="isGroupName">
+      <li class="conversation-header">
+        <span class="p-input-icon-right">
+          <input type="text" class="contact-search" [(ngModel)]="searchGroupText" (keyup)="searchGroupItems()" />
+          <i class="pi pi-search"></i>
+        </span>
+        <button class="group-save-button" *ngIf="visibleSaveButton()" (click)="createGroup()" [disabled]="!groupName"
+          title="Save">
+          Create
+        </button>
+      </li>
+      <li class="conversation" *ngIf="isGroupInfo">
+        <span class="w-70"><b>Participant</b></span>
+        <span class="share-history-header"><b>Share History</b></span>
+      </li>
+      <li class="conversation cursor-pointer" *ngFor="let participant of allContacts">
+        <p-checkbox [binary]="true" [(ngModel)]="participant.isSelected" inputId="binary"
+          (onChange)="addParticipant($event, participant)"></p-checkbox>
+        <div [ngStyle]="{ width: !isGroupInfo ? '100%' : '94%' }" (click)="addParticipant(null, participant)"
+          for="binary">
+          <span class="profile-circle">
+            {{ participant.displayName[0] | uppercase
+            }}{{ participant.displayName[1] | uppercase }}
+          </span>
+          <div class="name-time">
+            <h6 class="name modified-h6">{{ participant.displayName }}</h6>
+            <h6 class="time modified-h6">{{ participant.created_at }}</h6>
+          </div>
+        </div>
+        <div class="share-history-checkbox" *ngIf="isGroupInfo">
+          <p-checkbox [binary]="true" inputId="binary" [(ngModel)]="participant.isShareHistory"
+            (onChange)="onClickShareHistoryButton($event, participant)"
+            [disabled]="!participant.isSelected"></p-checkbox>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="!isGroupName">
+      <span *ngIf="isGroupInfo">
+        <div class="grp-info">
+          <div class="w-80">
+            <input class="k-input" type="text" placeholder="Enter Group Name" [(ngModel)]="groupName"
+              [disabled]="!isEditGroupName" [ngStyle]="{
+                'font-weight': !isEditGroupName ? 'bold' : 'normal'
+              }" />
+          </div>
+          <div class="w-20">
+            <span class="pi pi-pencil edit-groupname-pencil" (click)="isEditGroupName = true"
+              *ngIf="!isEditGroupName"></span>
+            <span *ngIf="isEditGroupName">
+              <span class="pi pi-save group-arrow-right-button ml5" [ngClass]="{ 'clr-green': groupName }"
+                disabled="groupName==null" (click)="updateGroupName()"></span>
+              <span class="pi pi-times group-arrow-right-button clr-red" (click)="isEditGroupName = false"></span>
+            </span>
+          </div>
+        </div>
+        <div class="participant-info">
+          <span style="font-weight: bold">{{ groupParticipantsCount }}</span>
+          <ul class="participant-list">
+            <li class="conversation">
+              <div class="w-100 cursor-pointer" (click)="onClickGroupParticipant()">
+                <span class="profile-circle"><i class="pi pi-plus"></i></span>
+                <div class="name-time">
+                  <h6 class="name modified-h6">Add participants</h6>
+                </div>
+              </div>
+            </li>
+            <li *ngFor="let participant of groupParticipantList" class="conversation">
+              <div class="w-100 cursor-pointer">
+                <span class="profile-circle">{{
+                  participant.userInitial | uppercase
+                  }}</span>
+                <div class="name-time">
+                  <h6 class="name modified-h6">{{ participant.userName }}</h6>
+                </div>
+              </div>
+              <span class="pi pi-times-circle clr-red cursor-pointer" title="Remove"
+                *ngIf="participant.userId != ACSUserId" (click)="removeParticipant(participant)"></span>
+            </li>
+          </ul>
+        </div>
+      </span>
+      <span *ngIf="!isGroupInfo">
+        <input class="k-input p-3 brd-gray" type="text" placeholder="Enter Group Name" [(ngModel)]="groupName" />
+        <button class="group-arrow-right-button" [ngClass]="{ 'arrow-color': groupName }" (click)="onClickNextButton()"
+          [disabled]="!groupName">
+          Next
+        </button>
+      </span>
+    </div>
+  </p-panel>
+
+  <!-- Message List -->
+  <p-panel *ngIf="messages" class="chat-card" [hidden]="!chatopen" #chatCard>
+    <ng-template pTemplate="header">
+      <span class="modified-h6" [ngClass]="{ 'cursor-pointer group-title': isGroup }"
+        (click)="isGroup ? openGroupInfo() : null">
+        {{ participantName }}</span>
+      <span class="modified-h6 participant-grp" *ngIf="isGroup" [ngClass]="{ 'cursor-pointer': isGroup }"
+        (click)="isGroup ? openGroupInfo() : null">
+        {{ groupParticipantsCount }}</span>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <!-- (click)="startCall()" -->
+      <button pButton class="p-panel-header-icon p-link">
+        <span class="pi pi-phone"></span>
+      </button>
+      <button pButton class="p-panel-header-icon p-link" (click)="startVideoCall(participantUserId)">
+        <span class="pi pi-video"></span>
+      </button>
+      <button pButton class="p-panel-header-icon p-link" (click)="closeChat()">
+        <span class="pi pi-times"></span>
+      </button>
+    </ng-template>
+    <main class="msger-chat mt-2" (scroll)="selectedMessage = null">
+      <div class="messageContents">
+        <ng-container *ngFor="let message of messages; let i = index">
+          <div *ngIf="!message.isOwner">
+            <span class="message-time">{{
+              message.createdOn | date : "shortTime"
+              }}</span>
+            <div class="msg left-msg">
+              <button class="msg-img left-msg-initial" title="{{message.sender}}">
+                {{ getProfileCircleName(message.sender) | uppercase }}
+              </button>
+              <div class="msg-bubble">
+                <div class="msg-info"></div>
+                <div class="msg-text d-flex flex-column">
+                  <span class="m-1">{{ message.message }}</span>
+                </div>
+              </div>
+              <span class="pi pi-pencil editedMessage" title="This message has been edited" *ngIf="message.isEdited"></span>
+            </div>
+          </div>
+          <div *ngIf="message.isOwner">
+            <div (mouseover)="onMouseEnter(message.id)" (mouseout)="onMouseOut(message.id)">
+              <span class="owner-message-time">{{ message.createdOn | date : "shortTime" }}
+                <div>
+                  <button (click)="action.toggle($event);getSelectedMessage(message)"
+                    class="pi-ellipsis menu-hide msg_{{ message.id }}" id="msg_{{ message.id }}">
+                    <span class="pi pi-ellipsis-v"></span>
+                  </button>
+                </div>
+              </span>
+              <div class="msg right-msg" id="msg">
+                <button class="msg-img right-msg-initial">
+                  {{ getProfileCircleName(userName) | uppercase }}
+                </button>
+                <div class="msg-bubble">
+                  <div class="msg-text d-flex flex-column">
+                    <span class="m-1">{{ message.message }}</span>
+                  </div>
+                </div>
+                <span class="pi pi-pencil editedMessage mr1" title="This message has been edited" *ngIf="message.isEdited"></span>
+              </div>
+            </div>
+            <span *ngIf="seenParticipantList.length > 0 && i === 0" class="seen-user-list">
+              <span *ngFor="let seenUser of seenParticipantList;let i = index" style="margin-left: 3px;"
+                (click)="openReadRecipientModel($event)">
+                <button class="seen-user-btn" title="{{ seenUser.topic }}"
+                  *ngIf="i< 2 || i > seenParticipantList.length - 3 ">
+                  {{ seenUser.topicInitial }}
+                </button>
+              </span>
+              <span *ngIf="seenParticipantList.length>3" class="more-seen-user"
+                (click)="openReadRecipientModel($event)">
+                +{{seenParticipantList.length-3}}</span>
+            </span>
+          </div>
+        </ng-container>
+      </div>
+    </main>
+    <span *ngIf="isTyping" class="typo-indicator">Typing...</span>
+    <ng-template pTemplate="footer">
+      <div class="chat-footer" (keydown.enter)="sendMessage()">
+        <div class="k-message-box">
+          <button type="button" class="emoji-toggle" (click)="toggleEmojiPicker()" appendTo="body">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#6a6a6a"
+              style="background-color: #fff">
+              <path
+                d="M620-520q25 0 42.5-17.5T680-580q0-25-17.5-42.5T620-640q-25 0-42.5 17.5T560-580q0 25 17.5 42.5T620-520Zm-280 0q25 0 42.5-17.5T400-580q0-25-17.5-42.5T340-640q-25 0-42.5 17.5T280-580q0 25 17.5 42.5T340-520Zm140 260q68 0 123.5-38.5T684-400H276q25 63 80.5 101.5T480-260Zm0 180q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z" />
+            </svg>
+          </button>
+          <emoji-mart *ngIf="showEmojiPicker" class="emoji-picker" (emojiSelect)="addEmoji($event)"
+            [hideObsolete]="false" title="Pick your emoji…" emoji="point_up" appendTo="body"></emoji-mart>
+          <input id="sendmessageInput" class="k-input" [(ngModel)]="sendMsg.message" type="text"
+            placeholder="Type a message..." (keypress)="notifyTyping()" />
+          <button class="k-button-send k-button k-flat" *ngIf="!isEdit" (click)="sendMessage()"
+            [disabled]="!sendMsg.message">
+            <span class="pi pi-send"></span>
+          </button>
+          <button class="k-button-send k-button k-flat" *ngIf="isEdit" (click)="clearMessage()">
+            <span class="pi pi-times"></span>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-panel>
+
+  <div class="call-card" [hidden]="!showCallCard">
+    calling...................
+    <i class="pi pi-ban" (click)="endCall()"></i>
+    <i (click)="muteCall()">{{ MicStatus }}</i>
+  </div>
+
+  <p-dialog header="Incoming call" [visible]="showIncomingCallCard" [style]="{ width: '50vw' }">
+    <i class="pi pi-phone" style="font-size: 3rem;" (click)="acceptVoiceCall()"></i>
+    <i class="pi pi-ban" style="font-size: 3rem;" (click)="endCall()"></i>
+  </p-dialog>
+
+  <p-dialog header="Incoming Video call" [visible]="showIncomingVideoCallCard" [style]="{ width: '50vw' }">
+    <div [hidden]="!showRemoteVideoCard">
+      <div id="remoteVideo" style="background-color: black"></div>
+    </div>
+    <i class="pi pi-phone" (click)="acceptCallButton()"></i>
+    <i class="pi pi-ban" (click)="endCall()"></i>
+  </p-dialog>
+</div>
+
+<div [hidden]="!showLocalVideoCard">
+  <div id="myVideo" style="bottom: 100px; background-color: black; width: 200px; height: 200px"></div>
+</div>
+
+<!-- Read Recipient Model -->
+<p-overlayPanel #op [dismissable]="true" class="seen-user" [style]="{ width: '210px' }"
+  *ngIf="seenParticipantList.length>0">
+  <h6 class="seen-participiant-header">READ BY <span *ngIf="isGroup">{{seenParticipantList.length}}</span></h6>
+  <ul class="conversation-list">
+    <li class="conversation" *ngFor="let participant of seenParticipantList">
+      <div>
+        <span class="profile-circle">{{
+          participant.topicInitial | uppercase
+          }}</span>
+        <div class="name-time">
+          <h6 class="name modified-h6">{{ participant.topic }}</h6>
+        </div>
+      </div>
+    </li>
+  </ul>
+</p-overlayPanel>
+
+<!-- Action Menu -->
+<p-overlayPanel #action [dismissable]="true" [showCloseIcon]="false" class="action-menu" [style]="{ width: '100px' }">
+  <ul class="conversation-list">
+    <li class="action-item" (click)="updateMessage();action.hide()"><span style="padding: 10px;"><span
+          class="pi pi-pencil"></span> Edit</span></li>
+    <li class="action-item" (click)="deleteMessage();action.hide()"><span style="padding: 10px;"><span
+          class="pi pi-trash"></span> Delete</span></li>
+  </ul>
+</p-overlayPanel>

@@ -1,0 +1,46 @@
+<p-card *ngIf="valueKey && valueKey != null" class="auto-width-card" [ngStyle]="{ 'width': dynamicWidth}" [style]="{'margin-bottom': '2em','min-width':'16rem'}">
+    <ng-template pTemplate="header">
+        <div class="header-content">
+            <span class="header-text">{{ headerText }}</span>
+            <div class="icon-container" *ngIf="showNavigate">
+                <i class="pi pi-window-maximize header-icon" (click)="onNavigateButtonClickCard()"></i>
+                <span class="view-more">View More</span>
+            </div>
+        </div>
+    </ng-template>
+    <p-carousel 
+    [value]="groupedCardData" 
+    [numVisible]="1" 
+    [numScroll]="1" 
+    [circular]="true"
+    [autoplayInterval]="autoplayInterval" 
+    [responsiveOptions]="responsiveOptions">
+        <ng-template let-data pTemplate="item">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <div>
+                        <table class="item-row-table">
+                            <tr> 
+                                <th></th>
+                                <th *ngFor="let key of valueKey" 
+                                class="item-row-attribute-value-headers">
+                                    {{key}}
+                                </th>
+                            </tr>
+                            <tr *ngFor="let item of data">
+                                <td>
+                                    {{item.Attribute}}
+                                </td>
+                                <td *ngFor="let key of valueKey" 
+                                class="item-row-attribute-value" 
+                                [attr.style]="ruleEngine.GetPropertyRule('ID',item['ID'], key,ruleData)">
+                                    {{item[key]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</p-card>

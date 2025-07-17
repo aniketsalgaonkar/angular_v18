@@ -1,0 +1,752 @@
+<!-- Loader Starts-->
+<div *ngIf="show" id="cover">
+    <div ng-show="showLoader" class="center">
+        <div class="message">
+            Please wait ... <br>
+            <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid" class="lds-ellipsis"
+                style="background: none;"><!--circle(cx="16",cy="50",r="10")-->
+                <circle cx="84" cy="50" r="0" fill="#ffcc33">
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="42.6958" cy="50" r="10" fill="#7de6ea">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="16" cy="50" r="7.85172" fill="#ffa570">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                </circle>
+                <circle cx="84" cy="50" r="2.14828" fill="#d4e683">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="76.6958" cy="50" r="10" fill="#ffcc33">
+                    <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
+</div>
+<!-- Loader Ends-->
+
+<div class="cardViewDisplay">
+
+    <div class="grid">
+        <div class="col-12" *ngIf="Module">
+            <form name="form" #f_cardview_1853="ngForm">
+                <div class="grid">
+                    <div class="p-d-flex p-flex-column col-12" style="height: calc(100vh - 200px)">
+                        <div class="cardview">
+                            <div class="module-header">
+                                <div class="text-xl" style="font-weight: 600;">
+                                    Run Scenario
+                                    <span (mouseover)="op1853.toggle($event)" (mouseout)="op1853.toggle($event)">
+                                        <i class="pi pi-info-circle" style="cursor:pointer"></i>
+                                    </span>
+                                    <p-overlayPanel [showCloseIcon]="false" [appendTo]="'body'" #op1853>
+                                        {{Module[0].moduleList[0].ModuleDescription}}
+                                    </p-overlayPanel>
+                                </div>
+                                <div style="display: flex;">
+                                    <div style="min-width: 200px; display: flex; align-items: center;">
+                                        <label style="margin-right: 10px;">Dataset List</label>
+                                        <p-select *ngIf="Module" [options]="workflow.datasets" class="w-12rem"
+                                            [(ngModel)]="workflow.DatasetId" id="DatasetList" name="DatasetList"
+                                            autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                            autofocus="true" [autoDisplayFirst]="false" showClear="true"
+                                            autoZIndex="true" optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                            appendTo="body" [required]="False">
+                                        </p-select>
+                                    </div>
+                                    <div>
+                                        <button pButton pRipple type="button" icon="pi pi-plus" label="Add New Scenario"
+                                            class="p-button-text"
+                                            (click)="addNew=true;dialogLabel='Add New Scenario';thisrow={}">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid p-fluid inner-card">
+                            <div *ngFor="let row of paginateData; let i = index" class="col-12 md:col-6 lg:col-4">
+                                <p-card class="h-full" [style]="{ 'border-radius': '0px', 'display' : 'flex' }"
+                                    styleClass="cardView">
+                                    <ng-template pTemplate="header">
+
+                                        <div
+                                            class="flex align-items-center justify-content-between p-2 background-card">
+                                            <div class="flex align-items-center gap-2">
+                                                <span class="text-900" style="font-size: 14px; font-weight: 500;">
+                                                    {{row["ScenarioName"]}}
+                                                </span>
+                                                <i pTooltip="{{row['Remarks']}}"
+                                                    class="pi pi-info-circle cursor-pointer p-button-plain"
+                                                    tooltipPosition="bottom">
+                                                </i>
+                                            </div>
+                                            <div>
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text p-button-plain"
+                                                    (click)="addNew=true;dialogLabel='Edit';EditCard(row['ID'],'ID',0)">
+                                                </button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-text p-button-plain"
+                                                    (click)="DeleteByID(row['ID'],Module[0].moduleList[0].moduleDetails[0].TableName)">
+                                                </button>
+                                                <button style="border: none; background: none;">
+                                                    <p-checkbox [binary]="true" name="Run_Scenariocheckbox"
+                                                        [value]="row['ID']"
+                                                        [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value"
+                                                        (onChange)="disableMultiSelection(f_cardview_1853,'Run_Scenariocheckbox')">
+                                                    </p-checkbox>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <div class="flex flex-column gap-2">
+                                        <div class="flex flex-column gap-2">
+                                            <span class="text-900" style="font-weight: 600;">Objective Function</span>
+                                            <div *ngIf="row['Objective']">
+                                                <p-chip [label]="row['Objective']"
+                                                    [style]="{ 'border-radius': '16px' }"></p-chip>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-column gap-2">
+                                            <span class="text-900" style="font-weight: 600;">Constraint Parameter</span>
+                                            <div class="flex flex-wrap gap-2">
+                                                <!-- <span
+                                                    *ngFor="let value of row['Constraints'].slice(0, row['ExpandConstraints'] ? row['Constraints'].length : 3)">
+                                                    <p-chip [label]="value"
+                                                        [style]="{ 'border-radius': '16px' }"></p-chip>
+                                                </span> -->
+                                                <span
+                                                    *ngFor="let value of row['Constraints']?.slice(0, row['ExpandConstraints'] ? row['Constraints'].length : 3)">
+                                                    <p-chip [label]="value"
+                                                        [style]="{ 'border-radius': '16px' }"></p-chip>
+                                                </span>
+
+                                            </div>
+                                            <button *ngIf="row['Constraints']?.length > 3"
+                                                pTooltip="See all constraints"
+                                                class="p-button-text text-primary p-0 morebtn"
+                                                (click)="onChipExpand(row)">
+                                                <span *ngIf="row['ExpandConstraints']; else showMore"
+                                                    class="text-sm">Hide</span>
+                                                <ng-template #showMore>
+                                                    <span>
+                                                        + {{row['Constraints'].length - 3}}
+                                                        More
+                                                    </span>
+                                                </ng-template>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </p-card>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 p-md-12" style="padding: 0 !important">
+                            <p-paginator [rows]="4" [totalRecords]="totalRecords[-1]" [first]="first"
+                                (onPageChange)="paginate($event)"></p-paginator>
+                        </div>
+
+                        <div class="footer-sidebar">
+                            <!-- <button type="button" class="goBack" (click)="NavigateRunScenario(1450)"
+                                style="cursor: pointer;">
+                                Go Back
+                            </button> -->
+                            <p-button label="Go Back" severity="secondary" size="large"
+                                (click)="NavigateRunScenario(1450)"></p-button>
+
+                            <p-button label="Run" [disabled]="workflow.EnabledRun" severity="primary" size="large"
+                                (click)="workflow.RunScenario(f_cardview_1853,'Run_Scenariocheckbox')"></p-button>
+
+                            <!-- <button type="button" [disabled]="workflow.EnabledRun" class="runBtn"
+                                (click)="workflow.RunScenario(f_cardview_1853,'Run_Scenariocheckbox')">
+                                Run
+                            </button> -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <div class="processflow-dialog">
+                <form name="form" #f_cardview_1853_dialog="ngForm">
+                    <p-dialog #scenarioDialog [styleClass]="showEditConstraintTable ? 'with-table' : ''"
+                        [maximizable]="true" [(visible)]="addNew" [draggable]="false" [closable]="true"
+                        [style]="!isMaximized ? {'max-width':'50%'} : {}" (onMaximize)="isMaximized = true"
+                        (onRestore)="isMaximized = false"
+                        [header]="showEditConstraintTable ? selectedConstraint : dialogLabel" [modal]="true"
+                        (onHide)="addNew=false; showEditConstraintTable = false; activeStepIndex = 0"
+                        [baseZIndex]="10000">
+                        <p-panel style="width: 100%;" *ngIf="!showEditConstraintTable" [header]="dialogLabel">
+                            <p-steps style="width: 100%" [model]="scenarioDialogSteps" [(activeIndex)]="activeStepIndex"
+                                [readonly]="true"></p-steps>
+                            <div class="p-fluid p-formgrid grid">
+                                <div class="col-12" *ngIf="activeStepIndex == 0">
+                                    <div class="col-12 p-md-2" style="display:none;">
+                                        <input type="hidden" name="ID" [value]="thisrow['ID']"
+                                            [(ngModel)]="thisrow['ID']" />
+                                        <div class="p-field">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                            <label>Scenario Name</label>
+                                            <input pInputText type="text" name="ScenarioName" class="runInput"
+                                                [disabled]="Module[0].moduleList[0].moduleDetails[1].DependentOn!=0?disable:false"
+                                                [value]="thisrow['ScenarioName']" [(ngModel)]="thisrow['ScenarioName']"
+                                                appSanitizeInput>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                            <label>Remarks</label>
+                                            <input pInputText type="text" name="Remarks" class="runInput"
+                                                [disabled]="Module[0].moduleList[0].moduleDetails[2].DependentOn!=0?disable:false"
+                                                [value]="thisrow['Remarks']" [(ngModel)]="thisrow['Remarks']"
+                                                appSanitizeInput>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                            <label>Constraint Parameter</label>
+                                            <p-multiSelect *ngIf="Module"
+                                                [options]="Module[0].moduleList[0].moduleDetails[4].DropDownValues"
+                                                [(ngModel)]="thisrow['Constraints']"
+                                                [disabled]="Module[0].moduleList[0].moduleDetails[4].DependentOn!=0?disable:false"
+                                                id="Constraints6595" name="Constraints" autofocusFilter="true"
+                                                resetFilterOnHide="true" filter="true" autofocus="true"
+                                                optionLabel="Text" scrollHeight="200px" defaultLabel="Constraints"
+                                                appendTo="body" [required]="False" maxSelectedLabels="4"
+                                                selectedItemsLabel="{0} items selected"
+                                                showToggleAll="true"></p-multiSelect>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-md-12">
+                                        <div class="p-field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-panel>
+
+                        <p-panel *ngIf="showEditConstraintTable"
+                            class="panel_includes_table slide slide-2 constraint-value-panel" #form6892
+                            [style]="constraintTableData && constraintTableData.BackgroundColor">
+                            <ng-template pTemplate="header">
+                            </ng-template>
+                            <ng-template pTemplate="icons">
+                                <input style="margin-left: auto;" [hidden]="!hideColumnFilters"
+                                    *ngIf="!form6892.collapsed" (click)="$event.stopPropagation()" class="search-box"
+                                    type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+                                <button pButton class="p-panel-header-icon p-link"
+                                    (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top"
+                                    pTooltip="Table and Column Filters">
+                                    <span class="pi pi-search"></span>
+                                </button>
+                                <button *ngIf="constraintTableData.AddRow" pButton class="p-panel-header-icon p-link"
+                                    (click)="onAddConstraintDataClick()" tooltipPosition="top"
+                                    pTooltip="Add New Record">
+                                    <span class="pi pi-plus-circle"></span>
+                                </button>
+                                <p-menu #tablemenu appendTo="body" [popup]="true"
+                                    [model]="tableSecondaryOptions"></p-menu>
+                            </ng-template>
+                            <p-contextMenu *ngIf="constraintTableData && constraintTableData.RowContextMenus" #cm_1
+                                appendTo="body" [model]="constraintTableData.RowContextMenus"></p-contextMenu>
+                            <p-table *ngIf="constraintTableData != null" [columns]="constraintTableData.moduleDetails"
+                                [value]="constraintTableData.moduleData" [rows]="20" [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                paginator="true" [scrollable]="true" scrollHeight="100%"
+                                [rowsPerPageOptions]="[5,10,20,50]" columnResizeMode="expand" [resizableColumns]="true"
+                                [totalRecords]="constraintTableData?.moduleData?.length"
+                                [loading]="loadingConstraintData">
+                                <ng-template pTemplate="colgroup" let-columns>
+                                    <colgroup>
+                                        <col *ngFor="let col of constraintTableColumns">
+                                    </colgroup>
+                                </ng-template>
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <ng-container *ngFor="let col of constraintTableColumns">
+                                            <th *ngIf="col.InputControls != 'HiddenField'" tooltipPosition="top"
+                                                [pTooltip]="col.ModuleDetailDesc" [pSortableColumn]="col.ColumnName"
+                                                pResizableColumn pReorderableColumn [ngClass]="{'Text':col.DataType=='Text','int':col.DataType=='int','decimal':col.DataType=='decimal','real':col.DataType=='real',
+    'date':col.DataType=='date','datetime':col.DataType=='datetime','string':col.DataType=='string',
+    'Checkbox':col.InputControls== 'Checkbox','Link':col.InputControls == 'Link','Switch':col.InputControls== 'Switch','Password':col.InputControls== 'Password','DropDownList':col.InputControls == 'DropDownList',
+    'Label':col.InputControls == 'Label','align-left':(col.InputControls == 'TextBox' && col.DataType == 'string'),
+    'EmailButton':col.InputControls == 'EmailButton','ReportButton':col.InputControls == 'ReportButton',
+    'id':col.InputControls == 'id','highlight':col.Highlight=='true'}">
+                                                <p-tableHeaderCheckbox
+                                                    *ngIf="col.InputControls == 'rowCheckbox'"></p-tableHeaderCheckbox>
+                                                <div>
+                                                    <div style="word-wrap:normal"
+                                                        *ngIf="col.InputControls != 'HiddenField' && col.InputControls != 'rowCheckbox' && col.InputControls != 'Checkbox' && col.InputControls != 'ReportButton' && col.InputControls != 'Link' && col.InputControls != 'EmailButton'&& col.InputControls != 'Switch'&& col.InputControls != 'Password'">
+                                                        {{col.ColumnHeader}}
+                                                    </div>
+                                                    <div>
+                                                        <p-sortIcon [field]="col.ColumnName"
+                                                            ariaLabel="Activate to sort"
+                                                            ariaLabelDesc="Activate to sort in descendent order"
+                                                            ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'EmailButton'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Checkbox'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'ReportButton'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Switch'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Password'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Link'">
+                                                    {{col.ColumnHeader}}
+                                                </div>
+                                            </th>
+                                        </ng-container>
+                                    </tr>
+                                    <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+                                        <th *ngFor="let col of constraintTableColumns" style="padding:1px;">
+                                            <div class="grid">
+                                                <div class="contains-filter p-col-8 p-offset-2"
+                                                    *ngIf="col.DataType=='date'">
+                                                    <span class="p-input-icon-right">
+                                                        <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                            type="text"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')"
+                                                            #inputField>
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="contains-filter p-col-8 p-offset-2"
+                                                    *ngIf="col.DataType=='int' || col.DataType=='decimal'">
+                                                    <span class="p-input-icon-right">
+                                                        <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                            type="text"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')"
+                                                            #inputField>
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="contains-filter p-col-8"
+                                                    *ngIf="col.DataType=='string' || col.DataType=='datetime'">
+                                                    <span class="p-input-icon-right">
+                                                        <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                            type="text"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')"
+                                                            #inputField>
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="contains-filter p-col-8"
+                                                    *ngIf="col.InputControls=='Checkbox'">
+                                                    <span class="p-input-icon-right">
+                                                        <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                            type="text"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')"
+                                                            #inputField>
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="contains-filter p-col-8"
+                                                    *ngIf="col.InputControls=='Switch'">
+                                                    <span class="p-input-icon-right">
+                                                        <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                            type="text"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')">
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="contains-filter p-col-8"
+                                                    *ngIf="col.InputControls=='Password'">
+                                                    <span class="p-input-icon-right">
+                                                        <p-password [hidden]="col.ColumnSearchEnable==false"
+                                                            [(ngModel)]="col.value"
+                                                            (input)="dt.filter($event.target.value, col.ColumnName, 'contains')"
+                                                            [feedback]="false">
+                                                        </p-password>
+                                                        <i class="pi pi-times" (click)="clearPassword(col)"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="advance-filter p-col-2">
+                                                    <span
+                                                        *ngIf="(col.InputControls == 'TextBox' || col.InputControls =='Label') && col.DataType == 'date'">
+                                                        <p-columnFilter type="date" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="col.InputControls == 'TextBox'  &&  (col.DataType =='decimal' || col.DataType=='int')">
+                                                        <p-columnFilter type="numeric" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="col.InputControls == 'DropDownList' &&  col.DataType =='string'">
+                                                        <p-columnFilter type="text" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="(col.InputControls == 'TextBox' || col.InputControls =='Label') && col.DataType == 'string'">
+                                                        <p-columnFilter type="text" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="col.InputControls == 'Label' && col.DataType == 'datetime'">
+                                                        <p-columnFilter type="text" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="col.InputControls=='DropDownList' && (col.DataType == 'int' || col.DataType=='decimal')">
+                                                        <p-columnFilter type="numeric" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="col.InputControls == 'MultiDropDownList' &&  col.DataType =='string'">
+                                                        <p-columnFilter type="text" [field]="col.ColumnName"
+                                                            display="menu"></p-columnFilter>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                    <tr (click)="onAddConstraintDataClick(rowData, rowIndex)"
+                                        [pContextMenuRow]="rowData" [pSelectableRow]="rowData">
+                                        <ng-container *ngFor="let col of constraintTableColumns; let i=index;">
+                                            <td pEditableColumn class="ui-resizable-column"
+                                                *ngIf="col.InputControls != 'HiddenField'"
+                                                [title]="rowData[col.ColumnName]" [ngClass]="{'Text':col.DataType=='Text','int':col.DataType=='int','decimal':col.DataType=='decimal','real':col.DataType=='real',
+'date':col.DataType=='date','datetime':col.DataType=='datetime','string':col.DataType=='string',
+'Checkbox':col.InputControls== 'Checkbox','Switch':col.InputControls== 'Switch','Password':col.InputControls== 'Password','Link':col.InputControls == 'Link','DropDownList':col.InputControls == 'DropDownList',
+'Label':col.InputControls == 'Label','align-left':(col.InputControls == 'TextBox' && col.DataType == 'string'),
+'EmailButton':col.InputControls == 'EmailButton','ReportButton':col.InputControls == 'ReportButton',
+'id':col.InputControls == 'id','highlight':col.Highlight=='true'}"
+                                                [ngStyle]="ModuleDataWithRuleArray != null ? ruleEngine.GetPropertyRule('ID',rowData['ID'],col.ColumnName,ModuleDataWithRuleArray[1],1) : ''">
+                                                <div
+                                                    *ngIf="col.InputControls != 'HiddenField' && col.InputControls != 'DropDownList' && col.DataType != 'time' && col.InputControls != 'Switch' && col.InputControls !='Password' && col.InputControls != 'Checkbox' && col.DataType != 'date' && col.InputControls != 'MultiDropDownList' && col.InputControls != 'FileUpload' && col.InputControls != 'Link' ">
+                                                    <p-cellEditor *ngIf="col.InputControls == 'TextField'; else label">
+                                                        <ng-template pTemplate="output">
+                                                            <span
+                                                                (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,1)">{{rowData[col.ColumnName]}}</span>
+                                                            <span *ngIf="ruleEngine.RuleJson!=null">
+                                                                <i class="pi {{ruleEngine.RuleJson.Icon}}"
+                                                                    title="{{ruleEngine.RuleJson.Tooltip}}"
+                                                                    (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,ModuleDataWithRuleArray[1],1)"
+                                                                    style="font-size: small;"></i>
+                                                            </span>
+                                                            <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                                [(ngModel)]="rowData[col.ColumnName]"
+                                                                id="{{col.ColumnName}}_row{{idx+1}}"
+                                                                value="{{rowData[col.ColumnName]}}" />
+                                                        </ng-template>
+                                                        <ng-template pTemplate="input">
+                                                            <input pInputText name="{{col.ColumnName}}_row{{idx+1}}"
+                                                                [(ngModel)]="rowData[col.ColumnName]"
+                                                                id="{{col.ColumnName}}_row{{idx+1}}"
+                                                                value="{{rowData[col.ColumnName]}}" />
+                                                        </ng-template>
+                                                    </p-cellEditor>
+                                                    <ng-template #label>
+                                                        <span
+                                                            (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,1)">{{rowData[col.ColumnName]}}</span>
+                                                        <span *ngIf="ruleEngine.RuleJson!=null">
+                                                            <i class="pi {{ruleEngine.RuleJson.Icon}}"
+                                                                title="{{ruleEngine.RuleJson.Tooltip}}"
+                                                                (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,ModuleDataWithRuleArray[1],1)"
+                                                                style="font-size: small;"></i>
+                                                        </span>
+                                                        <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                            [(ngModel)]="rowData[col.ColumnName]"
+                                                            id="{{col.ColumnName}}_row{{idx+1}}"
+                                                            value="{{rowData[col.ColumnName]}}" />
+                                                    </ng-template>
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'DropDownList'">
+                                                    {{rowData[col.ColumnName]}}
+
+                                                    <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                        [(ngModel)]="rowData[col.ColumnName]"
+                                                        id="{{col.ColumnName}}_row{{idx+1}}"
+                                                        value="{{rowData[col.ColumnName]}}" />
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'MultiDropDownList'">
+                                                    {{rowData[col.ColumnName]}}
+
+                                                    <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                        [(ngModel)]="rowData[col.ColumnName]"
+                                                        id="{{col.ColumnName}}_row{{idx+1}}"
+                                                        value="{{rowData[col.ColumnName]}}" />
+                                                </div>
+                                                <div *ngIf="col.DataType == 'date'">
+                                                    {{rowData[col.ColumnName] | date:'dd-MM-yy'}}
+                                                </div>
+                                                <div *ngIf="col.DataType == 'time'">
+                                                    {{rowData[col.ColumnName] | date:'HH:mm:ss'}}
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Checkbox'">
+                                                    <input style="user-select: none; pointer-events: none;"
+                                                        type="checkbox" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                        [checked]="rowData[col.ColumnName]" />
+                                                </div>
+                                                <div *ngIf="col.InputControls == 'Switch'" class="switch-container">
+                                                    <p-inputSwitch name="{{col.ColumnName}}_row{{idx+1}}"
+                                                        [(ngModel)]="rowData[col.ColumnName]"></p-inputSwitch>
+                                                </div>
+
+                                                <div *ngIf="col.InputControls == 'Password'" class="password-container"
+                                                    style="position: relative; display: flex; align-items: center;">
+                                                    <p-password name="{{col.ColumnName}}_row{{idx+1}}"
+                                                        [(ngModel)]="rowData[col.ColumnName]" [feedback]="false">
+                                                    </p-password>
+                                                    <button type="button"
+                                                        (click)="decryptPassword($event, rowData[col.ColumnName])"
+                                                        style="position: absolute; right: 0; background: none; border: none;">
+                                                        <i style="pointer-events: none;" class="pi pi-eye-slash"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div *ngIf="col.InputControls == 'Link'">
+                                                    <button pButton pRipple type="button"
+                                                        [label]="rowData[col.ColumnName]" class="p-button-text"
+                                                        (click)="navigatePath(rowData,col.LinkedMenu,moduleIndex=1)"></button>
+                                                </div>
+
+                                                <div *ngIf="col.InputControls == 'FileUpload'">
+                                                    <div
+                                                        *ngIf="rowData[col.ColumnName] && rowData[col.ColumnName].length > 0">
+                                                        <span>{{rowData[col.ColumnName]}}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-panel>
+
+                        <div class="footer">
+                            <!-- Back / Close Button -->
+                            <p-button [label]="activeStepIndex == 0 ? 'Close' : 'Back'" severity="secondary"
+                                size="small"
+                                (click)="showEditConstraintTable && scenarioDialog?.maximize(); closeChipSidebar()">
+                            </p-button>
+
+                            <!-- Next Button -->
+                            <p-button [label]="getNextButtonLabel()" severity="primary" size="small"
+                                (click)="onNextClick(f_cardview_1853_dialog, 1853)">
+                            </p-button>
+
+                            <!-- Duplicate Button (Only shown in edit mode and at last step) -->
+                            <p-button
+                                *ngIf="!showEditConstraintTable && activeStepIndex === scenarioDialogSteps.length - 1 && dialogLabel === 'Edit'"
+                                label="Duplicate" severity="primary" size="small" (click)="onCloneClick()">
+                            </p-button>
+
+                        </div>
+
+                    </p-dialog>
+                </form>
+            </div>
+            <p-dialog class="p-dialog-crud" appendTo="body" *ngIf="constraintDataDialog.show" header="Add new row"
+                [(visible)]="constraintDataDialog.show" [focusOnShow]="false" [responsive]="true" [maximizable]="true"
+                showEffect="fade" [modal]="true" position="bottom" [style]="{width: '100%'}">
+                <div class="p-dialog-custome-header">
+                    <span class="p-dialog-title">{{ constraintDataDialog.title }}</span>
+                    <div class="p-dialog-header-icons">
+
+                        <button type="button" class=" p-dialog-header-icon p-dialog-header-close"
+                            (click)="constraintDataDialog.show = false">
+                            <span class="pi pi-times"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-dialog-custom-content">
+
+                    <div class="grid p-fluid">
+                        <ng-container *ngFor="let col of constraintTableColumns">
+                            <input *ngIf="col.InputControls.toLowerCase() == 'hiddenfield'; else field" type="hidden"
+                                name="{{ col.ColumnName }}" [value]="thisrow['{{ col.ColumnName }}']"
+                                [(ngModel)]="constraintDataDialog.row['{{ col.ColumnName }}']" />
+
+                            <ng-template #field>
+                                <div class="col-12 md:col-4 sm:col-12 xs:col-12">
+
+                                    <div style="position: relative;" class="p-field">
+                                        <label for="{{ col.ColumnName }}{{ col.ID }}">{{ col.ColumnHeader }}</label>
+
+                                        <input pInputText *ngIf="col.InputControls.toLowerCase() === 'label'"
+                                            type="text" id="{{ col.ColumnName }}{{ col.ID }}"
+                                            name="{{ col.ColumnName }}"
+                                            [value]="constraintDataDialog.row[col.ColumnName]"
+                                            [(ngModel)]="constraintDataDialog.row[col.ColumnName]" readonly />
+
+                                        <input pInputText
+                                            *ngIf="(col.InputControls.toLowerCase() === 'textfield' || col.InputControls.toLowerCase() === 'textbox') && col.DataType === 'string'"
+                                            id="{{ col.ColumnName }}{{ col.ID }}" name="{{ col.ColumnName }}"
+                                            [value]="constraintDataDialog.row[col.ColumnName]"
+                                            [(ngModel)]="constraintDataDialog.row[col.ColumnName]" />
+
+                                        <p-inputNumber
+                                            *ngIf="col.InputControls.toLowerCase() === 'textbox' && col.DataType.toLowerCase() === 'int'"
+                                            id="{{ col.ColumnName }}{{ col.ID }}"
+                                            [(ngModel)]="constraintDataDialog.row[col.ColumnName]"
+                                            pattern="{{ col.Pattern }}">
+                                        </p-inputNumber>
+
+                                        <p-inputNumber
+                                            *ngIf="(col.InputControls.toLowerCase() === 'textbox' || col.InputControls.toLowerCase() === 'textfield') && col.DataType === 'real'"
+                                            id="{{ col.ColumnName }}{{ col.ID }}"
+                                            [(ngModel)]='constraintDataDialog.row[col.ColumnName]' mode="decimal"
+                                            name="{{ col.ColumnName }}" [minFractionDigits]="2"
+                                            [locale]="Locale"></p-inputNumber>
+
+                                        <ng-container *ngIf="col.InputControls.toLowerCase() === 'checkbox'">
+                                            <br />
+                                            <input style="height: 20px; width: 20px" type="checkbox"
+                                                name="{{ col.ColumnName }}"
+                                                [value]="constraintDataDialog.row[col.ColumnName]"
+                                                [(ngModel)]="constraintDataDialog.row[col.ColumnName]" />
+                                        </ng-container>
+
+                                        <p-inputSwitch *ngIf="col.InputControls.toLowerCase() === 'switch'"
+                                            name="{{ col.ColumnName }}"
+                                            [(ngModel)]="constraintDataDialog.row[col.ColumnName]">
+                                        </p-inputSwitch>
+
+                                        <ng-container *ngIf="col.InputControls.toLowerCase() === 'multidropdownlist'">
+                                            <p-multiSelect
+                                                *ngIf="col.DependentDDID && col.DependentDDsp != '' && col.DependentDDsp != null"
+                                                [options]="col.DropDownValues"
+                                                [(ngModel)]="constraintDataDialog.row[col.ColumnName]"
+                                                [disabled]="col['Loading']" id="{{ col.ColumnName}}{{ col.ID }}"
+                                                name="{{ col.ColumnName }}"
+                                                (onChange)="GetValuesForDependentDropdown(col.ID, constraintDataDialog.row[col.ColumnName], 0, null, true)"
+                                                autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                                autofocus="true" optionLabel="Text" scrollHeight="200px" appendTo="body"
+                                                [required]="false" maxSelectedLabels="4"
+                                                selectedItemsLabel="{0} items selected" showToggleAll="true">
+                                            </p-multiSelect>
+
+                                            <p-multiSelect *ngIf="col.DependentDDID == null || col.DependentDDID == ''"
+                                                [options]="col.DropDownValues"
+                                                [(ngModel)]="constraintDataDialog.row[col.ColumnName]"
+                                                [disabled]="col['Loading']" id="{{ col.ColumnName}}{{ col.ID }}"
+                                                name="{{ col.ColumnName }}" autofocusFilter="true"
+                                                resetFilterOnHide="true" filter="true" autofocus="true"
+                                                optionLabel="Text" scrollHeight="200px" appendTo="body"
+                                                [required]="false" maxSelectedLabels="4"
+                                                selectedItemsLabel="{0} items selected" showToggleAll="true">
+                                            </p-multiSelect>
+
+                                            <div *ngIf="col['Loading']"
+                                                style="position: absolute; background: white; top: 56%; right: 12px;">
+                                                <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
+                                            </div>
+                                        </ng-container>
+
+
+                                        <ng-container
+                                            *ngIf="col.InputControls.toLowerCase() === 'dropdownlist' || col.InputControls.toLowerCase() === 'dependentdropdownlist'">
+                                            <p-select
+                                                *ngIf="col.DependentDDID && col.DependentDDsp != ''; else normalDropdown"
+                                                [options]="col.DropDownValues"
+                                                [(ngModel)]="constraintDataDialog.row[col.ColumnName]"
+                                                [disabled]="col['Loading']" id="{{ col.ColumnName}}{{ col.ID }}"
+                                                name="{{ col.ColumnName }}"
+                                                (onChange)="GetValuesForDependentDropdown(col.ID, constraintDataDialog.row[col.ColumnName], 0, null, true)"
+                                                autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                                autofocus="true" [autoDisplayFirst]="false" showClear="true"
+                                                autoZIndex="true" optionLabel="Text" [showClear]="true"
+                                                scrollHeight="200px" appendTo="body">
+                                            </p-select>
+
+                                            <ng-template #normalDropdown>
+                                                <p-select [options]="col.DropDownValues"
+                                                    [(ngModel)]="constraintDataDialog.row[col.ColumnName]"
+                                                    id="{{ col.ColumnName}}{{ col.ID }}" name="{{ col.ColumnName }}"
+                                                    autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                                    [disabled]="col['Loading']" autofocus="true"
+                                                    [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                    optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                    appendTo="body">
+                                                </p-select>
+                                            </ng-template>
+
+                                            <div *ngIf="col['Loading']"
+                                                style="position: absolute; background: white; top: 56%; right: 12px;">
+                                                <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </div>
+
+                </div>
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                        <button type="button" pButton icon="pi pi-save"
+                            (click)="saveRecordInCrudTable(0, constraintTableData.moduleData)" class="p-button-primary"
+                            label="Save"></button>
+                        <button type="button" pButton icon="pi pi-refresh" (click)="onResetConstraintDataClick()"
+                            label="Reset"></button>
+                        <button type="button" pButton icon="pi pi-times" (click)="onDeleteConstraintDataClick()"
+                            label="Delete"></button>
+                    </div>
+                </p-footer>
+
+            </p-dialog>
+        </div>
+
+    </div> <!---End of grid-->
+
+
+</div>

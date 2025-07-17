@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="left-section">
+
+    <section>
+      <div class="company-content">
+        <div class="logo">
+          <img class="logo-img" src="inquizity.png" />
+        </div>
+        <div class="company-overview">
+          <h1>Welcome to <span>dataSAVI</span></h1>
+          <p>
+            dataSAVI &reg; Digital Supply Chain Platform enables you to seize
+            new opportunities, sense and respond to changing market dynamics,
+            and more profitably manage complex global supply chains.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-item">
+            <img src="Group-1249.svg" alt="feature-1-image" />
+            <h5 class="firstDec">Sense-S Suite</h5>
+            <p>Field force management</p>
+          </div>
+          <div class="feature-item">
+            <img src="Group-1250.svg" alt="feature-2-image" />
+            <h5 class="secondDec">Acquire-A Suite</h5>
+            <p>Demand Aggregation Portal</p>
+          </div>
+          <div class="feature-item">
+            <img src="Group-1251.svg" alt="feature-3-image" />
+            <h5 class="thirdDec">Visualise-V Suite</h5>
+            <p>BI, Dashboards and Analytics</p>
+          </div>
+          <div class="feature-item">
+            <img src="Group-1252.svg" alt="feature-4-image" />
+            <h5 class="fourthDec">Interpret-I Suite</h5>
+            <p>Dispatch and Replenishment Planning</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="login-container">
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <h2 style="color: #f27924;">Login</h2>
+      <p-floatlabel variant="on" class="gapbtw">
+        <p-iconfield>
+          <p-inputicon class="pi pi-user" />
+          <input pInputText id="username" formControlName="username" autocomplete="off" />
+          <label for="username" style="color: #f27924;">Username</label>
+        </p-iconfield>
+
+        <div class="error-message" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors">
+          <span *ngIf="loginForm.get('username')?.errors?.['required']">Username is required</span>
+          <span *ngIf="loginForm.get('username')?.errors?.['username']">Please enter a valid Username</span>
+        </div>
+      </p-floatlabel>
+      <p-floatlabel variant="on" class="gapbtw">
+        <p-iconfield>
+          <p-inputicon class="pi pi-lock" />
+          <input pInputText type="password" id="password" formControlName="password" autocomplete="off" />
+          <label for="password" style="color: #f27924;">Password</label>
+        </p-iconfield>
+
+        <div class="error-message" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 5 characters</span>
+        </div>
+      </p-floatlabel>
+
+      <button type="submit" [disabled]="!loginForm.valid" style="background-color: #f27924;">Login</button>
+      <div style="display: flex; align-items: center; margin: 15px 0;">
+        <span style="flex: 1; border-bottom: 1px solid #ddd;"></span>
+        <span style="padding: 0 10px; font-size: 14px; color: #888;">or login with</span>
+        <span style="flex: 1; border-bottom: 1px solid #ddd;"></span>
+      </div>
+      <div
+        style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; margin-top: 10px;">
+
+        <button
+          style="color: #f27924; background-color: #f5f5f5; height: 40px; width: 100%; border: 1px solid #888;">OTP</button>
+
+        <button
+          style="color: #f27924; background-color: #f5f5f5; height: 40px; width: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid #888;" (click)="onAzureLogin()">
+          <img src="microsoft.png" alt="azure logo" style="width: 20px; height: 20px; margin-right: 10px;">
+          <span>Microsoft</span>
+        </button>
+
+      </div>
+    </form>
+
+  </div>
+</div>

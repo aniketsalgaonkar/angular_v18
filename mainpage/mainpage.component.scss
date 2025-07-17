@@ -1,0 +1,284 @@
+.mainpage-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainpage-router-wrapper {
+  padding: 0.5rem 1rem;
+}
+
+.home {
+  margin-left: 50px;
+}
+
+@media (max-width: 767px) {
+  .home {
+    margin-left: 0;
+  }
+}
+
+:host ::ng-deep .p-breadcrumb-item-icon {
+  margin-left: 12px;
+  color: rgb(32, 31, 31);
+  transition: inherit;
+  font-weight: 400;
+}
+
+:host ::ng-deep .p-breadcrumb-list {
+  margin: -5px !important;
+}
+
+:host ::ng-deep .p-breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  color: rgb(32, 31, 31);
+}
+
+:host ::ng-deep .p-breadcrumb {
+  height: 30px !important;
+  background-color: #f5f5f5;
+  color: #5e5e5e;
+}
+
+
+.breadcrumb-div {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.breadcrumb-container {
+  height: 35px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  // box-shadow: 0 4px 10px #001d360a;
+
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  /* Adjust the gap between buttons as needed */
+}
+
+.text-button {
+  background: none;
+  border: none;
+  height: 35px;
+  color: #5e5e5e;
+  /* Use the default text color */
+  font-size: 12px;
+
+  cursor: pointer;
+  padding: 15px;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margin */
+}
+
+.text-button:hover {
+  background-color: #f3f3f3;
+  color: #f27924;
+}
+
+.sidebarmenu {
+  transition: width 0.3s ease;
+  /* Add smooth transition */
+  overflow: hidden;
+  /* Ensure content doesn't overflow during transition */
+  /* Keep all your existing properties */
+  width: 48px;
+  background-color: #5e5e5e;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ffffff;
+  z-index: 100;
+  font-family: var(--font-family-datasavi);
+  opacity: 1;
+}
+
+
+.sideBar {
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(242, 153, 74, 0.2);
+
+    .menu-link {
+      color: #f27924;
+
+      .icon,
+      .menu-label {
+        color: inherit; // Inherits from parent .menu-link
+      }
+    }
+  }
+}
+
+.menu-link {
+  color: #8c8c8c;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.menu-label {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+::ng-deep .p-breadcrumb-item-link {
+  color: black !important;
+}
+
+::ng-deep .p-breadcrumb-list {
+  font-size: 12px !important;
+}
+
+::ng-deep .p-iconwrapper {
+  height: 10px;
+  width: 10px !important;
+}
+
+/* Add this to your CSS file */
+@media (max-width: 768px) {
+  .sidebarmenu {
+    margin-left: -50px;
+  }
+
+  .breadcrumb-div {
+    margin-left: -50px;
+    width: auto;
+  }
+
+  .moduleflow[_ngcontent-ng-c3041459213] {
+    margin-left: -40px;
+  }
+
+  .moduleflow[_ngcontent-ng-c3041459213] ul[_ngcontent-ng-c3041459213] li[_ngcontent-ng-c3041459213] a[_ngcontent-ng-c3041459213] {
+    font-size: 12px !important;
+  }
+
+  .sideBar[_ngcontent-ng-c1361204207] {
+    margin-left: 50px !important;
+  }
+
+
+}
+
+@media (max-width: 490px) {
+  ::ng-deep .p-breadcrumb-item-link {
+    font-size: 8px;
+  }
+
+  .moduleflow[_ngcontent-ng-c3041459213] {
+    width: 100% !important;
+  }
+
+  .moduleflow[_ngcontent-ng-c3041459213] ul[_ngcontent-ng-c3041459213] li[_ngcontent-ng-c3041459213] a[_ngcontent-ng-c3041459213] {
+    font-size: 8px !important;
+  }
+}
+
+
+.moduleflow {
+  width: 100% !important;
+  height: auto !important;
+  background-color: var(--ion-background-color);
+  box-shadow: none !important;
+  padding: 0.1rem 1rem 0.1rem 1rem !important;
+  margin-top: 1px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+    font-family: var(--font-family-datasavi);
+
+    li.active {
+      background-color: var(--active-sidemenu-background-color);
+
+      a {
+        color: var(--active-color) !important;
+      }
+    }
+
+    li.active:not(:last-child):after {
+      border-left: 20px solid var(--active-sidemenu-background-color) !important;
+      // opacity: 9 !important;
+    }
+
+    li.active:not(:first-child):before {
+      border-top: 20px solid var(--active-sidemenu-background-color) !important;
+      border-bottom: 20px solid var(--active-sidemenu-background-color) !important;
+      // opacity: 9 !important;
+    }
+
+    li {
+      background-color: #fff;
+      width: calc(50% - 20px);
+      height: 40px;
+      // margin-left: 25px;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      a {
+        padding: 10px !important;
+        align-self: center;
+        text-decoration: none !important;
+        color: #333 !important;
+      }
+    }
+
+    li:not(:first-child) {
+      margin-left: 25px;
+    }
+
+    li:not(:last-child):after {
+      content: "" !important;
+      position: absolute !important;
+      width: 0 !important;
+      height: 0 !important;
+      left: 0px !important;
+      border-top: 20px solid transparent !important;
+      border-left: 20px solid #fff !important;
+      border-bottom: 20px solid transparent !important;
+      margin: -2px 0 0 100% !important;
+    }
+
+    li:not(:first-child):before {
+      content: "" !important;
+      position: absolute !important;
+      width: 0 !important;
+      height: 0 !important;
+      left: -20px !important;
+      border-top: 20px solid #fff !important;
+      border-left: 20px solid transparent !important;
+      border-bottom: 20px solid #fff !important;
+      margin: 0 100% 0 0 !important;
+      //  transform: scaleX(-1);
+    }
+  }
+}

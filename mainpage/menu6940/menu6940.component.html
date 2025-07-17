@@ -1,0 +1,181 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                        <div class="grid">
+    <!-- The Dataview Modal -->
+    <div *ngIf="showDataviewImagePreview" class="data-view-modal">
+        <span class="data-view-modal-close" (click)="showDataviewImagePreview=false">×</span>
+        <img class="data-view-modal-content" [src]="dataviewImagePreviewSource">
+        <div id="data-view-modal-caption">{{dataviewImagePreviewCaption}}</div>
+    </div>
+    <div class="p-col-12 p-md-12">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <span>
+                </span>
+            </ng-template>
+            <div *ngIf="!primeNgTableArray || primeNgTableArray.length === 0" class="data-view-skeleton-loaders">
+                <div class="p-grid">
+                    <p-skeleton class="p-col-12" width="100%" height="2rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                    <p-skeleton class="p-col-2" width="100%" height="10rem"></p-skeleton>
+                </div>
+            </div>
+            <div *ngIf="primeNgTableArray!=undefined && primeNgTableArray.length !== 0">
+                <p-dataView #dv [value]="this.primeNgTableArray[0]" layout="grid" [sortField]="Dataview.sortField"
+                            [sortOrder]="Dataview.resortOrder" [filterBy]="Dataview.GetColumnNames(this.filterColsArray[0])"
+                            [paginator]="true" [rows]="12"
+                            [totalRecords]="totalRecords[0]" [lazy]="true" 
+                            (onLazyLoad)="loadTableData($event,0,0)" [loading]="moduleLoaderArray[0]">
+                    <p-header>
+                        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                            <p-dropdown [options]="Dataview.sortOptions" [(ngModel)]="Dataview.sortKey" placeholder="Sort By " appendTo="body" (onChange)="Dataview.onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <input type="search" pInputText placeholder="Search" (input)="dv.filter($event.target.value)">
+                                <i class="pi pi-search"></i>
+                            </span>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <p-dropdown [options]=Dataview.filterByValue placeholder="Select VariantCode" [filter]="true" (onChange)="dv.filter($event.value)" [showClear]="true"></p-dropdown>
+                            </span>
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </p-header>
+
+                    <ng-template let-product pTemplate="listItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-6 list-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['ID'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',0):''"
+                             style="cursor:pointer">
+
+                            <div class="product-grid-item card">
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+                                            <div class="list-view-square">
+                                                <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_'+product.Image)"
+                                                     class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                            </div>
+                                        <div>
+                                            <span>{{product[""]}}</span>
+                                            <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Image',0)"><b>{{product["Image"]}}</b></span>
+                                        </div>
+                                            <div>
+                                                <span>VariantCode</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'VariantCode',0)"><b>{{product["VariantCode"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Grs Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Grs_Wt',0)"><b>{{product["Grs_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Net Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Net_Wt',0)"><b>{{product["Net_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Dia_Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Dia_Wt',0)"><b>{{product["Dia_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Cls_Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Cls_Wt',0)"><b>{{product["Cls_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Category</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Category',0)"><b>{{product["Category"]}}</b></span>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template let-product pTemplate="gridItem" let-rowIndex="rowIndex">
+
+                        <div class="p-col-12 p-md-2 grid-view" [ngClass]="{'highlightcard':rowIndex == highlightcard}" (click)="navigate(product['Parameter_Name'],0,null,rowIndex)"
+                             [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',product['ID'],'',0):''"
+                             style="cursor:pointer">
+                            <div class="product-grid-item card">
+                                    <div class="square">
+                                        <img src="assets\icon\placeholder_image.png" (load)="Dataview.onImageLoad(DataViewListImage,'','/thumbnail_small_'+product.Image)"
+                                             class="pointer" (click)="OpenImagePreview(DataViewListImage.src, product.Image); $event.stopPropagation()" name="image{{rowIndex+1}}" #DataViewListImage>
+                                    </div>
+                                <div class="product-grid-item-top">
+                                    <div class="product-grid-item-top-header" [title]="product['Image']">
+                                        <b>{{product["Image"]}}</b>
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <div class="product-data">
+
+                                            <div>
+                                                <span>VariantCode</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'VariantCode',0)"><b>{{product["VariantCode"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Grs Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Grs_Wt',0)"><b>{{product["Grs_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Net Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Net_Wt',0)"><b>{{product["Net_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Dia_Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Dia_Wt',0)"><b>{{product["Dia_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Cls_Wt</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Cls_Wt',0)"><b>{{product["Cls_Wt"]}}</b></span>
+                                            </div>
+                                            <div>
+                                                <span>Category</span>
+                                                <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'Category',0)"><b>{{product["Category"]}}</b></span>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="product-grid-item-bottom">
+
+                                    <div class="product-key-parameter">
+
+                                        <div class="product-name">
+                                            <span class="product-category">{{product[""]}}</span>
+                                        </div>
+                                            <span [ngStyle]="ruleEngine.GetPropertyRule('ID',product['ID'],'ProductLevel',0)">{{product["ProductLevel"]}}</span>
+
+
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                </p-dataView>
+
+                <p-dialog #dialog header="Item Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true"
+                          [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}"
+                          [baseZIndex]="10000" [responsive]="true" appendTo="body">
+                    <div *ngIf="selectedItem">
+                        <!-- <img [src]="_DomSanitizer.bypassSecurityTrustUrl(apiUrl+'UploadFile/Maithili2.jpg')" crossorigin="anonymous"><img [src]="apiUrl+'UploadFile/Maithili2.jpg'" crossorigin="Anonymous"> -->
+                        <strong>{{selectedItem.Label}} - {{selectedItem.TextBox}}</strong>
+                    </div>
+                </p-dialog>
+            </div>
+        </p-panel>
+    </div>
+
+
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

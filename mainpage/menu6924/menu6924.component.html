@@ -1,0 +1,66 @@
+    <!-- Loader Starts-->
+<ng-container>
+    
+                        <div class="grid">
+    <div class="col-12 md:col-12">
+        <p-panel *ngIf="!ModuleIDList.includes(11072)" [style]="Module && Module[0].moduleList[0].BackgroundColor">
+            <p-header>
+                <div class="ui-panel-title">
+Locale Master                </div>
+            </p-header>
+                <form name="form" (ngSubmit)="f_form_11072.form.valid && onSubmit(f_form_11072,11072,0,0)" #f_form_11072="ngForm" novalidate>
+                <div class="formgrid grid" *ngIf="Module">
+                            <div class="field col-12 md:col-2" style="display:none">
+                                    <input   type="hidden" class="inputField " id="ID30878" name="ID" #ID30878="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" />
+                            </div>
+                                <div class="field col-12 md:col-2">
+                                            <label title="required" class="font-medium">Text Box <span class="requiredmark">*</span></label>
+                                                <input   type="text" class="inputField w-full" size="30" pInputText id="TextBox30879" name="TextBox" #TextBox30879="ngModel" required [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" pattern="" appSanitizeInput />
+                                            <div *ngIf="TextBox30879?.invalid && (TextBox30879?.dirty || TextBox30879?.touched)"
+                                                 class="error">
+                                                <div *ngIf="TextBox30879?.errors?.required">
+                                                    Text Box is required.
+                                                </div>
+                                                <div *ngIf="TextBox30879?.errors?.pattern">
+                                                    
+                                                </div>
+                                            </div>
+                            </div>
+                                <div class="field col-12 md:col-2">
+                                        <label class="font-medium">Menus</label>
+                                            <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[2].DropDownValues" class="w-full"
+                                                        [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value"
+                                                        [required]="true" id="MenuID30895" name="MenuID"
+                                                        (onChange)="GetDependentDropDown('30895', $event,'ModuleID',0)"
+                                                        autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                        [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                        optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                        [appendTo]="local"></p-select>
+                            </div>
+                                <div class="field col-12 md:col-2">
+                                        <label class="font-medium">Module</label>
+                                            <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[3].DropDownValues" class="w-full"
+                                                        [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].value"
+                                                        [required]="true" id="ModuleID30896" name="ModuleID"
+                                                        (onChange)="GetDependentDropDown('30896', $event,'ModuleDetailID',0)"
+                                                        autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                                        [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                                        optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                                        [appendTo]="local"></p-select>
+                            </div>
+                </div>
+                    <div class="flex justify-content-end pb-3">
+                        <button type="submit" pButton icon="pi pi-check-circle" label='Submit' iconPos="left"
+                                class="p-button-primary px-5 py-2 text-base font-semibold" [disabled]="!f_form_11072.form.valid">
+                        </button>
+                    </div>
+                </form>
+        </p-panel>
+    </div>
+
+                            </div> <!---End of grid-->
+
+
+</ng-container>
+
+

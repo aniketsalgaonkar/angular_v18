@@ -1,0 +1,722 @@
+<!-- Loader Starts-->
+<div *ngIf="show" id="cover">
+  <div ng-show="showLoader" class="center">
+    <div class="message">
+      Please wait ... <br>
+      <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid" class="lds-ellipsis"
+        style="background: none;"><!--circle(cx="16",cy="50",r="10")-->
+        <circle cx="84" cy="50" r="0" fill="#ffcc33">
+          <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="42.6958" cy="50" r="10" fill="#7de6ea">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+        </circle>
+        <circle cx="16" cy="50" r="7.85172" fill="#ffa570">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+        </circle>
+        <circle cx="84" cy="50" r="2.14828" fill="#d4e683">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="76.6958" cy="50" r="10" fill="#ffcc33">
+          <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</div>
+<!-- Loader Ends-->
+
+<div class="grid">
+    <div class="col-12 md:col-3">
+        <p-panel *ngIf="!ModuleIDList.includes(1839)" [style]="Module && Module[0].moduleList[0].BackgroundColor">
+            <p-header>
+                <div class="panel-header-title-wrapper">
+                    <div class="panel-header-text">
+                        Create Plan
+                    </div>
+                    <div class="panel-header-icon">
+                        <i class="pi pi-info-circle" style="cursor:pointer" tooltipPosition="top"
+                            pTooltip="Define Plan Parameter Here"></i>
+                    </div>
+                </div>
+            </p-header>
+            <form name="form" (ngSubmit)="f_form_1839.form.valid && onSubmit(f_form_1839,1839,0,0)"
+                #f_form_1839="ngForm" novalidate>
+                <div class="formgrid grid" *ngIf="Module">
+                    <div class="field col-12 md:col-2" style="display:none">
+                        <input type="hidden" class="inputField " id="ID6485" name="ID" #ID6485="ngModel"
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" />
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label title="required" class="font-medium">Plan Name <span
+                                class="requiredmark">*</span></label>
+                        <input type="text" class="inputField w-full" size="30" pInputText id="PlanName6486"
+                            name="PlanName" #PlanName6486="ngModel" required
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" pattern="" appSanitizeInput />
+                        <div *ngIf="PlanName6486?.invalid && (PlanName6486?.dirty || PlanName6486?.touched)"
+                            class="error">
+                            <div *ngIf="PlanName6486?.errors?.required">
+                                Plan Name is required.
+                            </div>
+                            <div *ngIf="PlanName6486?.errors?.pattern">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label title="required" class="font-medium">Plan Start Date <span
+                                class="requiredmark">*</span></label>
+                        <p-calendar [showIcon]="true" id="PlanStartDate6490" name="PlanStartDate"
+                            #PlanStartDate6490="ngModel" large-columns pattern=".*"
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" readonlyInput="true"
+                            [appendTo]="'body'" [monthNavigator]="true" [yearNavigator]="true" yearRange="1850:2150"
+                            showButtonBar="true" [dateFormat]=DateFormat showWeek="true" [hourFormat]=hourFormat
+                            todayButtonStyleClass="ui-secondary-button" clearButtonStyleClass="ui-secondary-button"
+                            dataType="date" [required]="true"></p-calendar>
+                        <div *ngIf="PlanStartDate6490?.invalid && (PlanStartDate6490?.dirty || PlanStartDate6490?.touched)"
+                            class="error">
+                            <div *ngIf="PlanStartDate6490?.errors?.required">
+                                Plan Start Date is required.
+                            </div>
+                            <div *ngIf="PlanStartDate6490?.errors?.pattern">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label title="required" class="font-medium">Planning Horizon <span
+                                class="requiredmark">*</span></label>
+                        <input type="text" class="inputField w-full" size="30" pInputText id="PlanningHorizon6491"
+                            name="PlanningHorizon" #PlanningHorizon6491="ngModel" required
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[3].value" pattern="" appSanitizeInput />
+                        <div *ngIf="PlanningHorizon6491?.invalid && (PlanningHorizon6491?.dirty || PlanningHorizon6491?.touched)"
+                            class="error">
+                            <div *ngIf="PlanningHorizon6491?.errors?.required">
+                                Planning Horizon is required.
+                            </div>
+                            <div *ngIf="PlanningHorizon6491?.errors?.pattern">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label title="required" class="font-medium">&nbsp; <span class="requiredmark">*</span></label>
+                        <p-multiSelect *ngIf="Module"
+                            [options]="Module[0].moduleList[0].moduleDetails[4].DropDownValues" class="w-full"
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[4].Multiselectvalue" [required]="true"
+                            id="PlanningHorizon16499" name="PlanningHorizon1" defaultLabel="Select" filter="true"
+                            [appendTo]="local" optionLabel="Text" displaySelectedLabel="true" maxSelectedLabels="4"
+                            scrollHeight="200px" selectedItemsLabel="{0} items selected" showToggleAll="true"
+                            resetFilterOnHide="true">
+                        </p-multiSelect>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label title="required" class="font-medium">Planning Bucket <span
+                                class="requiredmark">*</span></label>
+                        <input type="text" class="inputField w-full" size="30" pInputText id="PlanningBucket6500"
+                            name="PlanningBucket" #PlanningBucket6500="ngModel" required
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[5].value" pattern="" appSanitizeInput />
+                        <div *ngIf="PlanningBucket6500?.invalid && (PlanningBucket6500?.dirty || PlanningBucket6500?.touched)"
+                            class="error">
+                            <div *ngIf="PlanningBucket6500?.errors?.required">
+                                Planning Bucket is required.
+                            </div>
+                            <div *ngIf="PlanningBucket6500?.errors?.pattern">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label title="required" class="font-medium">&nbsp; <span class="requiredmark">*</span></label>
+                        <p-multiSelect *ngIf="Module"
+                            [options]="Module[0].moduleList[0].moduleDetails[6].DropDownValues" class="w-full"
+                            [(ngModel)]="Module[0].moduleList[0].moduleDetails[6].Multiselectvalue" [required]="true"
+                            id="PlanningBucket16492" name="PlanningBucket1" defaultLabel="Select" filter="true"
+                            [appendTo]="local" optionLabel="Text" displaySelectedLabel="true" maxSelectedLabels="4"
+                            scrollHeight="200px" selectedItemsLabel="{0} items selected" showToggleAll="true"
+                            resetFilterOnHide="true">
+                        </p-multiSelect>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label title="required" class="font-medium">Run Parameters <span
+                                class="requiredmark">*</span></label>
+                        <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[7].DropDownValues"
+                            class="w-full" [(ngModel)]="Module[0].moduleList[0].moduleDetails[7].value"
+                            [required]="true" id="RunParameters6493" name="RunParameters" autofocusFilter="true"
+                            resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                            showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                            scrollHeight="200px" [appendTo]="local"></p-select>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label title="required" class="font-medium">Parameter Values <span
+                                class="requiredmark">*</span></label>
+                        <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[8].DropDownValues"
+                            class="w-full" [(ngModel)]="Module[0].moduleList[0].moduleDetails[8].value"
+                            [required]="true" id="ParameterValues8948" name="ParameterValues" autofocusFilter="true"
+                            resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                            showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                            scrollHeight="200px" [appendTo]="local"></p-select>
+                    </div>
+                    <div class="field col-12 md:col-2" style="display:none">
+                        <input type="hidden" class="inputField " id="App Name8959" name="App Name" #App
+                            Name8959="ngModel" [(ngModel)]="Module[0].moduleList[0].moduleDetails[9].value" />
+                    </div>
+                </div>
+                <div class="flex justify-content-end pb-3">
+                    <button type="submit" pButton icon="pi pi-check-circle" label='Save' iconPos="left"
+                        class="p-button-primary px-5 py-2 text-base font-semibold" [disabled]="!f_form_1839.form.valid">
+                    </button>
+                </div>
+            </form>
+        </p-panel>
+    </div>
+
+    <div class="col-12 md:col-9">
+        <div class="grid">
+            <div class="col-12 md:col-12">
+                <div class="grid" *ngIf="Module">
+                    <div *ngIf="moduleLoaderArray[1] && !multichartdata && multichart_tileGroup==null"
+                        class="spinner-container">
+                        <p-progressSpinner styleClass="custom-spinner" animationDuration="1s"></p-progressSpinner>
+                    </div>
+                    <div *ngIf="multichart_tileGroup">
+
+                        <div *ngIf="multichart_tileGroup.length>0">
+                            <div class="p-grid group-tiles" *ngFor="let group of multichart_tileGroup">
+                                <div class="p-col-12"
+                                    style="font-size:14px;margin-bottom: solid 1px lightgrey;padding-top:10px;padding-bottom: -10px;">
+                                    {{getTileGroupName("ID",group[0]["ID"].Value,Module[0].moduleList[1].moduleData)}}
+                                </div>
+                                <div class="p-col-2 create-mobile-tiles" *ngFor="let row of group">
+                                    <p-card>
+                                        <div class="p-grid p-flex-column">
+                                            <div class="attribute p-col" style="height: 30px;">
+                                                <strong style="font-weight: 500;font-size:12px;">
+                                                    <span
+                                                        *ngIf="!isNumber(row['AttributeValue'].Value)">{{row['AttributeValue'].Value}}</span>
+
+                                                    <span
+                                                        *ngIf="isNumber(row['AttributeValue'].Value)">{{row['AttributeValue'].Value
+                                                        | number :'1.0-2'}}</span>
+                                                </strong><br>
+                                            </div>
+
+                                            <div class="p-col" style="height: 30px;">
+                                                <div style="font-size:10px;">
+                                                    {{row['Attribute'].Value}}
+                                                </div>
+                                            </div>
+
+                                            <div class="tiles-icon p-col">
+                                                <span class="material-icons"
+                                                    *ngIf="row['Attribute'].Icon">{{row['Attribute'].Icon}}</span>
+                                                <span class="material-icons" *ngIf="!row['Attribute'].Icon">error</span>
+                                            </div>
+
+                                        </div>
+                                    </p-card>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-4 pb-0 nav-card" *ngFor="let row of multichartdata">
+                        <p-card [ngStyle]="row['Name'].LinkMenu!=0?{'cursor':'pointer'}:''"
+                            (click)="navigate(row['ID'].Value,row['Name'].LinkMenuId)">
+                            <div class="nav-card-content">
+                                <!-- Left Icon with circle background -->
+                                <div class="nav-card-icon-circle" *ngIf="row['Name'].Icon">
+                                    <span class="material-icons">
+                                        {{ row['Name'].Icon }}
+                                    </span>
+                                </div>
+
+                                <!-- Center Text -->
+                                <div class="nav-card-text" [ngStyle]="row['Name'].PropertyList">
+                                    <span *ngIf="!isNumber(row['Name'].Value)">
+                                        {{ row['Name'].Value }}
+                                    </span>
+                                    <span *ngIf="isNumber(row['Name'].Value)">
+                                        {{ row['Name'].Value | number: '1.0-2' }}
+                                    </span>
+                                </div>
+
+                                <!-- Right Icon -->
+                                <i class="pi pi-chevron-right nav-card-navigation-icon"></i>
+                            </div>
+                        </p-card>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12">
+                <div style="height: 100%;"
+                    *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && frozenColsArray[0] && scrollableColsArray[0] && primeNgTableArray[0] && selectedColumnsArray[0]">
+                    <p-panel [toggleable]="true" #table1840 class="panel_includes_table"
+                        [style]="Module && Module[0].moduleList[2].BackgroundColor">
+                        <div class="grid">
+                            <div class="col-2" *ngFor="let tile of Module[0].moduleList[2].ModuleWiseTiles">
+                                <p-card>
+                                    <div class="p-col">
+                                        <div class="tile-key">
+                                            <p>Avg Quantity Planned</p>
+                                            {{tile.Key}}
+                                        </div>
+                                        <div class="tile-value">
+                                            <span *ngIf="isNumber(tile.Value)">{{tile.Value}}</span>
+                                            <span *ngIf="!isNumber(tile.Value)">{{tile.Value | number
+                                                :'1.0-2'}}</span>
+                                        </div>
+                                    </div>
+
+                                </p-card>
+                            </div>
+                        </div>
+                        <ng-template pTemplate="header">
+                            <div class="panel-header-title-wrapper">
+                                <div class="panel-header-text">
+                                    Plan History
+                                </div>
+                                <div class="panel-header-icon">
+                                    <i class="pi pi-info-circle" style="cursor:pointer" tooltipPosition="top"
+                                        [pTooltip]="Module[0].moduleList[2].ModuleDescription"></i>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="icons">
+                            <input [hidden]="!hideColumnFilters" *ngIf="!table1840.collapsed"
+                                (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50"
+                                placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+                            <p-button class="p-panel-header-icon p-link" icon="pi pi-search" severity="info"
+                                (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top"
+                                pTooltip="Column and Table filters" />
+
+                            <p-button class="p-panel-header-icon p-link" icon="pi pi-file-excel" severity="info"
+                                (click)="downloadModuleReport('1840','Plan History')" tooltipPosition="top"
+                                pTooltip="Download Excel" />
+
+
+                        </ng-template>
+
+
+
+
+
+                        <form name="form" #f_datatable_1840="ngForm" novalidate>
+
+                            <p-contextMenu #cm_0 appendTo="body"
+                                [model]="Module[0].moduleList[2].RowContextMenus"></p-contextMenu>
+                            <p-table #dt [(contextMenuSelection)]="selectedrow" [contextMenu]="cm_0"
+                                styleClass="p-datatable-sm" [columns]="scrollableColsArray[0]" [rows]="10"
+                                [globalFilterFields]="filterColsArray[0]" [showCurrentPageReport]="true"
+                                paginatorDropdownAppendTo="body" [value]="primeNgTableArray[0]" [paginator]="true"
+                                [scrollable]="true" scrollHeight="500px" [rowsPerPageOptions]="[5,10,20,50,100]"
+                                [resizableColumns]="true" columnResizeMode="expand" [reorderableColumns]="true"
+                                [rowHover]="true" dataKey="ID"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                [(selection)]="selectedRows" [totalRecords]="totalRecords[0]" [lazy]="true"
+                                (onLazyLoad)="loadTableData($event,0,2)" [loading]="moduleLoaderArray[2]">
+                                <ng-template pTemplate="colgroup" let-columns>
+                                    <colgroup>
+                                        <col *ngFor="let col of columns">
+                                    </colgroup>
+                                </ng-template>
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[0].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="PlanName"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Plan Name
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="PlanName" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[1].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="CreatedBy"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Created By
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="CreatedBy" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[2].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="PlanningHorizon"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Planning Horizon
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="PlanningHorizon" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[3].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="PlanningBucket"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Planning Bucket
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="PlanningBucket" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[4].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="RunParameters"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Run Parameters
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="RunParameters" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[5].ColumnHeader"
+                                            class='ui-resizable-column date date' pSortableColumn="PlanStartDate"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Plan Start Date
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="PlanStartDate" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[6].ColumnHeader"
+                                            class='ui-resizable-column string Label' pSortableColumn="ParameterValues"
+                                            pResizableColumn pReorderableColumn>
+                                            <div>
+                                                <div style="word-wrap:normal">
+                                                    Parameter Value
+                                                </div>
+
+                                            </div>
+                                            <p-sortIcon field="ParameterValues" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                        <th tooltipPosition="top"
+                                            [pTooltip]="Module && Module[0].moduleList[2].moduleDetails[7].ColumnHeader"
+                                            class='ui-resizable-column datetime datetime'
+                                            pSortableColumn="CreatedDateTime" pResizableColumn pReorderableColumn>
+                                            Created Date <p-sortIcon field="CreatedDateTime"
+                                                ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descendent order"
+                                                ariaLabelAsc="Activate to sort in ascendent order"></p-sortIcon>
+
+
+                                        </th>
+                                    </tr>
+                                    <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'PlanName', 'contains')"
+                                                            #PlanName />
+                                                        <i class="pi pi-times" (click)="clear(dt, PlanName)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="PlanName"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'CreatedBy', 'contains')"
+                                                            #CreatedBy />
+                                                        <i class="pi pi-times" (click)="clear(dt, CreatedBy)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="CreatedBy"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'PlanningHorizon', 'contains')"
+                                                            #PlanningHorizon />
+                                                        <i class="pi pi-times" (click)="clear(dt, PlanningHorizon)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="PlanningHorizon"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'PlanningBucket', 'contains')"
+                                                            #PlanningBucket />
+                                                        <i class="pi pi-times" (click)="clear(dt, PlanningBucket)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="PlanningBucket"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'RunParameters', 'contains')"
+                                                            #RunParameters />
+                                                        <i class="pi pi-times" (click)="clear(dt, RunParameters)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="RunParameters"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;" class='ui-resizable-column date date'>
+                                            <div class="grid">
+                                                <div class="col-8 p-offset-2 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'PlanStartDate', 'contains')"
+                                                            #inputField />
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="date" field="PlanStartDate"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column string Label'>
+                                            <div class="grid">
+                                                <div class="col-8 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'ParameterValues', 'contains')"
+                                                            #ParameterValues />
+                                                        <i class="pi pi-times" (click)="clear(dt, ParameterValues)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="text" field="ParameterValues"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                        <th style="padding:0px;border-bottom: 0;"
+                                            class='ui-resizable-column datetime datetime'>
+                                            <div class="grid">
+                                                <div class="col-8 p-offset-2 containsFilter">
+                                                    <span class="p-input-icon-right">
+                                                        <input pInputText type="text"
+                                                            (input)="dt.filter($event.target.value, 'CreatedDateTime', 'contains')"
+                                                            #inputField />
+                                                        <i class="pi pi-times" (click)="clear(dt)"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 advanceFilter">
+                                                    <p-columnFilter type="date" field="CreatedDateTime"
+                                                        display="menu"></p-columnFilter>
+                                                </div>
+                                            </div>
+
+
+                                        </th>
+                                    </tr>
+                                </ng-template>
+
+                                <p-tieredMenu #cellContextMenu [model]="cellContextMenus" [popup]="true"
+                                    appendTo="body"></p-tieredMenu>
+                                <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns"
+                                    let-rowIndex="rowIndex">
+                                    <tr [pContextMenuRow]="rowData"
+                                        [ngStyle]="applyCSSRuleToRow?ruleEngine.GetPropertyRule('ID',rowData['ID'],'',ModuleDataWithRuleArray[0],0):''">
+
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["PlanName"]'>
+                                            <span>{{ rowData["PlanName"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["CreatedBy"]'>
+                                            <span>{{ rowData["CreatedBy"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["PlanningHorizon"]'>
+                                            <span>{{ rowData["PlanningHorizon"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["PlanningBucket"]'>
+                                            <span>{{ rowData["PlanningBucket"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["RunParameters"]'>
+                                            <span>{{ rowData["RunParameters"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column date date'
+                                            [title]='rowData["PlanStartDate"]'>
+                                            <p-datepicker readonlyInput="true" [monthNavigator]="true"
+                                                [yearNavigator]="true" yearRange="1850:2150" showButtonBar="true"
+                                                [dateFormat]=DateFormat showWeek="true" [hourFormat]=hourFormat
+                                                todayButtonStyleClass="ui-secondary-button"
+                                                clearButtonStyleClass="ui-secondary-button" [disabled]="true"
+                                                [(ngModel)]="rowData['PlanStartDate']" appendTo="body"
+                                                name="PlanStartDate{{rowIndex+1}}"></p-datepicker>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column string Label'
+                                            [title]='rowData["ParameterValues"]'>
+                                            <span>{{ rowData["ParameterValues"]}}</span>
+
+                                        </td>
+                                        <td pEditableColumn class='ui-resizable-column datetime datetime'
+                                            [title]='rowData["CreatedDateTime"]'>
+                                            <p-datepicker readonlyInput="true" [monthNavigator]="true"
+                                                [yearNavigator]="true" yearRange="1850:2150" showButtonBar="true"
+                                                [dateFormat]=DateFormat showTime="true" showWeek="true"
+                                                [hourFormat]=hourFormat [disabled]="true"
+                                                todayButtonStyleClass="ui-secondary-button"
+                                                clearButtonStyleClass="ui-secondary-button"
+                                                name="CreatedDateTime{{rowIndex+1}}"
+                                                [(ngModel)]="rowData['CreatedDateTime']" appendTo="body"></p-datepicker>
+
+                                        </td>
+
+                                    </tr>
+                                </ng-template>
+
+
+
+
+
+
+
+
+
+
+                            </p-table>
+
+
+                        </form>
+
+                    </p-panel>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div> <!---End of grid-->

@@ -1,0 +1,140 @@
+<div class="pivot-display">
+    <div *ngIf="showfilter" style="display:flex;justify-content: flex-end;margin:10px 0;">
+
+        <p-splitButton iconPos="left" label="Filter" icon="pi pi-filter" (onClick)="showfilter=!showfilter"
+            [model]="filterSplitButtonOptions"></p-splitButton>
+    </div>
+    <div [hidden]="showfilter" [ngClass]="{'open-filter': horizontalFilter,'panel-filter': !horizontalFilter}"
+        class="filter" style="margin-top:1rem">
+        <form class="p-fluid p-formgrid" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-bottom: 0.5rem;" #f_filter_2532="ngForm"
+            (ngSubmit)="onSubmitFilter(f_filter_2532.value)">
+            <div *ngIf="PageMenuDetails && showInFilter('RunId')" class="p-field p-col-12 p-md-2 p-float-label">
+                <label for="RunId" class="filter-label">Run Id : </label>
+                <p-dropdown [filter]="true" [options]="PageMenuDetails[0].DropDownValues"
+                    [(ngModel)]="PageMenuDetails[0].DefaultValue" name="RunId" optionLabel="Text" appendTo="local"
+                    [showClear]="true" [autoDisplayFirst]="false"></p-dropdown>
+                
+            </div>
+            <div class="p-field p-col-12 p-md-1">
+                <button pButton label="Apply" type="submit" icon="pi pi-filter" iconPos="left"
+                    [disabled]="!f_filter_2532.form.valid" routerDirection="forward"></button>
+            </div>
+            <div class="p-field p-col-12 p-md-1">
+                <button pButton icon="pi pi-filter-slash" iconPos="left" label="Reset"
+                    (click)="f_filter_2532.reset()"></button>
+            </div>
+            <div class="p-field p-col-12 p-md-1">
+                <button pButton type="button" label="Hide" icon="pi pi-times" iconPos="left"
+                    (click)="showfilter=!showfilter"></button>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <div style="height: 100%;">
+                <p-panel [toggleable]="true" #table3006 class="panel_includes_table" header="Validate and Revise Output"
+                    [style]="Module && Module[0].moduleList[0].BackgroundColor">
+
+
+
+                    <div *ngIf="!frozenColsArray?.length" class="spinner-container">
+                        <p-progressSpinner styleClass="custom-spinner" animationDuration="1s"></p-progressSpinner>
+                    </div>
+
+                    <ng-container
+                        *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined  && frozenColsArray[0] && scrollableColsArray[0] && primeNgTableArray[0] && selectedColumnsArray[0]">
+                        <form name="form" #f_datatable_3006="ngForm" novalidate>
+                            <div *ngIf="primeNgTableArray && selectedColumnsArray">
+                               
+                                <p-table #dt 
+                                    [rows]="10" [value]="primeNgTableArray[0]"
+                                    [paginator]=true [showCurrentPageReport]="true"
+                                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                    paginatorDropdownAppendTo="body" [scrollable]="true"
+                                    tableStyleClass="p-datatable-scrollable" [style]="{'table-layout':'auto'}"
+                                    [rowsPerPageOptions]="[5,10,20,50,100]" [resizableColumns]="true"
+                                    [reorderableColumns]="true" columnResizeMode="expand"
+                                    (onColResize)="resizeColumn($event,0)"
+                                    [totalRecords]="totalRecords[0]"
+                                    [lazy]="true" (onLazyLoad)="loadTableData($event,0,0)"
+                                    [loading]="moduleLoaderArray[0]">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th *ngFor="let col of frozenColsArray[0]" tooltipPosition="top"
+                                                pFrozenColumn [frozen]="true" [pTooltip]="col.ModuleDetailDesc"
+                                                [pSortableColumn]="col.ColumnName" pResizableColumn pReorderableColumn
+                                                [ngClass]="getCellClassObject(col)">
+                                                {{col.ColumnHeader}}
+                                            </th>
+                                            <th *ngFor="let col of scrollableColsArray[0]" tooltipPosition="top" style="width: 200px;"
+                                                [pTooltip]="col.ModuleDetailDesc" [pSortableColumn]="col.ColumnName"
+                                                pResizableColumn pReorderableColumn [ngClass]="getCellClassObject(col)">
+                                                {{col.ColumnHeader}}
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                        <tr [pContextMenuRow]="rowData">
+
+                                            <td *ngFor="let col of frozenColsArray[0];let i= index" pEditableColumn
+                                                pFrozenColumn [frozen]="true" class="ui-resizable-column"
+                                                [title]='rowData[col.ColumnName]' [ngClass]="getCellClassObject(col)"
+                                                [attr.style]="ModuleDataWithRuleArray != null ? ruleEngine.GetPropertyRule('ID', rowData['ID'], col.ColumnName, ModuleDataWithRuleArray[0], 0) : {}">
+                                                <!-- [ngStyle]="ModuleDataWithRuleArray != null ? ruleEngine.GetPropertyRule('ID', rowData['ID'], col.ColumnName, ModuleDataWithRuleArray[0], 0) : {}" -->
+                                                <!-- temporary oF NgStyle -->
+                                                {{rowData[col.ColumnName]}}
+                                                <input type="hidden" name="Label_zline{{rowIndex+1}}_"
+                                                    id="{{col.ColumnName}}{{rowIndex+1}}"
+                                                    [value]='rowData[col.ColumnName]'
+                                                    [(ngModel)]='rowData[col.ColumnName]' />
+                                            </td>
+                                            <td *ngFor="let col of scrollableColsArray[0];let i= index" pEditableColumn style="width: 200px;"
+                                                class="ui-resizable-column" [title]='rowData[col.ColumnName]' [ngClass]="getCellClassObject(col)"
+                                                [attr.style]="ModuleDataWithRuleArray != null ? ruleEngine.GetPropertyRule('ID', rowData['ID'], col.ColumnName, ModuleDataWithRuleArray[0], 0) : {}">
+                                                <!-- [ngStyle]="ModuleDataWithRuleArray != null ? ruleEngine.GetPropertyRule('ID', rowData['ID'], col.ColumnName, ModuleDataWithRuleArray[0], 0) : {}" -->
+                                                <!-- temporary oF NgStyle -->
+
+                                                {{rowData[col.ColumnName]}}
+                                                <input type="hidden" name="Label_zline{{rowIndex+1}}_"
+                                                    id="{{col.ColumnName}}{{rowIndex+1}}"
+                                                    [value]='rowData[col.ColumnName]'
+                                                    [(ngModel)]='rowData[col.ColumnName]' />
+                                            </td>
+
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="footer">
+                                        <tr *ngIf="Module && showFooter">
+                                            <td *ngFor="let col of frozenColsArray[0]" [ngClass]="getCellClassObject(col)"
+                                                style="text-align:right;">
+                                                <!-- Empty content for frozen columns -->
+                                            </td>
+                                            <td *ngFor="let col of scrollableColsArray[0];let i=index" [ngClass]="getCellClassObject(col)"
+                                                style="text-align:right;">
+                                                <div *ngIf="col.InputControls != 'DropDownList'">
+                                                    <span
+                                                        *ngIf="col.FrozenCols==false && (col.DataType == 'int' || col.DataType == 'decimal' || col.DataType == 'real')"
+                                                        title="Sum of all values in column {{col.ColumnHeader}}"><span
+                                                            class="footer-sigma-icon" *ngIf="i == 0">Σ =
+                                                        </span>{{calculatePrimengTotal(col.ColumnName,dt)| number
+                                                        :'1.0-2'}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+
+                                </p-table>
+
+
+                            </div>
+
+                        </form>
+                    </ng-container>
+                </p-panel>
+
+            </div>
+        </div>
+
+    </div>
+</div>

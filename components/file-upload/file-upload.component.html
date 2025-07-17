@@ -1,0 +1,18 @@
+<div class="custom-file-upload-component">
+    <p-fileupload [name]="name" accept=".xls,.xlsx,.csv" customUpload="true"
+        maxFileSize="1000000" (uploadHandler)="onTemplatedUpload($event)" (onSelect)="onSelectedFiles($event)">
+        <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback"
+            let-uploadCallback="uploadCallback">
+            <div class="flex gap-1">
+                <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-plus" pTooltip="Choose"
+                    tooltipPosition="top" />
+                <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-upload"
+                    [disabled]="!files || files.length === 0" pTooltip="Upload" tooltipPosition="top" />
+                <p-button (onClick)="clearCallback()" icon="pi pi-times" [disabled]="!files || files.length === 0"
+                    pTooltip="Clear" tooltipPosition="top" />
+                <p-button (onClick)="onDownloadButtonClicked()" icon="pi pi-download"
+                    pTooltip="Download Template" tooltipPosition="top" />
+            </div>
+        </ng-template>
+    </p-fileupload>
+</div>

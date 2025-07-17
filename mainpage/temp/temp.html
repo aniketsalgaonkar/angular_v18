@@ -1,0 +1,78 @@
+<form name="form" (ngSubmit)="f_form_6939.form.valid && onSubmit(f_form_6939,6939,0,0)" #f_form_6939="ngForm"
+    novalidate>
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-3">
+            <label title="required">SKU Name <span class="requiredmark">*</span></label>
+            <p-dropdown *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[0].DropDownValues"
+                [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" [required]="true" id="SKUName21808"
+                name="SKUName" autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                [autoDisplayFirst]="false" showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                scrollHeight="200px" appendTo="body"></p-dropdown>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <label title="required">Depot Sector <span class="requiredmark">*</span></label>
+            <p-dropdown *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[1].DropDownValues"
+                [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" [required]="true" id="DepotSector21809"
+                name="DepotSector" autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                [autoDisplayFirst]="false" showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                scrollHeight="200px" appendTo="body"></p-dropdown>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <label title="required">Sales Function <span class="requiredmark">*</span></label>
+            <p-dropdown *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[2].DropDownValues"
+                [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" [required]="true" id="SalesFunction21810"
+                name="SalesFunction" autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                [autoDisplayFirst]="false" showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                scrollHeight="200px" appendTo="body"></p-dropdown>
+            <div *ngIf="SalesFunction21810?.invalid && (SalesFunction21810?.dirty || SalesFunction21810?.touched)"
+                class="error">
+                <div *ngIf="SalesFunction21810?.errors?.required">
+                    Sales Function is required.
+                </div>
+                <div *ngIf="SalesFunction21810?.errors?.pattern">
+
+                </div>
+            </div>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <label title="required">Period For NPD(months) <span class="requiredmark">*</span></label>
+            <p-inputNumber id="PeriodForNPD21811" name="PeriodForNPD" #PeriodForNPD21811="ngModel" required
+                [(ngModel)]="Module && Module[0].moduleList[0].moduleDetails[3].value"
+                pattern="^[0-6]$"></p-inputNumber>
+            <div *ngIf="PeriodForNPD21811?.invalid && (PeriodForNPD21811?.dirty || PeriodForNPD21811?.touched)"
+                class="error">
+                <div *ngIf="PeriodForNPD21811?.errors?.required">
+                    Period For NPD(months) is required.
+                </div>
+                <div *ngIf="PeriodForNPD21811?.errors?.pattern">
+                    Please Enter Month Between 1-6.
+                </div>
+            </div>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <label title="required">Product Added On <span class="requiredmark">*</span></label>
+            <p-calendar [showIcon]="true" id="ProductAddedOn21812" name="ProductAddedOn" #ProductAddedOn21812="ngModel"
+                large-columns pattern=".*" [(ngModel)]="Module && Module[0].moduleList[0].moduleDetails[4].value"
+                readonlyInput="true" appendTo="body" [monthNavigator]="true" [yearNavigator]="true"
+                yearRange="1850:2150" showButtonBar="true" [dateFormat]=DateFormat showWeek="true"
+                [hourFormat]=hourFormat todayButtonStyleClass="ui-secondary-button"
+                clearButtonStyleClass="ui-secondary-button" dataType="date" [required]="true"></p-calendar>
+            <div *ngIf="ProductAddedOn21812?.invalid && (ProductAddedOn21812?.dirty || ProductAddedOn21812?.touched)"
+                class="error">
+                <div *ngIf="ProductAddedOn21812?.errors?.required">
+                    Product Added On is required.
+                </div>
+                <div *ngIf="ProductAddedOn21812?.errors?.pattern">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="text-align:right;margin: 10px;">
+            <button type="submit" pButton icon="pi pi-file" iconPos="left" label='Submit'
+                [disabled]="!f_form_6939.form.valid" style="margin-right: 0.5em;" class="ui-button-primary">
+            </button>
+        </div>
+    </div>
+</form>

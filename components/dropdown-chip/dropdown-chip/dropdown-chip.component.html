@@ -1,0 +1,34 @@
+<div class="dropdown-chip-container">
+  <div class="p-field">
+    <label>{{ dropdownLabel }}</label>
+
+    <p-multiSelect *ngIf="multiSelect; else singleSelect" [options]="options"
+      [disabled]="options[0]?.DependentOn !== 0 ? disable : false" name="{{ dropdownLabel }}" autofocusFilter="true"
+      resetFilterOnHide="true" filter="true" autofocus="true" optionLabel="Text" scrollHeight="200px" appendTo="body"
+      [ngModel]="value" (ngModelChange)="onChange($event)" [maxSelectedLabels]="4"
+      selectedItemsLabel="{0} items selected" showToggleAll="true"></p-multiSelect>
+
+    <ng-template #singleSelect>
+      <p-select [disabled]="options[0]?.DependentOn !== 0 ? disable : false" [options]="options" [(ngModel)]="value"
+        (ngModelChange)="onChange($event)" name="{{ dropdownLabel }}" optionLabel="Text" optionValue="Value"
+        showClear="false" appendTo="body"></p-select>
+    </ng-template>
+  </div>
+
+  <div class="p-field">
+    <label>{{ chipContainerLabel }}</label>
+    <div *ngIf="multiSelect; else singleChipContainer" class="chips-container">
+      <ng-container *ngFor="let chip of value">
+        <p-chip *ngIf="chip != null" [styleClass]="chipEnabled ? '': 'disabled'" [label]="chip.Text"
+          (click)="_onChipClick(chip)">
+        </p-chip>
+      </ng-container>
+    </div>
+    <ng-template #singleChipContainer>
+      <div class="chips-container">
+        <p-chip *ngIf="options && value != null" [label]="getLabel()" icon="pi pi-link"
+          (click)="_onChipClick(value)"></p-chip>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="Pivot-table-Display">
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12">
+            <div style="height: 100%;" *ngIf="Module && activeLinkIndex[0] == 0">
+                <app-pivot-table [ModuleList]="Module[0].moduleList[0]"></app-pivot-table>
+            </div>
+        </div>
+    </div> <!---End of p-grid-->
+</div>

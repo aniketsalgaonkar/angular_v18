@@ -1,0 +1,209 @@
+::ng-deep form .p-grid {
+    // gap: 10px !important;
+    display: flex !important;
+    margin: -1.05rem -0.2rem 0rem -0.2rem !important;
+}
+
+::ng-deep form .p-field {
+    flex-direction: column;
+    display: flex;
+    margin-bottom: 9px !important;
+}
+
+::ng-deep .p-card {
+    background: var(--p-card-background);
+    color: var(--p-card-color);
+    box-shadow: var(--p-card-shadow);
+    border-radius: 0% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+:host ::ng-deep .p-panel-content {
+    padding: 0px !important;
+}
+
+:host ::ng-deep .p-panel-header {
+    padding: 0px !important;
+}
+
+:host ::ng-deep .p-card-body {
+    padding: 0px;
+}
+
+:host ::ng-deep .p-card-title {
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    font-family: var(--font-family-datasavi);
+    line-height: 300%;
+    background: var(--card-title-background-color);
+    padding-left: 5px;
+}
+
+:host ::ng-deep .p-panel .p-card .p-card-content {
+    padding: 10px !important;
+}
+
+:host ::ng-deep .p-select {
+    color: black !important;
+    font-size: 12px !important;
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    width: 100% !important;
+    height: 30px;
+    border-radius: 2px;
+}
+
+:host ::ng-deep .p-multiselect {
+    color: black !important;
+    font-size: 12px !important;
+    background: #fff !important;
+    border: 1px solid #a6a6a6 !important;
+    width: 100% !important;
+    height: 30px;
+    border-radius: 2px !important;
+}
+
+.inputField {
+    color: black !important;
+    font-size: 12px !important;
+    background: #fff !important;
+    border: 1px solid #a6a6a6 !important;
+    width: 100% !important;
+    height: 30px;
+    border-radius: 2px !important;
+}
+
+::ng-deep .p-select-overlay {
+    font-size: 12px !important;
+    background: #fff !important;
+    color: #333;
+    border: 1px solid var(--p-select-overlay-border-color);
+    border-radius: 2px;
+}
+
+::ng-deep .p-inputtext {
+    height: 30px;
+    border-radius: 2px !important;
+    font-size: 12px !important;
+}
+
+::ng-deep .p-tabs {
+    padding: 20px !important;
+}
+
+::ng-deep .p-tablist-tab-list {
+    background: none !important;
+}
+
+::ng-deep .p-tab {
+    font-size: 12px;
+    padding: 0.5rem 1rem !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin-right: 2px !important;
+    background: white !important;
+    border: 1px solid #c8c8c8 !important;
+    color: #333;
+    font-weight: 500 !important;
+}
+
+::ng-deep .p-tab-active {
+    background: #fff9f0 !important;
+    color: #f27924 !important;
+    border: 1px solid #f27924 !important;
+}
+
+::ng-deep .p-tablist-active-bar {
+    background: none !important;
+}
+
+::ng-deep .p-tabpanels {
+    border: 1px solid #c8c8c8;
+    padding: 0px !important;
+}
+
+::ng-deep .p-multiselect-overlay {
+    font-size: 12px !important;
+    color: #333 !important;
+}
+
+
+/* Mobile styles (applies only below 768px) */
+@media (max-width: 767px) {
+
+    /* General spacing adjustments */
+    .p-grid,
+    .p-fluid,
+    .p-formgrid {
+        margin-left: -50px;
+    }
+
+    /* Form grid adjustments */
+    .p-fluid .p-formgrid .p-field {
+        width: 100% !important;
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    /* Cards adjustments */
+    .p-card {
+        margin-bottom: 1rem;
+    }
+
+    .p-card .p-card-body {
+        padding: 1rem;
+    }
+
+    .p-card .p-card-content {
+        padding: 0;
+    }
+
+    /* Dropdown/multiselect adjustments */
+    .p-dropdown,
+    .p-multiselect,
+    .p-inputtext {
+        width: 100% !important;
+    }
+
+    /* Input field adjustments */
+    .inputField {
+        width: 100% !important;
+    }
+
+    /* Button adjustments */
+    .p-button {
+        border-radius: 8px !important;
+        width: 100%;
+        margin: 0.5rem 0 !important;
+    }
+
+    /* Panel adjustments */
+    .p-panel {
+        margin: 0;
+    }
+
+    .p-panel .p-panel-content {
+        padding: 0.5rem;
+    }
+
+    /* Tab adjustments */
+    .p-tablist {
+        justify-content: center;
+    }
+
+    .p-tab {
+        padding: 0.5rem 1rem;
+    }
+
+    /* Right-aligned button container */
+    div[style*="text-align: right"] {
+        text-align: center !important;
+        margin: 1rem 0 !important;
+        padding: 0 0.5rem;
+    }
+
+    ::ng-deep form .p-grid{
+        display: block !important;
+    }
+}

@@ -1,0 +1,219 @@
+<!-- Loader Starts-->
+<div *ngIf="show" id="cover">
+  <div ng-show="showLoader" class="center">
+    <div class="message">
+      Please wait ... <br>
+      <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid" class="lds-ellipsis"
+        style="background: none;"><!--circle(cx="16",cy="50",r="10")-->
+        <circle cx="84" cy="50" r="0" fill="#ffcc33">
+          <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="42.6958" cy="50" r="10" fill="#7de6ea">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+        </circle>
+        <circle cx="16" cy="50" r="7.85172" fill="#ffa570">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+        </circle>
+        <circle cx="84" cy="50" r="2.14828" fill="#d4e683">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="76.6958" cy="50" r="10" fill="#ffcc33">
+          <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</div>
+<!-- Loader Ends-->
+<div>
+  <div class="grid Validate-dataview">
+    <div class="col-12 md:col-12">
+      <p-panel [toggleable]="true" header="Validate Datasets">
+        <div style="height: 100%;" *ngIf="
+            frozenColsArray!= undefined && 
+            scrollableColsArray!=undefined && 
+            primeNgTableArray!=undefined && 
+            selectedColumnsArray!=undefined">
+          <div *ngIf="loading && primeNgTableArray[0]==undefined" class="spinner-container">
+            <p-progressSpinner styleClass="custom-spinner" animationDuration="1s"></p-progressSpinner>
+          </div>
+
+
+          <p-dataView #dv [value]="primeNgTableArray[0]"
+            [filterBy]="Dataview.GetColumnNames(this.validationFilterModules)" [paginator]="true" [rows]="18">
+            <ng-template #list let-items>
+              <div class="grid grid-cols-12 grid-nogutter" style="margin: 5px 0px;">
+                <div *ngFor="let item of items; let first = first" class="col-12 md:col-3"
+                  (click)="openTable(item['ModuleId'], items,item)">
+                  <div class="product-grid-item card">
+                    <div class="product-grid-item-top">
+                      <div>
+                        <b class="tabledesc">{{ item.TableDesc ? item.TableDesc : item.TableName }}</b>
+                      </div>
+                    </div>
+                    <div class="product-grid-item-content">
+                      <div class="product-data">
+                        <div style="display: flex;">
+                          <span class="txt" style="font-size: 10.5px;">Error Count:</span>
+                          <span style="margin-left: 10px;"><b [ngStyle]="
+                                              item['ErrorCount'] != 0
+                                                ? { color: 'red' }
+                                                : { color: '#5E5E5E' }
+                                            " class="txt" style="font-size: 10.5px;">{{ item["ErrorCount"]
+                              }}</b></span>
+                        </div>
+                        <div class="txt">
+                          <span style="font-size: 10.5px;">Data Count:</span>
+                          <span style="margin-left: 10px;"><b style="font-size: 10px;">{{ item["DataCount"]
+                              }}</b></span>
+                        </div>
+                        <div class="txt">
+                          <span style="font-size: 10.5px;">Last Validate Date:</span>
+                          <span style="margin-left: 10px;"><b style="font-size: 10.5px;">{{ item["LastvalidateDate"] |
+                              date: "dd/MM/yyyy hh:mm:ss a" }}</b></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-dataView>
+        </div>
+      </p-panel>
+      <p-confirmDialog class="final-submit-dialog" [style]="{ width: '50vw' }" acceptButtonStyleClass="p-button-primary"
+        acceptLabel="Yes" rejectLabel="No" acceptIcon="" rejectIcon="" closeOnEscape="true" dismissableMask="true"
+        styleClass="custom-dialogpop" baseZIndex="10000">
+      </p-confirmDialog>
+      <p-dialog appendTo="body" header="Errors" [(visible)]="ruleEngine.showInvalidData" [modal]="true"
+        styleClass="custom-d" [style]="{ width: '75vw' }" [breakpoints]="{ '1199px': '90vw', '575px': '95vw' }"
+        [maximizable]="true" [draggable]="false" [resizable]="true" [dismissableMask]="true" [closable]="true">
+
+        <div class="dialog-container">
+          <div class="dialog-content">
+            <div *ngIf="RowErrors" class="p-drawer-content">
+              <span *ngFor="let rule of RowErrors">
+                <p-chip styleClass="p-mr-2 custom-chip" [style.font-size]="'10px'" [style.border-radius]="'20px'"
+                  [style.padding]="'0%'" [style.padding-left]="'10px'"
+                  [style.border]="rule.RuleCount === 0 ? '1px solid gray' : '1px solid #EF4444'"
+                  (click)="ruleEngine.filterChipData(Module[0].moduleList, rule.RuleMessage, ruleEngine, UserName)">
+                  <span [style.color]="rule.RuleCount > 0 ? '#EF4444' : 'inherit'">
+                    {{ rule.RuleMessage }}
+                  </span>
+                  <p-badge [value]="rule.RuleCount" [severity]="rule.RuleCount === 0 ? 'info' : 'danger'"></p-badge>
+                </p-chip>
+              </span>
+            </div>
+            <div *ngIf="ruleEngine" class="p-dialog-custom-content">
+              <p-table [value]="
+                    ruleEngine.ruleEngineInvalidData != null
+                      ? ruleEngine.ruleEngineInvalidData
+                      : ruleEngine.invalidData
+                  " [columns]="ruleEngine.invalidData_Columns" [rows]="10" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="single"
+                [(selection)]="selectedValues" paginator="true" [scrollable]="true" scrollHeight="500px"
+                [rowsPerPageOptions]="[5,10,20,50]" columnResizeMode="expand" [resizableColumns]="true"
+                [reorderableColumns]="true">
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col *ngFor="let col of columns" style="width: 100px" />
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn>{{ col }}</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row let-columns="columns" let-idx="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" pEditableColumn [ngStyle]="ruleEngine.getStyle(row, col)">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <span *ngIf="
+                                row[col] && row[col].Value && row[col].LinkMenuId == 0
+                              ">
+                            <input pInputText [(ngModel)]="row[col].Value" name="{{ col }}_{{ rowIndex + 1 }}" />
+                          </span>
+                          <span *ngIf="
+                                row[col] && row[col].Value && row[col].LinkMenuId != 0
+                              ">
+                            <a (click)="
+                                  ruleEngine.navigate(
+                                    row[col].Value,
+                                    row[col].LinkMenuId
+                                  );
+                                  cdr.detectChanges();
+                                ">
+                              {{ row[col].Value }}
+                              <span class="material-icons">warning</span>
+                            </a>
+                          </span>
+                          <span *ngIf="!(row[col] && row[col].Value)">
+                            <input pInputText [(ngModel)]="row[col]" name="{{ col }}_{{ rowIndex + 1 }}" />
+                          </span>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <span *ngIf="row[col] && row[col].Value">
+                            {{ row[col].Value }}
+                          </span>
+                          <span *ngIf="!(row[col] && row[col].Value)">
+                            {{ row[col] }}
+                          </span>
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="p-dialog-footer">
+            <!-- <button class="submit-btn"
+              (click)="ruleEngine.saveValidData(ruleEngine.invalidData, UserName, CurrentApp.ID, 1450, tableName)">
+              Submit
+            </button> -->
+            <p-button label="Submit" severity="primary" size="medium"
+            (click)="ruleEngine.saveValidData(ruleEngine.invalidData, UserName, CurrentApp.ID, 1450, tableName)"></p-button>
+
+             <p-button label="Close" severity="secondary" size="medium"
+            (click)="ruleEngine.showInvalidData = false"></p-button>
+
+          </div>
+        </div>
+      </p-dialog>
+      <div class="footer-sidebar"
+        style="position: fixed; bottom: 0; left: 1rem; width: 100%;  background: white; padding: 1rem 2rem; display: flex; justify-content: flex-end; box-shadow: 0 -4px 6px -4px rgba(0,0,0,0.1);">
+        <p-button label="Final Submit" [disabled]="isFinalSubmit" severity="primary" size="large"
+          (click)="finalSubmitConfirmation(1450, 'Submit')"></p-button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,18 @@
+.custom-file-upload-component {
+    .p-fileupload-header {
+        padding: 0;
+    }
+    .p-fileupload-content {
+        display: none;
+    }
+    .p-fileupload-advanced {
+        border: none;
+        .p-button-icon {
+            font-size: 0.75rem;
+        }
+
+        .p-button-icon-only {
+            width: 1.85rem;
+        }
+    }
+}

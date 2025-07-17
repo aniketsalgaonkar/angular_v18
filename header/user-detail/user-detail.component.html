@@ -1,0 +1,50 @@
+<p-drawer header=" " [(visible)]="isUserDetailVisiable" position="right" (onHide)="hello()" styleClass="custom-drawer w-3 p-0"  >
+    <div class="profile">
+        <div class="profile-icon">
+            <i class="pi pi-user"></i>
+        </div>
+        <span class="link_name">
+            SandeepM
+        </span>
+    </div>
+
+
+    <!-- Bottom Navigation Menu -->
+
+    <div class="bottom-nav">
+        <div class="nav-item">
+            <a routerLink="/document-management">
+
+                <div class="icon-box">
+                    <i class="pi pi-shield"></i>
+                </div>
+
+                <span>Documentation</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a routerLink="/subscribe">
+                <div class="icon-box">
+                    <i class="pi pi-check-square"></i>
+                </div>
+                <span>Subscribe</span>
+            </a>
+        </div>
+        <div class="nav-item" (click)="TicketAppLink()">
+            <a>
+                <div class="icon-box">
+                    <i class="pi pi-comments"></i>
+                </div>
+                <span>Support</span>
+            </a>
+        </div>
+        <div class="nav-item" (click)="logout()">
+            <a>
+                <div class="icon-box">
+                    <i class="pi pi-sign-out"></i>
+                </div>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </div>
+</p-drawer>

@@ -1,0 +1,27 @@
+.bottom-nav-buttons-container {
+    position: fixed;
+    height: 5.833rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    align-items: center;
+    background-color: #fffcf9;
+    /* Light background for visibility */
+    padding: 10px;
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    p-button {
+        flex: 1;
+    }
+
+    ::ng-deep {
+        .p-button-lg {
+            width: 100%;
+        }
+    }
+}

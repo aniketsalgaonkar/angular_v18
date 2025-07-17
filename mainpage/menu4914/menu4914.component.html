@@ -1,0 +1,5 @@
+<div class="multicharts">
+    <ng-container *ngIf="Module && Module[0].moduleList[0].moduleData">
+        <app-card-group [cardGroupData]="Module[0].moduleList[0].moduleData"></app-card-group>
+    </ng-container>
+</div>

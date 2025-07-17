@@ -1,0 +1,149 @@
+@if (show) {
+<div id="cover">
+  <div class="center">
+    <div class="message">
+      Please wait ... <br>
+      <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid" class="lds-ellipsis">
+        <circle cx="84" cy="50" r="0" fill="#ffcc33">
+          <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="42.7" cy="50" r="10" fill="#7de6ea">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+        </circle>
+        <circle cx="16" cy="50" r="7.85" fill="#ffa570">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</div>
+}
+
+<div class="wrapper" >
+  <div class="logo-details">
+    <h3 style="margin-top: -10px; ">
+      Hey {{ loginService.currentUser()?.UserName }}, we are glad to see you
+      here again!
+    </h3>
+    <div class="toggle-container" (click)="toggleActiveOnly()">
+      <span class="toggle-label">{{ showActiveOnly ? 'All Services' : 'Active Only' }}</span>
+      <div class="toggle-ribbon" [class.active]="showActiveOnly">
+        <div class="toggle-handle">
+          <i class="bx" [class.bx-check]="showActiveOnly" [class.bx-x]="!showActiveOnly"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @for (groups of appGroups; track groups) {
+  @if (!showActiveOnly || hasActiveGroups(groups)) {
+  <div class="card flex justify-center" id="card-style"  >
+    <p-fieldset [legend]="groups[0].GroupName" [style]="{ width: '100%' }" class="fieldset">
+      <div class="outcard">
+        @for(group of groups; track group) {
+        @if (!showActiveOnly || group.IsSubscribe) {
+        <div class="inCard">
+          <p-card (click)=" group.IsSubscribe && clickGroup(group)" [style]="{ 
+                    width: '100%', 
+                    height: '140px', 
+                    overflow: 'hidden', 
+                    border: '1px solid #f27924', 
+                    cursor: group.IsSubscribe ? 'pointer' : 'not-allowed',
+                    filter: !group.IsSubscribe ? 'grayscale(100%) opacity(70%)' : 'none'
+                  }" [ngClass]="{'inactive-state': !group.IsSubscribe}">
+
+            <!-- Top Row: Icon, Button, and Timestamp -->
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; padding: 10px; margin-bottom: -10px;">
+              <!-- Icon on the left -->
+              <div class="subgroup-icon" [style]="{
+                        height: '40px', 
+                        width: '40px', 
+                        border: '1px solid #F27924', 
+                        backgroundColor: !group.IsSubscribe ? '#EEEEEE' : '#FFF4EB', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        borderRadius: '4px', 
+                        padding: '0.3rem'
+                      }">
+                <span class="material-icons"
+                  [style]="{color: !group.IsSubscribe ? '#AAAAAA' : '#F27924', fontSize: '1.8rem'}">{{ group.icon
+                  }}</span>
+              </div>
+
+              <!-- Active/Inactive button and timestamp on the right -->
+              <div style="display: flex; align-items: center; flex-direction: column;">
+                <button pButton pRipple type="button" class="p-button-outlined" [style]="{
+                          height: '25px', 
+                          width: '78px', 
+                          color: !group.IsSubscribe ? '#AAAAAA' : '#52C41A', 
+                          background: !group.IsSubscribe ? '#EEEEEE' : '#F6FFED', 
+                          border: !group.IsSubscribe ? '1px solid #AAAAAA' : '1px solid #B7EB8F', 
+                          borderRadius: '4px', 
+                          cursor: 'pointer'
+                        }">
+                  {{ group.IsSubscribe ? 'Active' : 'Inactive' }}
+                </button>
+                <div [style]="{fontSize: '10px', marginTop: '5px', color: !group.IsSubscribe ? '#AAAAAA' : 'inherit'}">
+                  Ends 23 July 22</div>
+              </div>
+            </div>
+
+            <!-- Bottom Row: Label -->
+            <div style="padding: 10px;">
+              <span class="label" [style]="{
+        color: !group.IsSubscribe ? '#AAAAAA' : '', 
+        lineHeight: '1.2', 
+        display: 'inline-block'
+      }">
+                {{ group.label }}
+              </span>
+
+              <!-- last run by -->
+              <div style="display: flex; flex-direction: column; margin-top: 4px;">
+                <span class="last-run-by" [style]="{color: !group.IsSubscribe ? '#AAAAAA' : 'inherit'}">
+                  Last Run By:
+                  <span *ngIf="group.LastRunBy !=''; else elseBlock">
+                    {{group.LastRunBy}}
+                  </span>
+                </span>
+                <!-- Last run date -->
+                <span class="last-run" [style]="{color: !group.IsSubscribe ? '#AAAAAA' : 'inherit'}">
+                  Last Run:
+                  <span *ngIf="group.LastRunDate !='0001-01-01T00:00:00'; else elseBlock">
+                    {{group.LastRunDate | date:'dd/MM/yyyy'}}
+                  </span>
+                </span>
+                <!-- Placeholder for empty values -->
+                <ng-template #elseBlock>
+                  <span> - </span>
+                </ng-template>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        }
+        }
+      </div>
+    </p-fieldset>
+  </div>
+  }
+  }
+</div>

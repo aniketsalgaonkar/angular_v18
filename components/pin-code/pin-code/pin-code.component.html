@@ -1,0 +1,19 @@
+<label [attr.title]="requiredField ? 'required' : ''">
+  {{ pinCodeLabelName }}
+  <span *ngIf="requiredField" class="requiredmark">*</span>
+</label>
+<input 
+  type="text" 
+  size="30" 
+  pInputText 
+  [id]="pinCodeLabelName" 
+  [name]="pinCodeLabelName" 
+  #pinCodeLabel="ngModel"
+  [(ngModel)]="Module && Module[0].moduleList[moduleListIndex].moduleDetails[moduleDetailIndex].value"
+  (focusout)="onFocusOutEvent($event)" 
+  [required]="requiredField" 
+  pattern="" />
+<div *ngIf="pinCodeLabel?.invalid && (pinCodeLabel?.dirty || pinCodeLabel?.touched)" class="error">
+  {{ pinCodeLabelName }} field is required!
+  <div *ngIf="pinCodeLabel?.errors?.pattern"></div>
+</div>

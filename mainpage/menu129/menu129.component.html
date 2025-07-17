@@ -1,0 +1,691 @@
+@if (show) {
+<div id="cover">
+    <div class="center">
+        <div class="message">
+            Please wait ... <br>
+            <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid" class="lds-ellipsis">
+                <circle cx="84" cy="50" r="0" fill="#ffcc33">
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="42.7" cy="50" r="10" fill="#7de6ea">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="16" cy="50" r="7.85" fill="#ffa570">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
+</div>
+}
+<div style="height: 100%;"
+    *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && selectedColumnsArray!=undefined && Module && Module[0].moduleList">
+
+    <p-splitter [style]="{'height': '85vh'}" [panelSizes]="[20,80]" [minSizes]="[15,20]" styleClass="p-mb-4">
+        <ng-template pTemplate>
+            <div id="tree">
+                <p-panel [toggleable]="false" class="tree_panel">
+                    <p-header>
+                        <div class="ui-panel-title">
+                            Hierarchy Filter
+                            <div class="ui-panel-title-buttons">
+    
+                            </div>
+                        </div>
+                    </p-header>
+                    <p-tree [value]="Module[0].moduleList[0].moduleData" selectionMode="single" 
+                        [(selection)]="selectedFiles" (onNodeSelect)="filterTablesFromTree($event.node)" [filter]="true"
+                        (onNodeExpand)="expandRecursive($event.node,true,0)" scrollHeight="100%">
+                    </p-tree>
+                </p-panel>
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 " id="tree-crud">
+
+                    <p-panel [toggleable]="true" class="panel_includes_table" *ngIf="!ModuleIDList.includes(272)"
+                        #form272 [style]="Module && Module[0].moduleList[1].BackgroundColor">
+                        <ng-template pTemplate="header">
+                            <span>
+                                Product Level Master <span *ngFor="let rule of Module[0].moduleList[1].RuleErrorData">
+                                    <p-chip styleClass="p-mr-2 custom-chip"
+                                        (click)="ruleEngine.filterRuleData(rule.RuleCount,1,rule.RuleName,rule.RuleMessage,dt,Module,ModuleDataWithRuleArray,primeNgTableArray,totalRecords,firstcount,rowscount)">{{rule.RuleHeader}}:
+                                        {{rule.RuleMessage}} <p-badge [value]="rule.RuleCount"
+                                            severity="danger"></p-badge></p-chip>
+                                </span>
+                                <span *ngIf="ruleEngine.filterRuleIndex!=undefined && ruleEngine.filterRuleIndex==1">
+                                    <button pButton pRipple type="button" icon="pi pi-times"
+                                        class="p-button-rounded p-button-danger"
+                                        (click)="ruleEngine.clearFilter(1,Module,primeNgTableArray,totalRecords,firstcount,rowscount)"></button>
+                                </span>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="icons">
+                            <input [hidden]="!hideColumnFilters" *ngIf="!form272.collapsed"
+                                (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50"
+                                placeholder="Search" (input)="dt.filterGlobal($any($event.target).value, 'contains')">
+                            <button pButton class="custom-icon-button" (click)="hideColumnFilters = !hideColumnFilters"
+                                tooltipPosition="top" pTooltip="Table and Column Filters">
+                                <span class="pi pi-search"></span>
+                            </button>
+                            <button pButton class="custom-icon-button" (click)="showDialogToAddInCrudTable(0)"
+                                tooltipPosition="top" pTooltip="Add New Record">
+                                <span class="pi pi-plus-circle"></span>
+                            </button>
+                            <button pButton class="custom-icon-button" (click)="SubmitPrimeNgTable(272,null,dt,1,0)"
+                                tooltipPosition="top" pTooltip="Submit">
+                                <span class="pi pi-save"></span>
+                            </button>
+                            <button pButton class="custom-icon-button"
+                                (click)="downloadModuleReport('272','Product Level Master')" tooltipPosition="top"
+                                pTooltip="Download Module as Excel">
+                                <span class="pi pi-file-excel"></span>
+                            </button>
+                            <button pButton class="mobile p-panel-header-icon p-link" style="display:none;"
+                                (click)="tablemenu.toggle($event)" tooltipPosition="top" pTooltip="MorOptions">
+                                <span class="pi pi-ellipsis-v"></span>
+                            </button>
+                            <p-menu #tablemenu appendTo="body" [popup]="true" [model]="tableSecondaryOptions"></p-menu>
+
+
+                        </ng-template>
+                        <p-contextMenu #cm_0 appendTo="body"
+                            [model]="Module[0].moduleList[1].RowContextMenus"></p-contextMenu>
+                        <p-table #dt [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm_0"
+                            [columns]="scrollableColsArray[0]" [value]="primeNgTableArray[0]"
+                            (onRowSelect)="onRowSelectInCrudTable($event,'','',true, 1,0)" [rows]="10"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            selectionMode="single" [(selection)]="selectedValues" paginator="true" [scrollable]="true"
+                            scrollHeight="100%" [rowsPerPageOptions]="[5,10,20,50]" columnResizeMode="expand"
+                            [resizableColumns]="true" [reorderableColumns]="true" [totalRecords]="totalRecords[0]"
+                            [lazy]="true" [globalFilterFields]="globalFilterFields272"
+                            (onLazyLoad)="loadTableData($event,0,1)" [loading]="false">
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col *ngFor="let col of columns">
+                                </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" tooltipPosition="top"
+                                        [pTooltip]="col.ModuleDetailDesc" [pSortableColumn]="col.ColumnName"
+                                        pResizableColumn pReorderableColumn [ngClass]="{'Text':col.DataType=='Text','int':col.DataType=='int','decimal':col.DataType=='decimal','real':col.DataType=='real',
+                              'date':col.DataType=='date','datetime':col.DataType=='datetime','string':col.DataType=='string',
+                              'Checkbox':col.InputControls== 'Checkbox','Link':col.InputControls == 'Link','DropDownList':col.InputControls == 'DropDownList',
+                              'Label':col.InputControls == 'Label','align-left':(col.InputControls == 'TextBox' && col.DataType == 'string'),
+                              'EmailButton':col.InputControls == 'EmailButton','ReportButton':col.InputControls == 'ReportButton',
+                              'id':col.InputControls == 'id','highlight':col.Highlight=='true'}">
+                                        <p-tableHeaderCheckbox
+                                            *ngIf="col.InputControls == 'rowCheckbox'"></p-tableHeaderCheckbox>
+                                        <div>
+                                            <div style="word-wrap:normal"
+                                                *ngIf="col.InputControls != 'rowCheckbox' && col.InputControls != 'Checkbox' && col.InputControls != 'ReportButton' && col.InputControls != 'Link' && col.InputControls != 'EmailButton'">
+                                                {{col.ColumnHeader}}
+                                            </div>
+                                            <div>
+                                                <p-sortIcon [field]="col.ColumnName" ariaLabel="Activate to sort"
+                                                    ariaLabelDesc="Activate to sort in descendent order"
+                                                    ariaLabelAsc="Activate to sort in ascendent order"
+                                                    style="display: none;"></p-sortIcon>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'EmailButton'">
+                                            {{col.ColumnHeader}}
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'Checkbox'">
+                                            {{col.ColumnHeader}}
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'ReportButton'">
+                                            {{col.ColumnHeader}}
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'Link'">
+                                            {{col.ColumnHeader}}
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr *ngIf="hideColumnFilters" class="hiddenFilters">
+                                    <th *ngFor="let col of columns" style="padding:1px;">
+                                        <div class="filter-row">
+                                            <div class="input-container" *ngIf="col.DataType=='date'">
+                                                <span class="input-wrapper">
+                                                    <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                        type="text"
+                                                        (input)="dt.filter(inputField.value, col.ColumnName, 'contains')"
+                                                        class="filter-input" #inputField>
+                                                    <i class="pi pi-times clear-icon"
+                                                        (click)="clear(dt, inputField,col.ColumnName)"></i>
+                                                </span>
+                                            </div>
+                                            <div class="input-container"
+                                                *ngIf="col.DataType=='int' || col.DataType=='decimal'">
+                                                <span class="input-wrapper">
+                                                    <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                        type="text" class="filter-input"
+                                                        (input)="dt.filter(inputField.value, col.ColumnName, 'contains')"
+                                                        #inputField>
+                                                    <i class="pi pi-times"
+                                                        (click)="clear(dt,inputField,col.ColumnName)"></i>
+                                                </span>
+                                            </div>
+                                            <div class="input-container"
+                                                *ngIf="col.DataType=='string' || col.DataType=='datetime'">
+                                                <span class="input-wrapper">
+                                                    <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                        type="text" class="filter-input"
+                                                        (input)="dt.filter(inputField.value, col.ColumnName, 'contains')"
+                                                        #inputField>
+                                                    <i class="pi pi-times clear-icon"
+                                                        (click)="clear(dt,inputField,col.ColumnName)"></i>
+                                                </span>
+                                            </div>
+                                            <div class="input-container" *ngIf="col.InputControls=='Checkbox'">
+                                                <span class="input-wrapper">
+                                                    <input [hidden]="col.ColumnSearchEnable==false" pInputText
+                                                        type="text" class="filter-input"
+                                                        (input)="dt.filter(inputField.value, col.ColumnName, 'contains')"
+                                                        #inputField>
+                                                    <i class="pi pi-times clear-icon"
+                                                        (click)="clear(dt,inputField,col.ColumnName)"></i>
+                                                </span>
+                                            </div>
+                                            <div class="filter-button-container">
+                                                <span
+                                                    *ngIf="(col.InputControls == 'TextBox' || col.InputControls =='Label') && col.DataType == 'date'">
+                                                    <p-columnFilter type="date" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="col.InputControls == 'TextBox'  &&  (col.DataType =='decimal' || col.DataType=='int')">
+                                                    <p-columnFilter type="numeric" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="col.InputControls == 'DropDownList' &&  col.DataType =='string'">
+                                                    <p-columnFilter type="text" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="(col.InputControls == 'TextBox' || col.InputControls =='Label') && col.DataType == 'string'">
+                                                    <p-columnFilter type="text" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="col.InputControls == 'Label' && col.DataType == 'datetime'">
+                                                    <p-columnFilter type="text" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="col.InputControls=='DropDownList' && (col.DataType == 'int' || col.DataType=='decimal')">
+                                                    <p-columnFilter type="numeric" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+                                                <span
+                                                    *ngIf="col.InputControls == 'MultiDropDownList' &&  col.DataType =='string'">
+                                                    <p-columnFilter type="text" [field]="col.ColumnName"
+                                                        display="menu"></p-columnFilter>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-idx="rowIndex">
+                                <tr [pContextMenuRow]="rowData" [pSelectableRow]="rowData">
+                                    <td pEditableColumn class="ui-resizable-column"
+                                        *ngFor="let col of columns;let i=index;" [title]="rowData[col.ColumnName]"
+                                        [ngClass]="{'Text':col.DataType=='Text','int':col.DataType=='int','decimal':col.DataType=='decimal','real':col.DataType=='real',
+                              'date':col.DataType=='date','datetime':col.DataType=='datetime','string':col.DataType=='string',
+                              'Checkbox':col.InputControls== 'Checkbox','Link':col.InputControls == 'Link','DropDownList':col.InputControls == 'DropDownList',
+                              'Label':col.InputControls == 'Label','align-left':(col.InputControls == 'TextBox' && col.DataType == 'string'),
+                              'EmailButton':col.InputControls == 'EmailButton','ReportButton':col.InputControls == 'ReportButton',
+                              'id':col.InputControls == 'id','highlight':col.Highlight=='true'}"
+                                        [ngStyle]="ModuleDataWithRuleArray != null ? 
+                {'style': ruleEngine.GetPropertyRule('ID',rowData['ID'],col.ColumnName,ModuleDataWithRuleArray[1],1)} : null">
+                                        <div
+                                            *ngIf="col.InputControls != 'DropDownList' && col.DataType != 'time' && col.InputControls != 'Checkbox' && col.DataType != 'date' && col.InputControls != 'MultiDropDownList' && col.InputControls != 'FileUpload' && col.InputControls != 'Link' ">
+                                            <span
+                                                (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,0,0)">{{rowData[col.ColumnName]}}</span>
+                                            <span *ngIf="ruleEngine.RuleJson!=null">
+                                                <i class="pi {{ruleEngine.RuleJson.Icon}}"
+                                                    title="{{ruleEngine.RuleJson.Tooltip}}"
+                                                    (click)="ruleEngine.GetRuleLink('ID',rowData['ID'],col.ColumnName,ModuleDataWithRuleArray[0],0)"
+                                                    style="font-size: small;"></i>
+                                            </span>
+                                            <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                [(ngModel)]="rowData[col.ColumnName]"
+                                                id="{{col.ColumnName}}_row{{idx+1}}"
+                                                value="{{rowData[col.ColumnName]}}" />
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'DropDownList'">
+                                            {{rowData[col.ColumnName]}}
+
+                                            <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                [(ngModel)]="rowData[col.ColumnName]"
+                                                id="{{col.ColumnName}}_row{{idx+1}}"
+                                                value="{{rowData[col.ColumnName]}}" />
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'MultiDropDownList'">
+                                            {{rowData[col.ColumnName]}}
+
+                                            <input type="hidden" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                [(ngModel)]="rowData[col.ColumnName]"
+                                                id="{{col.ColumnName}}_row{{idx+1}}"
+                                                value="{{rowData[col.ColumnName]}}" />
+                                        </div>
+                                        <div *ngIf="col.DataType == 'date'">
+                                            {{rowData[col.ColumnName] | date:'dd-MM-yy'}}
+                                        </div>
+                                        <div *ngIf="col.DataType == 'time'">
+                                            {{rowData[col.ColumnName] | date:'HH:mm:ss'}}
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'Checkbox'">
+                                            <input type="checkbox" name="{{col.ColumnName}}_row{{idx+1}}"
+                                                [value]="rowData[col.ColumnName]"
+                                                [(ngModel)]="rowData[col.ColumnName]" />
+                                        </div>
+                                        <div *ngIf="col.InputControls == 'Link'">
+                                            <button pButton pRipple type="button" [label]="rowData[col.ColumnName]"
+                                                class="p-button-text"
+                                                (click)="navigatePath(rowData,col.LinkedMenu,1)"></button>
+                                        </div>
+
+                                        <div *ngIf="col.InputControls == 'FileUpload'">
+                                            <div *ngIf="rowData[col.ColumnName] && rowData[col.ColumnName].length > 0">
+                                                <span>{{rowData[col.ColumnName]}}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+                        <!-- <p-dialog class="p-dialog-crud" appendTo="body" *ngIf="displayDialogModule && displayDialogModule[0]"
+                              header="Input Details" [(visible)]="displayDialogModule[0]" [focusOnShow]="false" [responsive]="true"
+                              [maximizable]="true" showEffect="fade" [modal]="true" position="bottom" [style]="{width: '100%'}">
+                              <div class="p-dialog-custome-header">
+                                  <span class="p-dialog-title">Product Level Master</span>
+                                  <div class="p-dialog-header-icons">
+                                      <button type="button" class=" p-dialog-header-icon-clone"
+                                          (click)="duplicateRecordInCrudTable(0)"><span class="pi pi-clone"></span></button>
+                                      <button type="button" class=" p-dialog-header-icon-trash"
+                                          (click)="deleteRecordFromCrudTable(0)"><span class="pi pi-trash"></span></button>
+                                      <button type="button" class=" p-dialog-header-icon p-dialog-header-close"
+                                          (click)="displayDialogModule[0] = false"><span class="pi pi-times"></span></button>
+              
+                                  </div>
+                              </div>
+                              <div *ngIf="thisrow && scrollableColsArray[0]" class="p-dialog-custom-content">
+                                  <ion-grid>
+                                      <ion-row class="p-grid p-fluid">
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="ID" [value]="thisrow['ID']" [(ngModel)]="thisrow['ID']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Brand</label>
+                                                  <input pInputText type="text" name="PL1"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[1].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL1']" [(ngModel)]="thisrow['PL1']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL1Desc" [value]="thisrow['PL1Desc']"
+                                                  [(ngModel)]="thisrow['PL1Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Business Segment</label>
+                                                  <input pInputText type="text" name="PL2"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[3].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL2']" [(ngModel)]="thisrow['PL2']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL2Desc" [value]="thisrow['PL2Desc']"
+                                                  [(ngModel)]="thisrow['PL2Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Product Line</label>
+                                                  <input pInputText type="text" name="PL3"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[5].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL3']" [(ngModel)]="thisrow['PL3']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL3Desc" [value]="thisrow['PL3Desc']"
+                                                  [(ngModel)]="thisrow['PL3Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>SubGroup 1</label>
+                                                  <input pInputText type="text" name="PL4"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[7].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL4']" [(ngModel)]="thisrow['PL4']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL4Desc" [value]="thisrow['PL4Desc']"
+                                                  [(ngModel)]="thisrow['PL4Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>SubGroup 2</label>
+                                                  <input pInputText type="text" name="PL5"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[9].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL5']" [(ngModel)]="thisrow['PL5']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL5Desc" [value]="thisrow['PL5Desc']"
+                                                  [(ngModel)]="thisrow['PL5Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>SubGroup 3</label>
+                                                  <input pInputText type="text" name="PL6"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[11].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL6']" [(ngModel)]="thisrow['PL6']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12" style="display:none;">
+                                              <input type="hidden" name="PL6Desc" [value]="thisrow['PL6Desc']"
+                                                  [(ngModel)]="thisrow['PL6Desc']" />
+                                              <div class="p-field">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Budget Category</label>
+                                                  <input pInputText type="text" name="Attribute4"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[13].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['Attribute4']" [(ngModel)]="thisrow['Attribute4']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Product Code</label>
+                                                  <input pInputText type="text" name="PL7"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[14].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL7']" [(ngModel)]="thisrow['PL7']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Product Description</label>
+                                                  <input pInputText type="text" name="PL7Desc"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[15].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['PL7Desc']" [(ngModel)]="thisrow['PL7Desc']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>Mobility App Desc</label>
+                                                  <input pInputText type="text" name="Attribute8"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[16].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['Attribute8']" [(ngModel)]="thisrow['Attribute8']">
+                                              </div>
+                                          </ion-col>
+                                          <ion-col size-md="2" size-sm="12" size-xs="12">
+                                              <div class="p-field">
+                                                  <label>BaseUoM</label>
+                                                  <input pInputText type="text" name="BaseUoM"
+                                                      [disabled]="Module[0].moduleList[1].moduleDetails[17].DependentOn!=0?disable:false"
+                                                      [value]="thisrow['BaseUoM']" [(ngModel)]="thisrow['BaseUoM']">
+                                              </div>
+                                          </ion-col>
+                                      </ion-row>
+                                  </ion-grid>
+                              </div>
+                              <p-footer>
+                                  <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                      <button type="button" pButton icon="pi pi-save" (click)="saveRecordInCrudTable(0)"
+                                          class="p-button-primary" label="Save"></button>
+                                      <button type="button" pButton icon="pi pi-refresh" (click)="resetDialogInCrudTable(0)"
+                                          label="Reset"></button>
+                                      <button type="button" pButton icon="pi pi-times" (click)="deleteRecordFromCrudTable(0)"
+                                          label="Delete"></button>
+                                      <button type="button" pButton icon="pi pi-copy" (click)="duplicateRecordInCrudTable(0)"
+                                          label="Duplicate"></button>
+                                  </div>
+                              </p-footer>
+                          </p-dialog> -->
+
+                        <p-dialog class="p-dialog-crud" appendTo="body"
+                            *ngIf="displayDialogModule && displayDialogModule[0]" header="Product Level Master"
+                            [(visible)]="displayDialogModule[0]" [focusOnShow]="false" [responsive]="true"
+                            [maximizable]="true" showEffect="fade" [modal]="true" position="bottom"
+                            [style]="{width: '100%'}">
+                            <!-- <div class="p-dialog-custome-header">
+                                  <span class="p-dialog-title">Product Level Master</span>
+                                  <div class="p-dialog-header-icons">
+                                      <button type="button" class="p-dialog-header-icon-clone"
+                                          (click)="duplicateRecordInCrudTable(0)">
+                                          <span class="pi pi-clone"></span>
+                                      </button>
+                                      <button type="button" class="p-dialog-header-icon-trash" (click)="deleteRecordFromCrudTable(0)">
+                                          <span class="pi pi-trash"></span>
+                                      </button>
+                                      <button type="button" class="p-dialog-header-icon p-dialog-header-close"
+                                          (click)="displayDialogModule[0] = false">
+                                          <span class="pi pi-times"></span>
+                                      </button>
+                                  </div>
+                              </div> -->
+
+                            <div *ngIf="thisrow && scrollableColsArray[0]" class="p-dialog-custom-content">
+                                <div class="p-grid p-fluid dialogbox">
+                                    <!-- Hidden ID field -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input type="hidden" name="ID" [value]="thisrow['ID']"
+                                            [(ngModel)]="thisrow['ID']" class="inputField" />
+                                    </div>
+
+                                    <!-- Brand -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Brand</label>
+                                            <input pInputText type="text" name="PL1" class="inputField"
+                                                [disabled]="Module[0].moduleList[1].moduleDetails[1].DependentOn!=0?disable:false"
+                                                [value]="thisrow['PL1']" [(ngModel)]="thisrow['PL1']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL1Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input class="inputField" type="hidden" name="PL1Desc"
+                                            [value]="thisrow['PL1Desc']" [(ngModel)]="thisrow['PL1Desc']" />
+                                    </div>
+
+                                    <!-- Business Segment -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Business Segment</label>
+                                            <input pInputText type="text" name="PL2" class="inputField"
+                                                [disabled]="Module[0].moduleList[1].moduleDetails[3].DependentOn!=0?disable:false"
+                                                [value]="thisrow['PL2']" [(ngModel)]="thisrow['PL2']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL2Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input class="inputField" type="hidden" name="PL2Desc"
+                                            [value]="thisrow['PL2Desc']" [(ngModel)]="thisrow['PL2Desc']" />
+                                    </div>
+
+                                    <!-- Product Line -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Product Line</label>
+                                            <input pInputText type="text" name="PL3" class="inputField"
+                                                [disabled]="Module[0].moduleList[1].moduleDetails[5].DependentOn!=0?disable:false"
+                                                [value]="thisrow['PL3']" [(ngModel)]="thisrow['PL3']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL3Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input class="inputField" type="hidden" name="PL3Desc"
+                                            [value]="thisrow['PL3Desc']" [(ngModel)]="thisrow['PL3Desc']" />
+                                    </div>
+
+                                    <!-- SubGroup 1 -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">SubGroup 1</label>
+                                            <input pInputText type="text" name="PL4" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[7]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['PL4']" [(ngModel)]="thisrow['PL4']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL4Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input class="inputField" type="hidden" name="PL4Desc"
+                                            [value]="thisrow['PL4Desc']" [(ngModel)]="thisrow['PL4Desc']" />
+                                    </div>
+
+                                    <!-- SubGroup 2 -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">SubGroup 2</label>
+                                            <input pInputText type="text" name="PL5" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[9]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['PL5']" [(ngModel)]="thisrow['PL5']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL5Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input type="hidden" name="PL5Desc" [value]="thisrow['PL5Desc']"
+                                            [(ngModel)]="thisrow['PL5Desc']" class="inputField" />
+                                    </div>
+
+                                    <!-- SubGroup 3 -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">SubGroup 3</label>
+                                            <input pInputText type="text" name="PL6" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[11]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['PL6']" [(ngModel)]="thisrow['PL6']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden PL6Desc -->
+                                    <div class="p-col-2" style="display:none;">
+                                        <input type="hidden" name="PL6Desc" [value]="thisrow['PL6Desc']"
+                                            [(ngModel)]="thisrow['PL6Desc']" class="inputField" />
+                                    </div>
+
+                                    <!-- Budget Category -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Budget Category</label>
+                                            <input pInputText type="text" name="Attribute4" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[13]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['Attribute4']" [(ngModel)]="thisrow['Attribute4']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Code -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Product Code</label>
+                                            <input pInputText type="text" name="PL7" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[14]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['PL7']" [(ngModel)]="thisrow['PL7']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Product Description</label>
+                                            <input pInputText type="text" name="PL7Desc" class="inputField"
+                                                [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[15]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['PL7Desc']" [(ngModel)]="thisrow['PL7Desc']">
+                                        </div>
+                                    </div>
+
+                                    <!-- Mobility App Desc -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">Mobility App Desc</label>
+                                            <input pInputText type="text" name="Attribute8" class="inputField"
+                                               [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[16]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['Attribute8']" [(ngModel)]="thisrow['Attribute8']">
+                                        </div>
+                                    </div>
+
+                                    <!-- BaseUoM -->
+                                    <div class="p-col-2">
+                                        <div class="form-col">
+                                            <label class="font-medium">BaseUoM</label>
+                                            <input pInputText type="text" name="BaseUoM" class="inputField"
+                                               [disabled]="Module?.[0]?.moduleList?.[1]?.moduleDetails?.[17]?.DependentOn != 0 ? disable : false"
+                                                [value]="thisrow['BaseUoM']" [(ngModel)]="thisrow['BaseUoM']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <div class="dialog-footer">
+                                    <button type="button" icon="pi pi-save" (click)="saveRecordInCrudTable(0)"
+                                        class="primarybtn" label="Save"> <i class="pi pi-save"></i> Save</button>
+                                    <button type="button" icon="pi pi-refresh" class="secondarybtn"
+                                        (click)="resetDialogInCrudTable(0)" label="Reset"> <i
+                                            class="pi pi-refresh"></i>Reset</button>
+                                    <button type="button" icon="pi pi-times" class="secondarybtn"
+                                        (click)="deleteRecordFromCrudTable(0)" label="Delete"> <i
+                                            class="pi pi-times"></i>Delete</button>
+                                    <button type="button" icon="pi pi-copy" class="secondarybtn"
+                                        (click)="duplicateRecordInCrudTable(0)" label="Duplicate"><i
+                                            class="pi pi-copy"></i>
+                                        Duplicate</button>
+                                </div>
+                            </div>
+
+                        </p-dialog>
+
+                    </p-panel>
+
+                </div>
+            </div>
+        </ng-template>
+    </p-splitter>
+
+</div>

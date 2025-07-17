@@ -1,0 +1,76 @@
+<!-- Skeleton For Nine Box -->
+
+<div *ngIf="showfilter" style="display:flex;justify-content: flex-end;margin:10px 0;">
+    <p-splitButton iconPos="left" label="Filter" icon="pi pi-filter" (onClick)="showfilter=!showfilter"
+        [model]="filterSplitButtonOptions"></p-splitButton>
+</div>
+<div [hidden]="showfilter" [ngClass]="{'open-filter': horizontalFilter,'panel-filter': !horizontalFilter}"
+    class="filter" style="margin-top:1rem">
+    <form class="p-fluid p-formgrid p-grid" #f_filter_1204="ngForm"
+        (ngSubmit)="onSubmitFilter(f_filter_1204.value)">
+        <div *ngIf="PageMenuDetails && showInFilter('Level')" class="p-field p-col-12 p-md-2 p-float-label">
+            <p-dropdown filter="true" options="PageMenuDetails[0].DropDownValues"
+                [(ngModel)]="PageMenuDetails[0].DefaultValue" name="Level" optionLabel="Text" appendTo="'body'"
+                showClear="true" autoDisplayFirst="false"></p-dropdown>
+            <label for="Level" class="filter-label">Level</label>
+        </div>
+        <div class="p-field p-col-12 p-md-1">
+            <button pButton label="Apply" type="submit" icon="dpi pi-filter" iconPos="left"
+                [disabled]="!f_filter_1204.form.valid" routerDirection="forward"></button>
+        </div>
+        <div class="p-field p-col-12 p-md-1">
+            <button pButton icon="pi pi-filter-slash" iconPos="left" label="Reset"
+                (click)="f_filter_1204.reset()"></button>
+        </div>
+        <div class="p-field p-col-12 p-md-1">
+            <button pButton type="button" label="Hide" icon="pi pi-times" iconPos="left"
+                (click)="showfilter=!showfilter"></button>
+        </div>
+    </form>
+</div>
+<div class="p-col-11 p-md-11">
+    <div class="nine-box-view-wrapper">
+        <div *ngIf="data == null" class="p-col-6 p-md-6">
+            <div class="p-grid">
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-3"></div>
+                <p-skeleton class="p-col-9 skeleton-block" height="100%"></p-skeleton>
+            </div>
+        </div>
+        <div *ngIf="data != null" class="p-col-6 p-md-6">
+            <div class="p-grid">
+                <div class="p-col-3"></div>
+                <div class="p-col-9" style="text-align: center;">
+                    {{ Module[0].moduleList[0].moduleDetails[0].ColumnHeader }}
+                </div>
+                <div class="p-col-3"></div>
+                <div class="p-col-3" *ngFor="let x of Module[0].moduleList[0].moduleDetails[0].RatingModuleDetails"
+                     style="text-align: center;">
+                    {{ x.RatingDescription }}
+                </div>
+
+
+
+                <ng-container *ngFor="let y of Module[0].moduleList[0].moduleDetails[1].RatingModuleDetails; let i = index">
+                    <div class="p-col-2 side-header">
+                        <span *ngIf="i == 1" class="header-text">
+                            {{ Module[0].moduleList[0].moduleDetails[1].ColumnHeader }}
+                        </span>
+                    </div>
+                    <div class="p-col-1 side-header">
+                        <div class="header-text">
+                            {{ y.RatingDescription }}
+                        </div>
+                    </div>
+                    <div *ngFor="let item of data[i]" class="p-col-3 block" style="text-align: center;" [ngStyle]="{'color': item.FontColor, 'background-color': item.BackgroundColor}">
+                        <h3><strong>{{ item.Value }}</strong></h3>
+                        <p style="font-size: 12px;"><strong><em>{{ item.SubText }}</em></strong></p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+

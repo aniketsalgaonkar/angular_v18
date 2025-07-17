@@ -1,0 +1,204 @@
+<!-- Loader Starts-->
+<ng-container>
+
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <p-panel *ngIf="!ModuleIDList.includes(11070)" [style]="Module && Module[0].moduleList[0].BackgroundColor">
+                <p-header>
+                    <div class="ui-panel-title">
+                        Locale Master </div>
+                </p-header>
+                <form name="form" (ngSubmit)="f_form_11070.form.valid && onSubmit(f_form_11070,11070,0,0)"
+                    #f_form_11070="ngForm" novalidate>
+                    <div class="formgrid grid" *ngIf="Module">
+                        <div class="field col-12 md:col-2">
+                            <label title="required" class="font-medium">Check Box</label>
+                            <div>
+                                <p-checkbox name="CheckBox" [value]="Module[0].moduleList[0].moduleDetails[0].value"
+                                    [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" [binary]="true">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-2" style="display:none">
+                            <input type="hidden" class="inputField " id="ID30851" name="ID" #ID30851="ngModel"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" />
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">DateMonth Picker</label>
+                            <p-datePicker [showIcon]="true" id="DateMonthPicker30852" name="DateMonthPicker"
+                                #DateMonthPicker30852="ngModel" large-columns pattern=".*"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" readonlyInput="true"
+                                [appendTo]="'body'" [monthNavigator]="true" [yearNavigator]="true" yearRange="1850:2150"
+                                showButtonBar="true" [dateFormat]=DateFormat showWeek="true" showTime="true"
+                                [hourFormat]=hourFormat todayButtonStyleClass="ui-secondary-button"
+                                clearButtonStyleClass="ui-secondary-button" dataType="date"></p-datePicker>
+                            <div *ngIf="DateMonthPicker30852?.invalid && (DateMonthPicker30852?.dirty || DateMonthPicker30852?.touched)"
+                                class="error">
+                                <div *ngIf="DateMonthPicker30852?.errors?.required">
+                                    DateMonth Picker is required.
+                                </div>
+                                <div *ngIf="DateMonthPicker30852?.errors?.pattern">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">File Upload</label>
+                            <p-fileUpload name="file" (onSelect)="uploadFile.onUpload($event,'');" accept=".xlsx"
+                                maxFileSize="10000000" [auto]="true">
+
+                                <ng-template pTemplate="content">
+                                    <input type="hidden" class="inputField" [(ngModel)]="uploadFile.uploadedFiles"
+                                        name="FileUpload" />
+                                    <ul>
+                                        <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+                                    </ul>
+                                </ng-template>
+                            </p-fileUpload>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Text Box</label>
+                            <input type="text" size="30" class="inputField w-full" pInputText id="TextBox30880"
+                                name="TextBox" #TextBox30880="ngModel"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[4].value" pattern=""
+                                appSanitizeInput />
+                            <div *ngIf="TextBox30880?.invalid && (TextBox30880?.dirty || TextBox30880?.touched)"
+                                class="error">
+                                <div *ngIf="TextBox30880?.errors?.pattern">
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Multi Dropdown list</label>
+                            <p-multiSelect *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[5].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[5].Multiselectvalue"
+                                id="MultiDropdownList30853" name="MultiDropdownList" defaultLabel="Select" filter="true"
+                                [appendTo]="local" optionLabel="Text" displaySelectedLabel="true" maxSelectedLabels="4"
+                                scrollHeight="200px" selectedItemsLabel="{0} items selected" showToggleAll="true"
+                                resetFilterOnHide="true">
+                            </p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Sheetwise Colmname DD</label>
+                            <p-multiSelect *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[6].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[6].Multiselectvalue"
+                                id="SheetwiseColmnameDD30854" name="SheetwiseColmnameDD" defaultLabel="Select"
+                                filter="true" [appendTo]="local" optionLabel="Text" displaySelectedLabel="true"
+                                maxSelectedLabels="4" scrollHeight="200px" selectedItemsLabel="{0} items selected"
+                                showToggleAll="true" resetFilterOnHide="true">
+                            </p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium w-full">Upload Content<span>*</span></label>
+                            <input pInputText class="inputField" type="file" ng-model="uploader" name="Upload Photos"
+                                (change)="handleFileInput($event.target.files)" ngModel>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Dropdown List</label>
+                            <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[8].DropDownValues"
+                                class="w-full" [(ngModel)]="Module[0].moduleList[0].moduleDetails[8].value"
+                                id="DropdownList30855" name="DropdownList" autofocusFilter="true"
+                                resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                                showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                                scrollHeight="200px" [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Dependent Dropdown List</label>
+                            <p-select *ngIf="Module" [options]="Module[0].moduleList[0].moduleDetails[9].DropDownValues"
+                                class="w-full" [(ngModel)]="Module[0].moduleList[0].moduleDetails[9].value"
+                                id="DependentDropdownList30856" name="DependentDropdownList" autofocusFilter="true"
+                                resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                                showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                                scrollHeight="200px" [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Sheetname DD</label>
+                            <p-select *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[10].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[10].value" id="SheetnameDD30857"
+                                name="SheetnameDD" autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                autofocus="true" [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <ng-container>
+                                <label class="font-medium">Radio Button</label>
+                                <div *ngFor="let radioButton of ['Yes','No']" class="p-field-checkbox">
+                                    <p-radioButton name="Radiobutton" [value]="radioButton"
+                                        [(ngModel)]="Module[0].moduleList[0].moduleDetails[11].value"></p-radioButton>
+                                    <label class="font-medium">{{radioButton}}</label>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Sheetwise Colmn DD</label>
+                            <p-select *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[12].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[12].value" id="SheetwiseColmnDD30858"
+                                name="SheetwiseColmnDD" autofocusFilter="true" resetFilterOnHide="true" filter="true"
+                                autofocus="true" [autoDisplayFirst]="false" showClear="true" autoZIndex="true"
+                                optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                                [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Searchable Dropdown List</label>
+                            <p-select [options]="Module[0].moduleList[0].moduleDetails[13].DropDownValues"
+                                class="w-full" ngModel id="SearchableDropdownList30859" name="SearchableDropdownList"
+                                autofocusFilter="true" resetFilterOnHide="true" filter="true" autofocus="true"
+                                [autoDisplayFirst]="false" showClear="true" autoZIndex="true" optionLabel="Text"
+                                [showClear]="true" scrollHeight="200px" [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Prime Single Select DD</label>
+                            <p-select *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[14].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[14].value"
+                                id="PrimeSingleSelectDD30873" name="PrimeSingleSelectDD" autofocusFilter="true"
+                                resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                                showClear="true" autoZIndex="true" optionLabel="Text" [showClear]="true"
+                                scrollHeight="200px" [appendTo]="local"></p-select>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Prime Multiselect DD</label>
+                            <p-multiSelect *ngIf="Module"
+                                [options]="Module[0].moduleList[0].moduleDetails[15].DropDownValues" class="w-full"
+                                [(ngModel)]="Module[0].moduleList[0].moduleDetails[15].Multiselectvalue"
+                                id="PrimeMultiselectDD30874" name="PrimeMultiselectDD" defaultLabel="Select"
+                                filter="true" [appendTo]="local" optionLabel="Text" displaySelectedLabel="true"
+                                maxSelectedLabels="4" scrollHeight="200px" selectedItemsLabel="{0} items selected"
+                                showToggleAll="true" resetFilterOnHide="true">
+                            </p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="font-medium">Image Upload</label>
+                            <p-fileUpload [auto]="true" chooseLabel="Browse" customUpload="true" mode="basic"
+                                (uploadHandler)="onLoadImage($event.files,'ImageUpload');ImageUpload=$event.files"
+                                accept="image/*" maxFileSize="100000000">
+                                <ng-template pTemplate="content">
+                                    <div><small></small></div>
+                                    <div *ngIf="ImageUpload!== undefined">
+                                        <input type="hidden" [(ngModel)]="ImageUpload" name="ImageUpload" />
+                                    </div>
+                                </ng-template>
+                            </p-fileUpload>
+                        </div>
+                    </div>
+                    <div class="flex justify-content-end pb-3">
+                        <button type="submit" pButton icon="pi pi-check-circle" label='Submit' iconPos="left"
+                            class="p-button-primary px-5 py-2 text-base font-semibold"
+                            [disabled]="!f_form_11070.form.valid">
+                        </button>
+                    </div>
+                </form>
+            </p-panel>
+        </div>
+
+    </div> <!---End of grid-->
+
+
+</ng-container>

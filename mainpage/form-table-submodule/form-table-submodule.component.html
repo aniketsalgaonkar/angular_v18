@@ -1,0 +1,127 @@
+<div class="p-grid">
+    <div class="p-col-12 p-md-12" *ngIf="Module && Module[0].moduleList[0].submodule">
+        <p-panel [toggleable]="true" class="panel_includes_table" *ngIf="!ModuleIDList.includes(4467)" #form4467
+            [style]="Module && Module[0].moduleList[0].BackgroundColor">
+            <ng-template pTemplate="header">
+                <span>
+                    Create TPO </span>
+            </ng-template>
+            <ng-template pTemplate="icons">
+
+                <button pButton class="p-panel-header-icon p-link" (click)="hideColumnFilters = !hideColumnFilters"
+                    tooltipPosition="top" pTooltip="Column and Table filters">
+                    <span class="pi pi-search"></span>
+                </button>
+            </ng-template>
+            <form name="form"
+                (ngSubmit)="f_form_4467.form.valid && UploadtoDynamicFolder(f_form_4467,primeNgTableArray[0],4467,0,0)"
+                #f_form_4467="ngForm" novalidate>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-2" style="display:none">
+                        <input type="hidden" id="TPONumber2279" name="TPONumber" #TPONumber2279="ngModel"
+                            [ngModel]="Module && Module[0].moduleList[0].submodule[0].subModuleDetails[0].value" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Supplier Name</label>
+                        <p-dropdown *ngIf="Module"
+                            [options]="Module[0].moduleList[0].submodule[0].subModuleDetails[1].DropDownValues"
+                            [disabled]="Module[0].moduleList[0].submodule[0].subModuleDetails[1].DependentOn!=0?disable:false"
+                            [(ngModel)]="Module[0].moduleList[0].submodule[0].subModuleDetails[1].value"
+                            id="SupplierCode2280" name="SupplierCode" autofocusFilter="true" resetFilterOnHide="true"
+                            filter="true" autofocus="true" [autoDisplayFirst]="false" showClear="true"
+                            [autoZIndex]="true" optionLabel="Text" [showClear]="true" scrollHeight="200px"
+                            appendTo="body" required="false"></p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Model</label>
+                        <input type="text" size="30" pInputText id="Model2281" name="Model" #Model2281="ngModel"
+                            [ngModel]="Module && Module[0].moduleList[0].submodule[0].subModuleDetails[2].value"
+                            pattern="" />
+                        <!-- <div *ngIf="Model2281?.invalid && (Model2281?.dirty || Model2281?.touched)" class="error">
+                            <div *ngIf="Model2281?.errors?.pattern">
+
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Trial Details </label>
+                        <input type="text" size="30" pInputText id="TrialDetails2282" name="TrialDetails"
+                            #TrialDetails2282="ngModel"
+                            [ngModel]="Module && Module[0].moduleList[0].submodule[0].subModuleDetails[3].value"
+                            pattern="" />
+                        <div *ngIf="TrialDetails2282?.invalid && (TrialDetails2282?.dirty || TrialDetails2282?.touched)"
+                            class="error">
+                            <!-- <div *ngIf="TrialDetails2282?.errors?.pattern">
+
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Request Date</label>
+                        <p-calendar [showIcon]="true" id="RequestDate2283" name="RequestDate" #RequestDate2283="ngModel"
+                            pattern=".*"
+                            [ngModel]="Module && Module[0].moduleList[0].submodule[0].subModuleDetails[4].value"
+                            appendTo="body"
+                            [disabled]="Module[0].moduleList[0].submodule[0].subModuleDetails[4].DependentOn!=0?disable:false"
+                            readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1850:2150"
+                            showButtonBar="true" [dateFormat]=DateFormat showWeek="true" [hourFormat]=hourFormat
+                            todayButtonStyleClass="ui-secondary-button"
+                            clearButtonStyleClass="ui-secondary-button"></p-calendar>
+                        <div *ngIf="RequestDate2283?.invalid && (RequestDate2283?.dirty || RequestDate2283?.touched)"
+                            class="error">
+                            <!-- <div *ngIf="RequestDate2283?.errors?.required">
+                                Request Date is required.
+                            </div>
+                            <div *ngIf="RequestDate2283?.errors?.pattern">
+
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>ManufacturingProduct</label>
+                        <p-dropdown *ngIf="Module"
+                            [options]="Module[0].moduleList[0].submodule[0].subModuleDetails[5].DropDownValues"
+                            [disabled]="Module[0].moduleList[0].submodule[0].subModuleDetails[5].DependentOn!=0?disable:false"
+                            [(ngModel)]="Module[0].moduleList[0].submodule[0].subModuleDetails[5].value"
+                            id="ManufacturingProduct2284" name="ManufacturingProduct" autofocusFilter="true"
+                            resetFilterOnHide="true" filter="true" autofocus="true" [autoDisplayFirst]="false"
+                            showClear="true" [autoZIndex]="true" optionLabel="Text" [showClear]="true"
+                            scrollHeight="200px" appendTo="body" required="false"></p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Remarks</label>
+                        <input type="text" size="30" pInputText id="Remarks2285" name="Remarks" #Remarks2285="ngModel"
+                            [ngModel]="Module && Module[0].moduleList[0].submodule[0].subModuleDetails[6].value"
+                            pattern="" />
+                        <!-- <div *ngIf="Remarks2285?.invalid && (Remarks2285?.dirty || Remarks2285?.touched)" class="error">
+                            <div *ngIf="Remarks2285?.errors?.pattern">
+
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label>Upload Attachment</label>
+                        <input pInputText type="file" id="DownloadTPO2286" name="DownloadTPO" [(ngModel)]="fileNames[0]"
+                            multiple (change)="onBasicUploadAuto($event,0)" />
+                    </div>
+                </div>
+            </form>
+        </p-panel>
+    </div>
+</div> <!---End of p-grid-->
+
+
+
+<!-- <div>
+ 
+    <button type="button" class="goBack"
+        (click)="showEditConstraintTable && scenarioDialog?.maximize(); closeChipSidebar()">
+        {{ activeStepIndex == 0 ? 'Close' : 'Back' }}
+    </button>
+    <button type="button" class="runBtn" (click)="onNextClick(f_cardview_1853_dialog, 1853)">
+        {{ getNextButtonLabel() }}
+    </button>
+    <button
+        *ngIf="showEditConstraintTable == false && activeStepIndex == scenarioDialogSteps.length - 1 && this.dialogLabel == 'Edit'"
+        type="button" (click)="onCloneClick()" class="runBtn">Duplicate</button>
+</div> -->

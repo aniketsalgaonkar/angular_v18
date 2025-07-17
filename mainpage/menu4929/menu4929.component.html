@@ -1,0 +1,112 @@
+@if (form.show) {
+<div id="cover">
+  <div class="center">
+    <div class="message">
+      Please wait ... <br>
+      <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid" class="lds-ellipsis">
+        <circle cx="84" cy="50" r="0" fill="#ffcc33">
+          <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="42.7" cy="50" r="10" fill="#7de6ea">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+        </circle>
+        <circle cx="16" cy="50" r="7.85" fill="#ffa570">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</div>
+}
+
+
+<div class="p-grid">
+  <div class="p-col-12 p-md-12" style="padding-top: 20px;">
+    <p-panel *ngIf="!ModuleIDList.includes(6939)" [style]="form.Module && Module[0].moduleList[0].BackgroundColor">
+      <p-header>
+        <div class="ui-panel-title">
+          NPD Form <p-overlayPanel [showCloseIcon]="false" appendTo='body' #op6939 class="opDescription">
+            NPD Form
+          </p-overlayPanel>
+        </div>
+      </p-header>
+      <form name="form" (ngSubmit)="f_form_6939.form.valid && form.onSubmit(f_form_6939, 6939, 0, 0)"
+        #f_form_6939="ngForm" novalidate>
+
+        <div class="formgrid grid p-3">
+          <div class="field col-12 md:col-3">
+            <label title="required" class="font-medium">SKU Name <span class="text-red-500">*</span></label>
+            <!-- <input id="firstname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
+            <p-dropdown id="SKUName21808" name="SKUName" [required]="true" filter autofocus
+              [options]="Module[0].moduleList[0].moduleDetails[0].DropDownValues"
+              [(ngModel)]="Module[0].moduleList[0].moduleDetails[0].value" resetFilterOnHide="true" class="w-full"
+              [autoDisplayFirst]="false" optionLabel="Text" showClear [autoZIndex]="true" scrollHeight="200px"
+              [appendTo]="'body'">
+            </p-dropdown>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label title="required" class="font-medium">Depot Sector <span class="text-red-500">*</span></label>
+            <p-dropdown id="DepotSector21809" name="DepotSector" [required]="true" filter autofocus
+              resetFilterOnHide="true" [options]="Module[0].moduleList[0].moduleDetails[1].DropDownValues"
+              [(ngModel)]="Module[0].moduleList[0].moduleDetails[1].value" class="w-full" [autoDisplayFirst]="false"
+              optionLabel="Text" showClear [autoZIndex]="true" scrollHeight="200px" [appendTo]="'body'">
+            </p-dropdown>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label title="required" class="font-medium">Sales Function <span class="text-red-500">*</span></label>
+            <p-dropdown id="SalesFunction21810" name="SalesFunction" [required]="true" filter autofocus
+              resetFilterOnHide="true" [options]="Module[0].moduleList[0].moduleDetails[2].DropDownValues"
+              [(ngModel)]="Module[0].moduleList[0].moduleDetails[2].value" class="w-full" [autoDisplayFirst]="false"
+              optionLabel="Text" showClear [autoZIndex]="true" scrollHeight="200px" [appendTo]="'body'">
+            </p-dropdown>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label title="required" class="font-medium">Period For NPD (months) <span
+                class="text-red-500">*</span></label>
+            <p-inputNumber id="PeriodForNPD21811" name="PeriodForNPD" #PeriodForNPD21811="ngModel" required
+              [ngModel]="form.Module?.[0]?.moduleList?.[0]?.moduleDetails?.[3]?.value || 0"
+              (ngModelChange)="form.Module[0].moduleList[0].moduleDetails[3].value = $event" pattern="^[0-6]$"
+              class="w-full">
+            </p-inputNumber>
+          </div>
+
+          <div class="field col-12 md:col-3">
+            <label title="requried" class="font-medium">Product Added On <span class="text-red-500">*</span></label>
+            <p-datepicker id="ProductAddedOn21812" name="ProductAddedOn"
+              [(ngModel)]="Module[0].moduleList[0].moduleDetails[4].value" showIcon="true"
+              readonlyInput="true" appendTo="body" monthNavigator="true" yearNavigator="true" yearRange="1850:2150"
+              showButtonBar="true" dateFormat="dd/mm/yy" showWeek="true" hourFormat="{{hourFormat}}"
+              todayButtonStyleClass="ui-secondary-button" clearButtonStyleClass="ui-secondary-button"
+              required="true"></p-datepicker>
+
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-content-end px-3 pb-3">
+          <button type="submit" pButton icon="pi pi-check-circle" label="Submit" iconPos="left"
+            class="p-button-primary px-5 py-2 text-base font-semibold" [disabled]="!f_form_6939.form.valid">
+          </button>
+        </div>
+
+      </form>
+    </p-panel>
+  </div>
+</div> <!---End of p-grid-->

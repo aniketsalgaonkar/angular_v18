@@ -1,0 +1,48 @@
+.dropdown-chip-container {
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    flex: 1;
+    min-width: 50%;
+  }
+
+  // & > div:first-child {
+  //   padding-right: 8px;
+  // }
+  
+  // & > div:last-child {
+  //   padding-left: 8px;
+  // }
+
+  .chips-container {
+    overflow-y: auto;
+    max-height: 100px;
+  }
+  .chips-container ::ng-deep {
+    .p-chip {
+      position: relative;
+      background-color: var(--secondary-background-color) !important;
+      color: var(--secondary-font-color) !important;
+      border: 1px solid var(--secondary-font-color) !important;
+      cursor: pointer !important;
+      &:hover .p-chip-text {
+        text-decoration: underline;
+      }
+      &.disabled {
+        background-color: #f4f4f4 !important;
+        border-color: grey !important;
+        color: grey !important;
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .dropdown-chip-container {
+    flex-direction: column;
+  }
+}

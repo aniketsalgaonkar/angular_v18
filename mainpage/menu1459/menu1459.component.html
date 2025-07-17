@@ -1,0 +1,99 @@
+<!-- Loader Starts-->
+<div *ngIf="show" id="cover">
+    <div ng-show="showLoader" class="center">
+        <div class="message">
+            Please wait ... <br>
+            <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid" class="lds-ellipsis"
+                style="background: none;"><!--circle(cx="16",cy="50",r="10")-->
+                <circle cx="84" cy="50" r="0" fill="#ffcc33">
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="42.6958" cy="50" r="10" fill="#7de6ea">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.7s"></animate>
+                </circle>
+                <circle cx="16" cy="50" r="7.85172" fill="#ffa570">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="-0.35s"></animate>
+                </circle>
+                <circle cx="84" cy="50" r="2.14828" fill="#d4e683">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+                <circle cx="76.6958" cy="50" r="10" fill="#ffcc33">
+                    <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+                        keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+                        repeatCount="indefinite" begin="0s"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
+</div>
+<!-- Loader Ends-->
+
+
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <p-button icon="pi pi-download" 
+              (onClick)="downloadreport()"
+              styleClass="p-button-rounded p-button-raised bg-orange-500 border-none p-button-help"
+              [style]="{'width': '3rem', 'height': '3rem'}">
+    </p-button>
+</div>
+
+<div>
+    <p-card *ngIf="Module && Module[0].moduleList[0]" header="{{Module[0].ModuleName}}" styleClass="processFlowCard">
+        <p-table [value]="getTaskRows()" [autoLayout]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let process of Module[0]?.moduleList[0]?.moduleData">{{process.Name}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td *ngFor="let process of Module[0]?.moduleList[0]?.moduleData">
+                        <div class="process-item-container" *ngIf="rowData[process.Name]">
+                            <div class="label">
+                                <span [ngClass]="rowData[process.Name]?.Status" class="process-status">
+                                    <i *ngIf="rowData[process.Name]?.Status === 'Completed'"
+                                        class="pi pi-check-circle"></i>
+                                    <i *ngIf="rowData[process.Name]?.Status === 'Error'" class="pi pi-times-circle"></i>
+                                    <i *ngIf="rowData[process.Name]?.Status === 'Running'"
+                                        class="pi pi-spin pi-spinner"></i>
+                                    <i *ngIf="rowData[process.Name]?.Status === 'Not Started'" class="pi pi-play"></i>
+                                </span>
+                                <span>
+                                    {{rowData[process.Name]?.Name}}
+                                    <span *ngIf="rowData[process.Name]?.DurationInSeconds">
+                                        ({{rowData[process.Name]?.DurationInSeconds}}s)
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+
+</div> <!---End of grid-->

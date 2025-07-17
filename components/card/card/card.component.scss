@@ -1,0 +1,240 @@
+.auto-width-card {
+    // max-width: 16rem;
+    // width: auto !important;
+    display: inline-block !important;
+}
+
+::ng-deep {
+    .pi {
+        font-size: 0.7rem !important;
+    }
+
+
+    .header-icon {
+        transition: color 0.3s ease;
+        /* Smooth color transition */
+    }
+
+    .header-content:hover .header-icon {
+        color: var(--primary-background-color);
+        /* Change color on hover */
+    }
+
+    .icon-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .view-more {
+        font-family: 'Inter' !important;
+        font-size: 0.4rem;
+        color: #949493;
+        position: absolute;
+        right: -1px;
+        opacity: 0;
+        white-space: nowrap;
+        transition: opacity 0.2s ease, right 0.5s ease;
+    }
+
+    .icon-container:hover .view-more {
+        right: calc(100% + 5px);
+        /* Move into view just to the left of the icon */
+        opacity: 1;
+    }
+
+    .p-card {
+        background-color: #FFFFFF;
+
+        .p-card-body {
+            // padding: 0.4rem 1rem;
+            padding-top: 0 !important;
+            padding-bottom: 0.15rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+
+        .p-card-title {
+            font-family: 'Inter' !important;
+            font-size: 0.75rem !important;
+            font-weight: bold;
+            margin-bottom: 0;
+            margin-top: 2px;
+            color: #000000;
+            border-left: 2.5px solid var(--primary-background-color);
+            padding-left: 5px;
+        }
+
+        .p-card-content {
+            padding: 0 !important;
+        }
+    }
+
+    .header-content {
+        display: flex;
+        // align-items: center; // vertically centers the items
+        justify-content: space-between;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+    }
+
+    .header-text {
+        font-family: 'Inter' !important;
+        font-size: 0.7rem !important;
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-top: 2px;
+        color: #000000;
+        border-left: 2.5px solid var(--primary-background-color);
+        padding-left: 5px;
+    }
+
+    .p-carousel .p-carousel-indicators {
+        padding: 0;
+
+        .p-carousel-indicator button {
+            width: 4px;
+            height: 4px;
+            border-radius: 100px;
+            background-color: #dfdddd;
+        }
+
+        .p-carousel-indicator.p-highlight button {
+            background-color: var(--primary-background-color);
+            // background: #fff4eb;
+
+
+        }
+    }
+
+    .p-link:focus {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: 0 0 0 0.2rem #fff4eb !important;
+    }
+
+    .p-link {
+        cursor: pointer !important;
+    }
+
+    .p-carousel-items-content {
+        height: 4.2rem !important;
+    }
+
+
+
+    .item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
+        /* Remove default margins */
+        padding: 0.3em 0;
+    }
+
+    .item-name {
+        /* Additional styles if needed */
+        width: 80px;
+        font-size: 11px;
+        color: #818181;
+        margin: 0;
+        /* Remove default margins */
+        white-space: nowrap;
+        /* Prevent the text from wrapping */
+        overflow: hidden;
+        /* Hide the overflow */
+        display: inline-block;
+        /* Ensure the text stays on one line */
+        text-overflow: ellipsis;
+        /* Default ellipsis overflow */
+
+        //   white-space: nowrap; /* Prevent the text from wrapping */
+        //   overflow: hidden; /* Hide the overflow */
+        //   display: inline-block; /* Ensure the text stays on one line */
+        //   animation: marquee 10s linear infinite; /* Apply the marquee animation */
+        // font-weight: 600;
+    }
+
+
+
+    .item-value {
+        // margin-left: auto;
+        margin: 0;
+        font-size: 11px;
+        color: black;
+        font-weight: bolder;
+        /* Additional styles if needed */
+    }
+
+    .marquee-container {
+        overflow: hidden;
+        /* Hide the overflow */
+        width: 100px;
+        /* Set a fixed width for the container */
+        white-space: nowrap;
+        /* Prevent the text from wrapping */
+        text-overflow: ellipsis;
+        /* Show ellipsis when text overflows */
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+
+
+
+    .p-carousel-container {
+        button {
+            display: none;
+        }
+    }
+}
+
+::ng-deep .item-row-table {
+    width: 100%;
+    font-size: 10px;
+
+    .item-row-attribute-value-headers,
+    .item-row-attribute-value {
+        font-size: 1rem;
+        text-align: right;
+        padding: 1.5px !important;
+
+    }
+
+}
+
+::ng-deep .p-carousel-prev-button{
+    display: none;
+}
+::ng-deep .p-carousel-next-button {
+    display: none;
+}
+
+td {
+    font-size: 1rem;
+}
+::ng-deep .p-card {
+    color: #333 !important;
+    border-radius: 2px !important;
+}
+
+::ng-deep .p-carousel-indicator-button {
+    border-radius: 50% !important;
+    width: 3px !important;
+    height: 4px !important;
+}
+::ng-deep .p-carousel-indicator-active .p-carousel-indicator-button {
+    background: #f27924 !important;
+}
+::ng-deep .header-text {
+    font-size: 1rem !important;
+}

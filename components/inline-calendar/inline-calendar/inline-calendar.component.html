@@ -1,0 +1,4 @@
+<p-calendar [formControl]="date1" [(ngModel)]="current_value" readonlyInput="true" appendTo="local"
+    [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2050" showButtonBar="true" [dateFormat]=DateFormat
+    [showTime]="true" [hourFormat]=hourFormat todayButtonStyleClass="ui-secondary-button"
+    clearButtonStyleClass="ui-secondary-button" [inline]="true" (onSelect)="onSelect($event)"></p-calendar>

@@ -1,0 +1,90 @@
+.custom-icon-button {
+    background: none;
+    border: none;
+    color: #3880ff;
+}
+
+.col-2 {
+    flex: 0 0 auto;
+    padding: 0%;
+    /* width: 16.6667%; */
+}
+
+/* CSS Styles */
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Space between input and filter button */
+    width: 100%;
+}
+
+.input-container {
+    flex: 1;
+    /* Takes remaining space */
+    min-width: 80px;
+    /* Fixed minimum width */
+    // max-width: 100px;
+    /* Optional max width */
+}
+
+.input-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.filter-input {
+    width: 100%;
+    padding-right: 28px;
+    /* Space for clear icon */
+    box-sizing: border-box;
+    /* Includes padding in width */
+}
+
+.clear-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    /* Gray color */
+}
+
+.filter-button-container {
+    flex-shrink: 0;
+    /* Prevents shrinking */
+    width: 30px;
+    /* Fixed width for filter button */
+    display: flex;
+    justify-content: center;
+}
+
+.filter-row.with-offset {
+    position: relative;
+}
+::ng-deep .p-panel .p-panel-content {
+    padding: 0px !important;
+    border: 0 !important;
+}
+
+::ng-deep .p-paginator {
+    margin-bottom: -10px;
+}
+::ng-deep .p-button-text.p-button-secondary {
+    margin-right: 15px;
+}
+::ng-deep .panel_includes_table .p-panel .p-panel-header {
+    margin-bottom: -14px;
+}
+::ng-deep .p-paginator {
+    margin-bottom: -10px;
+}
+
+
+::ng-deep .p-datatable td .p-inputtext {
+    font-size: 1rem !important;
+    font-weight: 500;
+    color: #333 !important;
+}

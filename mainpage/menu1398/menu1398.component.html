@@ -1,0 +1,238 @@
+<div class="tree-table">
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12">
+            <div class="p-grid" *ngIf="!Module">
+                <div class="p-col-12 p-md-12">
+                    <!-- <div class="card-group-skeleton-container">
+                        <p-skeleton *ngFor="let skeleton of skeletonDataForCards" width="11.85rem"
+                            height="6.6rem"></p-skeleton>
+                    </div> -->
+                </div>
+            </div>
+            <ng-container *ngIf="Module && Module[0].moduleList[0].moduleData">
+                <app-card-group [cardGroupData]="Module[0].moduleList[0].moduleData"></app-card-group>
+            </ng-container>
+            <div class="p-col-12 p-md-12">
+                <div style="height: 100%;"
+                    *ngIf="frozenColsArray!= undefined && scrollableColsArray!=undefined && primeNgTableArray!=undefined && filterColsArray!=undefined ">
+                    <p-panel [toggleable]="true" #table1707 class="panel_includes_table"
+                        [style]="Module?.[0]?.moduleList?.[2]?.BackgroundColor || ''">
+                        <ng-template pTemplate="header">
+                            <button pButton [disabled]="!(ValidateFinalSubmit)"
+                                (click)="setImportPanel(importPanel_1707)" tooltipPosition="top"
+                                pTooltip="Import through Excel"
+                                style="font-size: 11px !important; padding-inline: 8px !important">Upload
+
+                            </button>
+                            <div style="margin-right: auto !important;margin-left: 10px !important;" #importPanel_1707
+                                hidden="true">
+                                <p-fileUpload customUpload="true"
+                                    (uploadHandler)="onUploadHandler($event,Module && Module[0].moduleList[2],null);FileUpload=$event.files"
+                                    accept=".xls,.xlsx,.csv"></p-fileUpload>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="icons">
+                            <input [hidden]="!hideColumnFilters" *ngIf="!table1707.collapsed"
+                                (click)="$event.stopPropagation()" class="search-box" type="text" pInputText size="50"
+                                placeholder="Search" (input)="dt.filterGlobal($any($event.target).value, 'contains')">
+                            <button pButton class="p-panel-header-icon p-link"
+                                (click)="hideColumnFilters = !hideColumnFilters" tooltipPosition="top"
+                                pTooltip="Column and Table filters">
+                                <span class="pi pi-search"></span>
+                            </button>
+
+                            <button pButton class="p-panel-header-icon p-link" (click)="SubmitTreeTable(1398)"
+                                tooltipPosition="top" pTooltip="Save">
+                                <span class="pi pi-save"></span>
+                            </button>
+                            <button pButton class="mobile p-panel-header-icon p-link" (click)="EstimatedOrder=true"
+                                tooltipPosition="top" pTooltip="Show Sidebar">
+                                <span class="pi pi-plus"></span>
+                            </button>
+                            <button pButton class="p-panel-header-icon p-link"
+                                (click)="downloadModuleReport('1707','Consensus Planning')" tooltipPosition="top"
+                                pTooltip="Download Module as Excel">
+                                <span class="pi pi-file-excel"></span>
+                            </button>
+
+                        </ng-template>
+                        <p-contextMenu #cm_0 appendTo="body" [model]="RowRightClickOptions[0]"></p-contextMenu>
+                        <p-treeTable #tt [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm_0"
+                            [columns]="scrollableColsArray[0]" [frozenColumns]="frozenColsArray[0]"
+                            [globalFilterFields]="filterColsArray[0]" [rows]="10" [value]="primeNgTableArray[0]"
+                            [paginator]="true" paginatorDropdownAppendTo="body" [scrollable]="true"
+                            [frozenWidth]="frozenWidthArray[0]" scrollHeight="250px"
+                            [rowsPerPageOptions]="[5,10,20,50,100]" [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [resizableColumns]="true" (onPage)="treetable(tt,scrollableColsArray[0])"
+                            [reorderableColumns]="true" columnResizeMode="expand" dataKey="ID"
+                            (onColResize)="resizeColumn($event,0)" [loading]="moduleLoaderArray[2]">
+
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col *ngFor="let col of columns" style="width:85px">
+                                </colgroup>
+                            </ng-template>
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" tooltipPosition="top"
+                                        [pTooltip]="col.ModuleDetailDesc" [ttSortableColumn]="col.ColumnName"
+                                        ttResizableColumn
+                                        [ngClass]="{'align-left':col.DataType=='decimal' || col.DataType=='int',
+                    'highlight':col.ColumnName=='Min_Est_M1' || col.ColumnName=='Max_Est_M1' || col.ColumnName=='Est_M2' || col.ColumnName=='Est_M3'  || col.ColumnName=='SO_Remark'|| col.ColumnName=='ZH_Remark'|| col.ColumnName=='HO_Remark' || col.ColumnName=='HO_1_Remark' || col.ColumnName=='HO_2_Remark','wrap-text': true}">
+                                        {{customService.formatColumnHeader(col.ColumnHeader) }}
+                                        <p-treeTableSortIcon [field]="col.ColumnName"></p-treeTableSortIcon>
+                                    </th>
+                                </tr>
+
+                                <tr *ngIf="hideColumnFilters">
+                                    <th *ngFor="let col of columns"
+                                        [ngClass]="{'align-left':col.DataType=='decimal' || col.DataType=='int',
+                    'highlight':col.ColumnName=='Min_Est_M1' || col.ColumnName=='Max_Est_M1' || col.ColumnName=='Est_M2' || col.ColumnName=='Est_M3' || col.ColumnName=='SO_Remark' || col.ColumnName=='ZH_Remark' || col.ColumnName=='HO_Remark' || col.ColumnName=='HO_1_Remark' || col.ColumnName=='HO_2_Remark','wrap-text': true}">
+                                        <input pInputText type="text"
+                                            style="width:100%;min-width:100%;max-width:100%;border: 1px solid#c8c8c838;background-color: #ffffff;"
+                                            (input)="tt.filter($any($event.target).value, col.ColumnName, col.filterMatchMode)">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                                <tr>
+
+                                    <td *ngFor="let col of columns; let i = index" [ttEditableColumn]="rowData"
+                                        [title]="rowData[col.ColumnName]"
+                                        [ngClass]="{'align-left':col.DataType=='decimal' || col.DataType=='int',
+                                        'highlight':col.ColumnName=='Min_Est_M1' || col.ColumnName=='Max_Est_M1' || col.ColumnName=='Est_M2' || col.ColumnName=='Est_M3' || col.ColumnName=='SO_Remark'|| col.ColumnName=='ZH_Remark'|| col.ColumnName=='HO_Remark' || col.ColumnName=='HO_1_Remark' || col.ColumnName=='HO_2_Remark'}">
+                                        <div class="treeinputbox"
+                                            *ngIf="col.InputControls == 'TextBox' && col.DataType !='string' && col.InputControls!='HiddenField'">
+
+                                            <p-treeTableCellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input type="number" [ngModel]="rowData[col.ColumnName]"
+                                                        (ngModelChange)="rowData[col.ColumnName]=$event"
+                                                        style="border:none;background-color: transparent;font-size:11px"
+                                                        [ngStyle]="rowNode.node.data.style[col.ColumnName]?rowNode.node.data.style[col.ColumnName]:null"
+                                                        [disabled]="isDisabled(rowNode)" />
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <!-- <span *ngIf="rowNode.node.data.children.length==0" [ngStyle]="nodeColor(rowData,'Min_Est_M1','MOU_M1') || nodeColor(rowData,'Max_Est_M1','MOU_M1') || nodeColor(rowData,'Est_M2','MOU_M2') || nodeColor(rowData,'Est_M3','MOU_M3')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span> -->
+                                                    <span *ngIf="rowNode.node.data.children.length==0"
+                                                        [ngStyle]="getNodeColour(rowData, col.ColumnName)">{{rowData[col.ColumnName]|number:
+                                                        '1.0-0'}}</span>
+                                                    <span *ngIf="rowNode.node.data.children.length>0"
+                                                        [ngStyle]="getNodeColour(rowData, col.ColumnName)">{{rowData[col.ColumnName]|number:
+                                                        '1.0-0'}}</span>
+                                                    <!-- <span *ngIf="rowNode.node.data.children.length==0" [ngStyle]="nodeColor(rowData,'Max_Est_M1','MOU_M1')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span>
+                                            <span *ngIf="rowNode.node.data.children.length>0" [ngStyle]="nodeColor(rowData,'Max_Est_M1','MOU_M1')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span>
+                                            <span *ngIf="rowNode.node.data.children.length==0" [ngStyle]="nodeColor(rowData,'Est_M2','MOU_M2')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span>
+                                            <span *ngIf="rowNode.node.data.children.length>0" [ngStyle]="nodeColor(rowData,'Est_M2','MOU_M2')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span>
+                                            <span *ngIf="rowNode.node.data.children.length==0" [ngStyle]="nodeColor(rowData,'Est_M3','MOU_M3')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span>
+                                            <span *ngIf="rowNode.node.data.children.length>0" [ngStyle]="nodeColor(rowData,'Est_M3','MOU_M3')">{{rowData[col.ColumnName]|number: '1.2-2'}}</span> -->
+                                                </ng-template>
+                                            </p-treeTableCellEditor>
+                                        </div>
+                                        <div class="treeinputbox"
+                                            *ngIf="col.InputControls == 'TextBox' && col.DataType=='string' && col.InputControls!='HiddenField'">
+                                            {{customService.editRemark(col.ColumnName) }}
+                                            <input type="text"
+                                                [disabled]="customService.remark[col.ColumnName]?(!customService.remark[col.ColumnName]['EditRemark']):false"
+                                                [ngModel]="rowData[col.ColumnName]"
+                                                (ngModelChange)="rowData[col.ColumnName]=$event" [name]="col.ColumnName"
+                                                style="border:none;background-color: transparent;font-size:12px" />
+                                            <input type="text"
+                                                [disabled]="customService.remark[col.ColumnName]?(!customService.remark[col.ColumnName]['EditRemark']):false"
+                                                [ngModel]="rowData[col.ColumnName]"
+                                                (ngModelChange)="rowData[col.ColumnName]=$event" [name]="col.ColumnName"
+                                                style="border:none;background-color: transparent;font-size:12px" />
+                                        </div>
+
+                                        <div *ngIf="col.InputControls != 'TextBox' && col.InputControls!='HiddenField'">
+                                            <p-treeTableCellEditor>
+                                                <ng-template pTemplate="input">
+                                                    {{rowData[col.ColumnName]}}
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{rowData[col.ColumnName]}}
+                                                </ng-template>
+                                            </p-treeTableCellEditor>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="frozencolgroup" let-columns>
+                                <colgroup>
+                                    <col class="wrap-text" style="width:130px">
+                                    <col class="wrap-text" style="width:62px">
+                                    <col class="wrap-text" style="width:90px">
+                                    <col class="wrap-text" style="width:63px">
+                                    <col class="wrap-text" style="width:40px">
+                                    <col class="wrap-text" style="width:50px">
+                                    <col class="wrap-text" style="width:70px">
+                                    <col class="wrap-text" style="width:35px">
+                                </colgroup>
+                            </ng-template>
+
+                            <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData"
+                                style="width: fit-content;">
+                                <tr>
+                                    <td [title]="rowData['ProductId']">
+                                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                        {{rowData["ProductId"]}}
+                                    </td>
+                                    <td [title]="rowData['RegionId']">
+                                        {{rowData["RegionId"]}}
+                                    </td>
+                                    <td [title]="rowData['CustomerName']">
+                                        {{rowData["CustomerName"]}}
+                                    </td>
+                                    <td [title]="rowData['CustomerCode']">
+                                        {{rowData["CustomerCode"]}}
+                                    </td>
+                                    <td [title]="rowData['ChannelID']">
+                                        {{rowData["ChannelID"]}}
+                                    </td>
+                                    <td [title]="rowData['PricingZone']">
+                                        {{rowData["PricingZone"]}}
+                                    </td>
+                                    <td [title]="rowData['TransportationZone']">
+                                        {{rowData["TransportationZone"]}}
+                                    </td>
+                                    <td [title]="rowData['Type']">
+                                        {{rowData["Type"]}}
+                                    </td>
+                                    <!-- <td [title]="rowData['DataMeasure']">
+                                    {{rowData["DataMeasure"]}}
+                                </td>
+                                <td [title]="rowData['SO_Remark']">
+                                    {{rowData["SO_Remark"]}}
+                                </td>
+                                <td [title]="rowData['ZH_Remark']">
+                                    {{rowData["ZH_Remark"]}}
+                                </td>
+                                <td [title]="rowData['HO_Remark']">
+                                    {{rowData["HO_Remark"]}}
+1                                </td>
+                                <td [title]="rowData['HO_1_Remark']">
+                                    {{rowData["HO_1_Remark"]}}
+                                </td>
+                                <td [title]="rowData['HO_2_Remark']">
+                                    {{rowData["HO_2_Remark"]}}
+                                </td>-->
+
+                                </tr>
+                            </ng-template>
+
+
+                        </p-treeTable>
+                    </p-panel>
+                </div>
+            </div>
+            <p-confirmDialog class="final-submit-dialog" [style]="{ width: '50vw' }"
+                acceptButtonStyleClass="p-button-primary" acceptLabel="Yes" rejectLabel="No" acceptIcon="" rejectIcon=""
+                closeOnEscape="true" dismissableMask="true" baseZIndex="10000">
+            </p-confirmDialog>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,195 @@
+<!-- Loader Starts-->
+<div *ngIf="show" id="cover">
+  <div ng-show="showLoader" class="center">
+    <div class="message">
+      Please wait ... <br>
+      <svg width="55px" height="67px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid" class="lds-ellipsis"
+        style="background: none;"><!--circle(cx="16",cy="50",r="10")-->
+        <circle cx="84" cy="50" r="0" fill="#ffcc33">
+          <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="42.6958" cy="50" r="10" fill="#7de6ea">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.7s"></animate>
+        </circle>
+        <circle cx="16" cy="50" r="7.85172" fill="#ffa570">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="-0.35s"></animate>
+        </circle>
+        <circle cx="84" cy="50" r="2.14828" fill="#d4e683">
+          <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+        <circle cx="76.6958" cy="50" r="10" fill="#ffcc33">
+          <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+          <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="1.4s"
+            repeatCount="indefinite" begin="0s"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</div>
+<!-- Loader Ends-->
+
+<div class="grid" style="margin-bottom: 70px;">
+   <form name="form" #f_datatable_1854="ngForm" class="col-12">
+      <div class="list-view-wrapper">
+         <p-panel>
+            <ng-template pTemplate="header">
+               <div class="panel-header-title-wrapper">
+                  <div class="panel-header-text">
+                     Import Datasets
+                  </div>
+                  <div class="panel-header-icon">
+                     <i class="pi pi-info-circle" style="cursor:pointer" tooltipPosition="top"
+                        pTooltip="Import the data here"></i>
+                  </div>
+               </div>
+            </ng-template>
+            <ng-template pTemplate="icons">
+               <p-button severity="info" class="p-button-text" icon="pi pi-upload" label="Upload All"
+                  (click)="op.toggle($event);">
+               </p-button>
+               <p-button severity="info" class="p-button-text" icon="pi pi-download" label="Download All"
+                  (click)="downloadTableSchema('')" />
+               <p-button severity="info" class="p-button-text" icon="pi pi-history" label="Dataset History"
+                  (click)="DatasetHistory=true" />
+               <p-popover #op>
+                  <p-fileUpload [name]="UploadAll" accept=".xls,.xlsx,.csv" maxFileSize="890534400"
+                     (uploadHandler)="uploadFile.handleFileInput($event.files,'FileUpload',null,1)" customUpload="true"
+                     chooseIcon="pi pi-plus" uploadIcon="pi pi-upload" uploadLabel="Upload">
+                  </p-fileUpload>
+               </p-popover>
+            </ng-template>
+            <div class="grid" *ngIf="listviewdata!=undefined && listviewdata">
+               <ng-container *ngFor="let row of listviewdata">
+                  <div class="col-12 md:col-4">
+                     <div class="list-view-card-wrapper">
+                        <div class="card-header">
+                           <div class="header-content">
+                              <div class="label">
+                                 {{row["TableDesc"]}}
+                              </div>
+                              <app-file-upload [name]="row['FileUpload']"
+                                 (uploadHandler)="uploadFile.handleFileInput($event.files,'FileUpload',row['UploadToTable'],1)"
+                                 (onDownloadClicked)="downloadTableSchema(row['UploadToTable'])"></app-file-upload>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="data-count">
+                              Data Count: <span class="value">{{row["DataCount"]}}</span>
+                           </div>
+                           <div class="last-upload-by">
+                              Last Upload By: {{row["UploadedBy"]}}
+                           </div>
+                           <div class="last-upload-date">
+
+                             Last Upload Date: {{ row["UploadDate"] | date:'dd/MM/yyyy h:mm:ss a' }}
+
+                           </div>
+
+                        </div>
+                     </div>
+                  </div>
+               </ng-container>
+            </div>
+            <ng-template pTemplate="footer">
+               <ng-container *ngIf="totalRecords && totalRecords[0]">
+                  <p-paginator [rows]="9" [totalRecords]="listViewTotalRecords" [rowsPerPageOptions]="[3, 6, 9]"
+                     (onPageChange)="onListPageChange($event)"></p-paginator>
+               </ng-container>
+            </ng-template>
+         </p-panel>
+      </div>
+   </form>
+</div>
+
+<p-dialog class="p-dialog-crud" appendTo="body" header="Errors" [(visible)]="uploadFile.showErrorDialog" [modal]="true"
+   [style]="{width: '80vw'}" [closable]="true">
+
+   <div *ngIf="uploadFile.err_dt" class="p-dialog-custom-content">
+      <p-table [value]="uploadFile.err_dt" [columns]="uploadFile.err_columns" [rows]="10" [showCurrentPageReport]="true"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="single"
+         [(selection)]="selectedValues" paginator="true" [scrollable]="true" scrollHeight="100%"
+         [rowsPerPageOptions]="[5,10,20,50]" columnResizeMode="expand" [resizableColumns]="true"
+         [reorderableColumns]="true">
+         <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+               <col *ngFor="let col of columns" style="width: 100px">
+            </colgroup>
+         </ng-template>
+         <ng-template pTemplate="header" let-columns>
+            <tr>
+               <th *ngFor="let col of columns" pResizableColumn>{{ col }}</th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-rowdata let-columns="columns" let-idx="rowIndex">
+            <tr>
+               <td *ngFor="let col of columns" pEditableColumn>
+                  <p-cellEditor>
+                     <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowdata[col]" [value]="rowdata[col]"
+                           name="{{col}}_{{rowIndex+1}}">
+                     </ng-template>
+                     <ng-template pTemplate="output">
+                        <span *ngIf="uploadFile.getErrorInUploadedData(col,rowdata['ErrorID'])">
+                           <span style="color: red;">
+                              {{rowdata[col]}}   <small><i class="pi pi-exclamation-triangle"
+                                    [title]="uploadFile.excelDataError"></i></small>
+                           </span>
+                        </span>
+                        <span *ngIf="!uploadFile.getErrorInUploadedData(col,rowdata['ErrorID'])">
+                           <span>{{rowdata[col]}}</span>
+                        </span>
+                        <!-- <span *ngIf="!hasErrorInUploadedData(col,rowdata['ErrorID'])">
+                                                {{rowdata[col]}}
+                                            </span>  -->
+                     </ng-template>
+                  </p-cellEditor>
+
+               </td>
+            </tr>
+         </ng-template>
+
+
+      </p-table>
+
+   </div>
+
+   <ng-template #footer>
+      <p-button label="Submit" severity="secondary" size="large" (click)="uploadFile.saveErrorDT(uploadFile.err_dt)" />
+      <p-button label="Close" severity="primary" size="large" (click)="uploadFile.showErrorDialog=false"></p-button>
+   </ng-template>
+</p-dialog>
+
+<div class="bottom-nav-buttons-container">
+   <p-button label="Validate" severity="secondary" size="large"
+      (click)="ruleEngine.executeRuleEngine(1450, listviewdata)" />
+   <p-button label="Proceed" severity="primary" size="large" [disabled]="!ruleEngine.isProceedButtonDisabled"
+      (click)="ruleEngine.navigate(null,1450)"></p-button>
+</div>
+
+
+<p-confirmDialog [style]="{width: '60vw'}" acceptButtonStyleClass="p-button-primary" acceptLabel="Append"
+   rejectLabel="Overwrite" acceptIcon="" rejectIcon="" closeOnEscape="true" dismissableMask="true"></p-confirmDialog>
